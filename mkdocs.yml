@@ -1,0 +1,166 @@
+nav:
+  - Home: 'index.md'
+  - About:
+    - Course Information: 'about/info.md'
+    - Teaching Team: 'about/team.md'
+    - Class Schedule: 'about/schedule.md'
+  - Notes:
+    - Week 01:
+        - Index: notes/week01/index.md
+        - 0. Overview: 'notes/00-overview.md'
+        - 1. Program and Compiler: 'notes/01-compiler.md'
+        - 2. Variables and Types: 'notes/02-type.md'
+        - 3. Functions: 'notes/03-function.md'
+        - 4. Encapsulation: 'notes/04-encapsulation.md'
+    - Week 02:
+        - Index: notes/week02/index.md
+        - 5. Information Hiding: 'notes/05-infohiding.md'
+        - 6. Tell, Don't Ask: 'notes/06-tell-dont-ask.md'
+        - 7. Class Fields: 'notes/07-static-field.md'
+        - 8. Class Methods: 'notes/08-static-method.md'
+        - 9. Composition: 'notes/09-composition.md'
+        - 10. Heap and Stack: 'notes/10-heap-stack.md'
+        - 11. Inheritance: 'notes/11-inheritance.md'
+        - 12. Overriding: 'notes/12-overriding.md'
+    - Week 03:
+        - Index: notes/week03/index.md
+        - 13. Overloading: 'notes/13-overloading.md'
+        - 14. Polymorphism: 'notes/14-polymorphism.md'
+        - 15. Method Invocation: 'notes/15-dynamic-binding.md'
+        - 16. LSP: 'notes/16-lsp.md'
+        - 17. Abstract Class: 'notes/17-abstract.md'
+        - 18. Interface: 'notes/18-interface.md'
+    - Week 04:
+        - Index: notes/week04/index.md
+        - 19. Wrapper Class: 'notes/19-wrapper.md'
+        - 20. Run-Time Class Mismatch: 'notes/20-casting.md'
+        - 21. Variance: 'notes/21-variance.md'
+        - 22. Exceptions: 'notes/22-exception.md'
+    - Week 05:
+        - Index: notes/week05/index.md
+        - 23. Generics: 'notes/23-generics.md'
+        - 24. Type Erasure: 'notes/24-erasure.md'
+        - 25. Unchecked Warnings: 'notes/25-unchecked.md'
+    - Week 06:
+        - Index: notes/week06/index.md
+        - 26. Wildcards: 'notes/26-wildcard.md'
+        - 27. Type Inference: 'notes/27-inference.md'
+    - Week 08:
+        - Index: notes/week08/index.md
+        - 28. Immutability: 'notes/28-immutability.md'
+        - 29. Nested Class: 'notes/29-nested-classes.md'
+    - Week 09:
+        - Index: notes/week09/index.md
+        - 30. Side Effect-Free Programming: 'notes/30-functions.md'
+        - 31. Box and Maybe: 'notes/31-box-maybe.md'
+        - 32. Lazy Evaluation: 'notes/32-lazy.md'
+    - Week 10:
+        - Index: notes/week10/index.md
+        - 33. Infinite List: 'notes/33-infinitelist.md'
+        - 34. Streams in Java: 'notes/34-stream.md'
+    - Week 11:
+        - Index: notes/week11/index.md
+        - 35. Loggable: 'notes/35-logger.md'
+        - 36. Monad: 'notes/36-monad.md'
+        - 37. Parallel Streams: 'notes/37-parallel.md'
+    - Week 12:
+        - Index: notes/week12/index.md
+        - 38. Threads: 'notes/38-thread.md'
+        - 39. Asynchronous Programming: 'notes/39-async.md'
+        - 40. Fork and Join: 'notes/40-forkjoin.md'
+  - Lab Guide:
+    - Index: 'guides/index.md'
+    - Programming Environments: 'guides/environments.md'
+    - GitHub Setup: 'guides/github.md'
+    - Coding Style: 'guides/style.md'
+    - Documentation: 'guides/javadoc.md'
+    - Unix CLI:
+      - Background: 'unix/background.md'
+      - Essentials: 'unix/essentials.md'
+      - Advanced: 'unix/advanced.md'
+    - Vim: 
+      - Background: 'vim/philosophy.md'
+      - Setup: 'vim/setup.md'
+      - Lessons: 'vim/quick-lessons.md'
+      - Tips: 'vim/tips.md'
+      - New Tips: 'vim/operations.md'
+      - Plugins: 'vim/plugins.md'
+      - Cheatsheet: 'vim/cheatsheet.md'
+      
+theme: 
+  name: material
+  features: 
+    - navigation.indexes
+    # - navigation.instant
+    - navigation.tracking
+    - navigation.path
+    # - navigation.prune
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - toc.integrate
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+    - search.share
+      #  palette:
+      #    primary: deep orange
+      #    accent: deep orange
+  shortcuts:
+    previous: 72 #h
+    next: 76 #l
+    search: 191 #/
+
+site_name: CS2030S Programming Methodology II
+site_url: https://nus-cs2030s.github.io/2526-s1
+copyright: Copyright by Department of Computer Science, National University of Singapore 2025
+use_directory_urls: false
+markdown_extensions:
+  - md_in_html
+  - admonition
+  - attr_list
+  - pymdownx.highlight:
+     linenums: true
+  - footnotes
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.inlinehilite
+  - pymdownx.keys:
+      key_map: {
+        bang: "!",
+        dollar: "$",
+        parenthesis-left: "(",
+        parenthesis-right: ")",
+      }
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.extra:
+      pymdownx.superfences:
+        custom_fences:
+          - name: mermaid
+            class: mermaid
+            format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - pymdownx.tilde
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_javascript:
+  - javascripts/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - 'stylesheets/extra.css'
+  - 'https://fonts.googleapis.com/css?family=Roboto:400,700'
+  - 'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap'
