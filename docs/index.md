@@ -20,7 +20,7 @@
 
 === ":fontawesome-solid-book: Object-Oriented Paradigm"
 
-    ## Topics
+    ## OOP Topics
 
     <div class="grid cards" markdown>
 
@@ -75,7 +75,7 @@
 
 === ":fontawesome-solid-book-bookmark: Functional Paradigm"
 
-    ## Topics
+    ## FP Topics
 
     <div class="grid cards" markdown>
 
