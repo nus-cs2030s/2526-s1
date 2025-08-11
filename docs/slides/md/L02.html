@@ -1,0 +1,1386 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: L02
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L02: Object-Oriented Programming
+
+.abs.top2.rt4[.img110[![QR](img/dcsaysp.png)]]
+
+---
+name: Encapsulation
+class: sections
+
+.topsub.subsections[
+### Class
+]
+.botbody.oldsections[
+#### Circle
+
+.col100[
+.card.bg-b[
+##### Encapsulation
+.content.tight[
+The concept of .X[keeping all the data and functions] operating on the data related to a composite data type together .X[within an abstraction barrier].
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java
+class Circle {
+  double x;
+  double y;
+  double r;
+
+  double getArea() {
+    return 3.14 * r * r;
+  }
+}
+```
+]
+
+.col100[
+```java[lite=1,3]
+Circle c = new Circle();           // instantiation
+// : code omitted
+double circle_area = c.getArea();  // invocation
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Class
+### Motivation
+#### Scaling
+]
+.botbody.oldsections[
+#### Scaling
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the `Circle` class below.
+Which of the following .X[properties] is .X[true] regarding our implementation of `Circle` below?
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java[lite=6-8]
+class Circle {
+  // : other attributes omitted
+  double r = 1.0;  // default value
+​
+  void scale(double factor) {
+    if (factor >= 0) {
+      r = r * factor;
+    }
+  }
+}
+```
+]
+
+.mrq.cmnt-s[
+1. .quiz-choice[It cannot have negative radius] .quiz-ans[0] .quiz-hint[NO: `c.r = -1`]
+2. .quiz-choice[It cannot have zero radius] .quiz-ans[0] .quiz-hint[NO: `c.r = 0`]
+2. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[YES: we can modify `r` directly]
+
+.quizzes-time[90]
+.quizzes-link[...]
+]
+]
+
+---
+
+.topsub.subsections[
+### Class
+### Motivation
+#### Scaling
+#### Issues
+]
+.botbody.oldsections[
+#### Issues
+
+.center[
+<video controls width="350" height="600px" muted><source src="vid/02-Access.mp4" type="video/mp4" /></video>
+]
+]
+
+---
+
+.topsub.subsections[
+### Class
+### Motivation
+### Access
+#### Modifier
+]
+.botbody.oldsections[
+#### Modifier
+
+.col100[
+.atbl.blhead[
+| Access by code in ... | `private` | `public` |
+|-----------------------|:---------:|:--------:|
+| *the same class* | <i class="fa fa-square-check dgntxt"></i> | <i class="fa fa-square-check dgntxt"></i> |
+| *another class* | <i class="fa fa-square-xmark drdtxt"></i> | <i class="fa fa-square-check dgntxt"></i> |
+]
+
+.vs10[]
+
+.card.warns[
+##### Warning
+.content.tight[
+For now, anything that is not .X[`private`] will be considered .X[`public`].
+]
+]
+]
+
+.vs20[]
+
+.col100[
+.img65.center[![Private](img/02-Private.jpg)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Class
+### Motivation
+### Access
+#### Modifier
+#### Quiz #1
+]
+.botbody.oldsections[
+#### Quiz #1
+
+.col100[
+.atbl.blhead[
+| Access by code in ... | `private` | `public` |
+|-----------------------|:---------:|:--------:|
+| *the same class* | <i class="fa fa-square-check dgntxt"></i> | <i class="fa fa-square-check dgntxt"></i> |
+| *another class* | <i class="fa fa-square-xmark drdtxt"></i> | <i class="fa fa-square-check dgntxt"></i> |
+]
+
+.vs10[]
+
+.card.bg-r[
+##### Question
+.content.tight[
+Is this allowed?
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java[copy=nones|lite=4-6]
+class Complex {
+  private int a;
+  private int b;
+  public boolean eq(Complex c) {
+    return a == c.a && b == c.b;
+  }
+}
+```
+]
+
+.mrq.cmnt-s[
+1. .quiz-choice[Yes] .quiz-ans[0] .quiz-hint[YES: same class, can access `private`]
+1. .quiz-choice[No] .quiz-ans[0] .quiz-hint[NO: this is a common mistake]
+
+.quizzes-time[90]
+.quizzes-link[wzOQTCA5EG8sxqKU308mT]
+]
+]
+
+---
+
+.topsub.subsections[
+### Class
+### Motivation
+### Access
+#### Modifier
+#### Quiz #1
+#### Issue
+]
+.botbody.oldsections[
+#### Issue
+
+.col100[
+.atbl.blhead[
+| Access by code in ... | `private` | `public` |
+|-----------------------|:---------:|:--------:|
+| *the same class* | <i class="fa fa-square-check dgntxt"></i> | <i class="fa fa-square-check dgntxt"></i> |
+| *another class* | <i class="fa fa-square-xmark drdtxt"></i> | <i class="fa fa-square-check dgntxt"></i> |
+]
+]
+
+.col100.abs.bot2[
+#### Additional Issues
+
+```java[lite=2-4|emph=1-4]
+Circle c = new Circle();          // instantiation
+c.x = 1.0;  // error!
+c.y = 2.0;  // error!
+c.r = 5.0;  // error!
+double circle_area = c.getArea(); // invocation
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Class
+### Motivation
+### Access
+### Methods
+#### Constructor
+]
+.botbody.oldsections[
+#### Constructor
+
+.col100[
+```java[lite=3-7,10]
+class Circle {
+  // : other code omitted
+  public Circle(double x, double y, double r) {
+    this.x = x;
+    this.y = y;
+    this.r = r;
+  }
+
+  double getArea() {
+    return 3.14 * this.r * this.r;
+  }
+}
+```
+]
+
+.col100.abs.bot2.unrvl-step[
+#### Additional Issues
+
+```java[lite=2-4|emph=1-4]
+Circle c = new Circle();          // instantiation
+c.x = 1.0;  // error!
+c.y = 2.0;  // error!
+c.r = 5.0;  // error!
+double circle_area = c.getArea(); // invocation
+```
+.unrvl-num[1]
+]
+.col100.abs.bot2.unrvl-step.rvl-step[
+#### Additional Issues
+
+```java[emph=1,5|lite=1]
+Circle c = new Circle();           // error!
+// c.x = 1.0;  // not allowed!
+// c.y = 2.0;  // not allowed!
+// c.r = 5.0;  // not allowed!
+double circle_area = c.getArea();  // invocation
+```
+.unrvl-num[2].rvl-num[1]
+]
+.col100.abs.bot2.rvl-step[
+#### Invoking Constructor
+
+```java[emph=1,5|lite=1]
+Circle c = new Circle(1.0, 2.0, 5.0);
+// c.x = 1.0;  // not allowed!
+// c.y = 2.0;  // not allowed!
+// c.r = 5.0;  // not allowed!
+double circle_area = c.getArea();  // invocation
+```
+.rvl-num[2]
+]
+]
+
+---
+
+.topsub.subsections[
+### Class
+### Motivation
+### Access
+### Methods
+#### Constructor
+#### Getter/Setter
+]
+.botbody.oldsections[
+#### Getter/Setter
+
+.col100[
+```java
+public double getR() {        // accessor (getter)
+  return this.r;
+}
+
+public void setR(double r) {  // mutator (setter)
+  this.r = r;
+}
+```
+]
+
+.vs10[]
+
+.col100[
+.card.notes[
+##### Note
+.content.tight[
+For each accessor .note18[(i.e., getter)] and mutator .note18[(i.e., setter)], you need to think about why they are needed.
+]
+]
+]
+]
+.footnote.note18[http://thecodelesscode.com/case/3]
+
+---
+
+.topsub.subsections[
+### Class
+### Motivation
+### Access
+### Methods
+#### Constructor
+#### Getter/Setter
+#### Using
+]
+.botbody.oldsections[
+#### Using Accessor
+.col100[
+```java
+​
+​
+  ​
+    double dX = x - c.getX();
+    double dY = y - c.getY();
+    double r = c.getR();
+    boolean isInCircle =  ((dX * dX) + (dY * dY))
+                            <= r * r;
+    ​
+  ​
+```
+]
+]
+.col50.abs.bot1.rvl[
+.img85.center[![Circle](img/02-Circ01.png)]
+]
+.col50.abs.bot1.rt3.rvl[
+.img85.center[![Circle](img/02-Circ02.png)]
+]
+
+---
+
+.topsub.subsections[
+### Class
+### Motivation
+### Access
+### Methods
+### Tell, Don't Ask
+]
+.botbody.oldsections[
+#### Using Predicate
+
+.col100[
+```java
+class Circle {
+  // : other code omitted
+  public boolean contains(x, y) {
+    double dX = x - this.x;
+    double dY = y - this.y;
+    double r = this.r;
+    return ((dX * dX) + (dY * dY))
+            <= this.r * this.r;
+  }
+}
+```
+```java[lite=2]
+boolean isInCircle = c.contains(x, y);
+//                   ^ target of method invocation
+```
+
+.card.bg-b[
+##### Tell, Don't Ask Principle
+.content.tight[
+We should .X[tell an object what to do], instead of .X.drdtxt[asking an object for its state] and then performing the task on its behalf.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Class
+### Motivation
+### Access
+### Methods
+### Tell, Don't Ask
+### Static
+#### Issues
+]
+.botbody.oldsections[
+### Static
+#### Issues
+
+.col100[
+```java[lite=6,10]
+class Circle {
+  ​
+
+  // : other code omitted
+  double getArea() {
+    return 3.14 * this.r * this.r;
+  }
+
+  double getPerimeter() {
+    return 2 * 3.14 * this.r;
+  }
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Class
+### Motivation
+### Access
+### Methods
+### Tell, Don't Ask
+### Static
+#### Issues
+#### Class Fields
+]
+.botbody.oldsections[
+### Static
+#### Class Fields
+
+.col100[
+```java[lite=2,6,10]
+class Circle {
+  public static final double PI = 3.141592653589793;
+
+  // : other code omitted
+  double getArea() {
+    return Circle.PI * this.r * this.r;
+  }
+
+  double getPerimeter() {
+    return 2 * Circle.PI * this.r;
+  }
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Class
+### Motivation
+### Access
+### Methods
+### Tell, Don't Ask
+### Static
+#### Issues
+#### Class Fields
+#### Class Methods
+]
+.botbody.oldsections[
+### Static
+#### Class Methods
+
+.col100[
+```java[lite=3,8,11-13]
+class Circle {
+  public static final double PI = 3.141592653589793;
+  private static int lastId = 0;
+
+  // : other code omitted
+  public Circle(double x, double y, double r) {
+    // : initialization omitted
+    Circle.lastId += 1;
+  }
+
+  public static int getNumOfCircles() {
+    return Circle.lastId;
+  }
+}
+```
+
+.rvl[
+#### Main Method: Program Entry Point
+
+```java
+public static void main(String[] args) {
+  System.out.println("Hello World!");
+}
+```
+]
+]
+]
+
+---
+
+name: Break
+class: middle, break
+
+# Break
+
+<br>
+
+## <i class="fa-regular fa-clock break-icon"></i>
+
+---
+name: Complex_Object
+class: sections
+
+.topsub.subsections[
+### Motivation
+]
+.botbody.oldsections[
+#### Separation of Concern
+
+.col100.unrvl-tgl[
+```java
+class Circle {
+  public static final double PI = 3.14159;
+
+  private double x;
+  private double y;
+  private double r;
+
+  public Circle(double x, double y, double r) {
+    this.x = x;
+    this.y = y;
+    this.r = r;
+  }
+
+  public double getArea() {
+    return Circle.PI * this.r * this.r;
+  }
+
+  public double getPerimeter() {
+    return 2 * Circle.PI * this.r;
+  }
+}
+```
+]
+.col100.rvl-tgl[
+```java[lite=1]
+class Point {
+  private double x;
+  private double y;
+
+  public Point(double x, double y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+```
+```java[lite=4]
+class Circle {
+  public static final double PI = 3.14159;
+
+  private Point c;
+  private double r;
+
+  public Circle(Point c, double r) {
+    this.c = c;
+    this.r = r;
+  }
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+]
+.botbody.oldsections[
+#### Relationship
+
+.col50[
+.card.bg-b[
+##### Composition
+.content.tight[
+".U.X[_has-a_]" relationship.
+]
+]
+
+.card.notes[
+##### Note
+.content.tight[
+Use other class as a field.
+]
+]
+]
+
+.col50[
+.card.bg-b[
+##### Inheritance
+.content.tight[
+".U.X[_is-a_]" relationship.
+]
+]
+
+.card.notes[
+##### Note
+.content.tight[
+Use the `extends` keyword.
+]
+]
+]
+
+.vs50[]
+
+.col100.rvl-step[
+.img75.center[![Inheritance](img/01-inheritance.jpg)]
+.rvl-num[1]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+### Extension
+#### New Methods
+]
+.botbody.oldsections[
+#### New Methods
+
+.col100[
+```java
+class Circle {
+  private Point c;
+  private double r;
+
+  public Circle(Point c, double r) { .. }
+  public Point getPoint() { .. }
+  public double getRadius() { .. }
+  // : no other methods
+}
+```
+]
+.col100.rvl-step[
+```java[lite=2]
+class ColoredCircle extends Circle {
+  private String color;  // how to access?
+
+  public ColoredCircle(Point c, double r, String color) {
+    super(c, r);
+    this.color = color;
+  }
+  // : other methods inherited
+}
+```
+.rvl-num[1]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+### Extension
+#### New Methods
+#### Quiz #1
+]
+.botbody.oldsections[
+#### Quiz #1
+
+.col50[
+.card.bg-y[
+##### ColoredCircle extends Circle
+.content.tight.font20[
+```java[copy=nones]
+String color
+```
+]
+.content.tight.font20[
+```java[copy=nones]
+ColoredCircle(Point,
+  double, String)
+String getColor()
+```
+]
+]
+]
+.col50[
+.card.bg-y[
+##### Circle
+.content.tight.font20[
+```java[copy=nones]
+Point c
+double r
+```
+]
+.content.tight.font20[
+```java[copy=nones]
+Circle(Point, double)
+​
+```
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java
+Point p = new Point(0, 0);
+ColoredCircle c1 = new ColoredCircle(p, 0, "blue");
+Circle c2 = new Circle(p, 0);
+```
+
+.card.bg-r[
+##### Question
+.content.tight[
+Which of the following method invocation is .X.drdtxt[not] allowed?
+]
+]
+]
+
+.mrq[
+1. .quiz-choice[`c1.getColor();`] .quiz-ans[1] .quiz-hint[YES: `Circle` has no `getColor`]
+1. .quiz-choice[`c2.getColor();`] .quiz-ans[0] .quiz-hint[NO: `CircleCircle` has `getColor`]
+1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[NO: one of them is the answer]
+
+.quizzes-time[90]
+.quizzes-link[...]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+### Extension
+#### New Methods
+#### Quiz #1
+#### Quiz #2
+]
+.botbody.oldsections[
+#### Quiz #2
+
+.col50[
+.card.bg-y[
+##### ColoredCircle extends Circle
+.content.tight.font20[
+```java[copy=nones]
+String color
+```
+]
+.content.tight.font20[
+```java[copy=nones]
+ColoredCircle(Point,
+  double, String)
+String getColor()
+```
+]
+]
+]
+.col50[
+.card.bg-y[
+##### Circle
+.content.tight.font20[
+```java[copy=nones]
+Point c
+double r
+```
+]
+.content.tight.font20[
+```java[copy=nones]
+Circle(Point, double)
+​
+```
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java
+Point p = new Point(0, 0);
+ColoredCircle c1 = new ColoredCircle(p, 0, "blue");
+Circle c2 = new Circle(p, 0);
+```
+
+.card.bg-r[
+##### Question
+.content.tight[
+Which of the following assignment is .X.drdtxt[not] allowed?  Consider each assignment separately.
+]
+]
+]
+
+.mrq[
+1. .quiz-choice[`c1 = c1;`] .quiz-ans[0] .quiz-hint[NO: this does nothing but it is allowed]
+1. .quiz-choice[`c1 = c2;`] .quiz-ans[1] .quiz-hint[YES: `Circle` .X.drdtxt[</:] `ColoredCircle`]
+1. .quiz-choice[`c2 = c2;`] .quiz-ans[0] .quiz-hint[NO: this does nothing but it is allowed]
+1. .quiz-choice[`c2 = c1;`] .quiz-ans[0] .quiz-hint[NO: `ColoredCircle` <: `Circle`]
+
+.quizzes-time[90]
+.quizzes-link[...]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+### Extension
+#### New Methods
+#### Quiz #1
+#### Quiz #2
+#### Quiz #3
+]
+.botbody.oldsections[
+#### Quiz #3
+
+.col50[
+.card.bg-y[
+##### ColoredCircle extends Circle
+.content.tight.font20[
+```java[copy=nones]
+String color
+```
+]
+.content.tight.font20[
+```java[copy=nones]
+ColoredCircle(Point,
+  double, String)
+String getColor()
+```
+]
+]
+]
+.col50[
+.card.bg-y[
+##### Circle
+.content.tight.font20[
+```java[copy=nones]
+Point c
+double r
+```
+]
+.content.tight.font20[
+```java[copy=nones]
+Circle(Point, double)
+double getArea()
+```
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java[lite=2]
+Point p = new Point(0, 0);
+Circle c = new ColoredCircle(p, 0, "blue");
+//             ^ see Quiz #2 in the previous slide
+```
+
+.card.bg-r[
+##### Question
+.content.tight[
+Which of the following method invocation is .X.drdtxt[not] allowed?
+]
+]
+]
+
+.mrq[
+1. .quiz-choice[`c1.getArea();`] .quiz-ans[0] .quiz-hint[NO: `Circle` has `getArea`]
+1. .quiz-choice[`c1.getColor();`] .quiz-ans[1] .quiz-hint[YES: `Circle` has no `getColor`]
+1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[NO: one of them is the answer]
+
+.quizzes-time[90]
+.quizzes-link[...]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+### Extension
+### Subtyping
+]
+.botbodyoldsections[
+#### Inheritance
+
+.col100[
+.card.bg-y[
+##### Subclass Inheritance
+.content.tight[
+A subclass inherits all .X[accessible methods] from the superclass.
+]
+]
+.card.rvl-step[
+.content.tight[
+Everything that a superclass .X[can do] .note18[(via methods)], the subclass .X[can also do].
+].rvl-num[1]
+]
+.card.rvl-step[
+.content.tight[
+A code written for the superclass .X[can be used] by the subclass.
+].rvl-num[2]
+]
+]
+
+.vs50[]
+
+.col100[
+.card.bg-b.rvl-step[
+##### Inheritance Subtyping Relationship
+.content.tight[
+If `T` .X[inherits from] `S`, then .X[`T` <: `S`].
+]
+.content.tight[
+```java
+S v = new T(...);
+```
+]
+.content.tight.nol[
+- `T`: .X[runtime type] .note18[(RTT)]
+- `S`: .X[compile-time type] .note18[(CTT)]
+].rvl-num[3]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+### Extension
+### Subtyping
+### Object
+#### Root
+]
+.botbody.oldsections[
+#### Root of Class Hierarchy
+
+.col100[
+.card.bg-b.rel[
+##### The Mother of All <span class="lnk"onclick='_goto("ifrm1", "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html")'>Objects</span>
+.content.tight.nol[
+Important methods .note18[([.U[Java Documentation]](https://docs.oracle.com/en/java/javase/21/docs/api/index.html))]:
+
+- <i class="fa-solid fa-square-up-right dbltxt" onclick='_goto("ifrm1", "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#toString()")'></i> `toString()`
+- <i class="fa-solid fa-square-up-right dbltxt" onclick='_goto("ifrm1", "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)")'></i> `equals(Object o)`
+]
+]
+]
+
+.vs10[]
+
+.col100[
+<iframe class="inline-frame" id="ifrm1" src="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" width="100%" height="450px"></iframe>
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+### Extension
+### Subtyping
+### Object
+#### Root
+#### Quiz #1
+]
+.botbody.oldsections[
+#### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the following classes below.
+Which of the following typing relationships is .X[true]?
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java[copy=nones]
+class P           { /* code omitted */ }
+class Q extends P { /* code omitted */ }
+class R extends Q { /* code omitted */ }
+```
+]
+
+.mrq[
+1. .quiz-choice[`P` <: `Q`] .quiz-ans[0] .quiz-hint[NO: `P` is the superclass of `Q`]
+2. .quiz-choice[`R` <: `P`] .quiz-ans[1] .quiz-hint[YES: `R` <: `Q` and `Q` <: `P`]
+3. .quiz-choice[`Q` <: `R`] .quiz-ans[0] .quiz-hint[NO: `Q` is the superclass of `R`]
+4. .quiz-choice[`P` <: `R`] .quiz-ans[0] .quiz-hint[NO: `P` is the superclass of `R`]
+
+.quizzes-time[60]
+.quizzes-link[T4hnOthZUcbLV8hNEJbf5]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+### Extension
+### Subtyping
+### Object
+### Modification
+]
+.botbody.oldsections[
+#### New Behavior
+
+.col100[
+```java[lite=6-8]
+class Circle {
+  private Point c;
+  private double r;
+
+  public Circle(Point c, double r) { .. }
+  public String draw() {
+    return "Circle!";
+  }
+  // : no other methods
+}
+```
+]
+.col100[
+```java
+class ColoredCircle extends Circle {
+  private String color;
+
+  public ColoredCircle(Point c, double r, String color) {
+    super(c, r);
+    this.color = color;
+  }
+  // : other methods inherited
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+### Extension
+### Subtyping
+### Object
+### Modification
+### Description
+]
+.botbody.oldsections[
+#### Method Summary
+
+.col100[
+.card.bg-b[
+##### Method Descriptor
+.content.tight[
+We can get the .X[method descriptor] by removing parameter names, code body, and access modifiers.
+]
+]
+.card.rvl-step[
+.content.tight[
+.X[Method descriptor] consists of the .U[method name], .U[type of arguments], .U[order of arguments], .U[number of arguments], and the .U[return type].
+.rvl-num[1]
+]
+]
+]
+
+.vs50[]
+
+.col100[
+.card.bg-g.rvl-step[
+##### Method Signature
+.content.tight[
+.X[Method signature] is a _method descriptor_ .U[without the return type].
+].rvl-num[2]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+### Extension
+### Subtyping
+### Object
+### Modification
+### Description
+### Overriding
+#### Modifying Behavior
+]
+.botbody.oldsections[
+#### Modifying Behavior
+
+.col100[
+.card.bg-b[
+##### Method Overriding
+.content.tight[
+Method .U[overriding] happens when a subclass defines an instance method with the .X[same method descriptor] as superclass.
+]
+]
+]
+
+.vs20[]
+
+.col100.rvl-tgl[
+.card.bg-g[
+##### Change of Behavior
+.content.tight[
+A method should only be .X[overridden] if there is .X[a change in behavior].  Otherwise, it should not be overridden.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+### Extension
+### Subtyping
+### Object
+### Modification
+### Description
+### Overriding
+#### Modifying Behavior
+#### Annotation
+]
+.botbody.oldsections[
+#### Annotation
+
+.col100[
+.card.bg-r[
+##### Annotation
+.content.tight[
+Although not required by the compiler, .X[we will require] all overriding methods to be annotated with .X[`@Override`].
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java
+class S {
+  public int f() {
+    return 1;
+  }
+}
+```
+]
+.col100.unrvl-tgl[
+```java[lite=2]
+class T extends S {
+  // overrides f() in S
+  public int f() {
+    return 2;
+  }
+}
+```
+]
+.col100.rvl-tgl[
+```java[lite=2]
+class T extends S {
+  @Override
+  public int f() {
+    return 2;
+  }
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+### Extension
+### Subtyping
+### Object
+### Modification
+### Description
+### Overriding
+#### Modifying Behavior
+#### Annotation
+#### Quiz #1
+]
+.botbody.oldsections[
+#### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+What is the .X[method signature] of the following method below?
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java[copy=nones]
+public int foo(double x, Point p) {
+  return 0; // STUB
+}
+```
+]
+
+.mrq.cmnt-s[
+1. .quiz-choice[`int foo(double x, Point p)`] .quiz-ans[0] .quiz-hint[NO: return type & param names should not be included]
+2. .quiz-choice[`foo(double x, Point p)`] .quiz-ans[0] .quiz-hint[NO: param names should not be included]
+3. .quiz-choice[`foo(double, Point)`] .quiz-ans[1] .quiz-hint[YES: this is all that you need]
+4. .quiz-choice[`int foo(double, Point)`] .quiz-ans[0] .quiz-hint[NO: return type should not be included]
+
+.quizzes-time[60]
+.quizzes-link[Dv46rY3O5QlrJQvj7fus6]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Modelling
+### Extension
+### Subtyping
+### Object
+### Modification
+### Description
+### Overriding
+#### Modifying Behavior
+#### Annotation
+#### Quiz #1
+#### Quiz #2
+]
+.botbody.oldsections[
+#### Quiz #2
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Which of the given method is .X[overriding] the following method below?
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java[copy=nones]
+public int foo(int x, String y) {
+  return 0; // STUB
+}
+```
+]
+
+.mrq[
+1. .quiz-choice[`public int foo(String x, int y) {}`] .quiz-ans[0] .quiz-hint[NO: different method descriptor]
+2. .quiz-choice[`public int foo(int a, String b) {}`] .quiz-ans[1] .quiz-hint[YES: only method descriptor matters]
+1. .quiz-choice[`public int foo(String y, int x) {}`] .quiz-ans[0] .quiz-hint[NO: different method descriptor]
+1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[NO: one of the above is the answer]
+
+.quizzes-time[60]
+.quizzes-link[Dv46rY3O5QlrJQvj7fus6]
+]
+]
+
+---
+name: Reminders
+class: sections
+
+.topsub.subsections[
+### Todo
+]
+.botbody.oldsections[
+.col100[
+.card.notes[
+##### Weekly
+.content.tight.todo[
+- Read notes on [.U[Week 02]](https://nus-cs2030s.github.io/2526-s1/notes/week02/index.html) .note18[(in future, read before lecture)]
+- Complete [.U[Diagnostic Quiz 2]](https://canvas.nus.edu.sg/courses/77787/quizzes/64357)
+- Try .X[Problem Set 0] .note18[(discuss on Ed)]
+]
+]
+
+.card.notes[
+##### Recitation/Lab
+.content.tight.todo[
+- Add/swap period .note18[(appeal via CourseReg)]
+]
+]
+
+.card.notes[
+##### Unix & Vim Bootcamp
+.content.tight.todo[
+- .X[Sat, 23 Aug 2025] from 10:00 .note18[([link](https://nus-sg.zoom.us/j/87638144767?pwd=4CXe4blYw5lZt3xL5MqGFdv94N9Nzy.1) ; passcode: 494078)]
+- Complete [.U[Diagnostic Quiz: Vim]](https://canvas.nus.edu.sg/courses/77787/quizzes/64369)
+- Complete [.U[Diagnostic Quiz: PE Node]](https://canvas.nus.edu.sg/courses/77787/quizzes/64368)
+]
+]
+
+.card.notes[
+##### Programming Exercises
+.content.tight.todo[
+- Setup Github and submit your Github username on [.U[Canvas survey]](https://canvas.nus.edu.sg/courses/77787/quizzes/65613) .note18[(reminder)]
+- Try .X[Programming Exercise 0]
+]
+]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]

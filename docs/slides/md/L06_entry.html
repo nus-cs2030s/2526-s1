@@ -1,0 +1,198 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: L06_Entry_Quiz
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L06: Entry Quiz
+
+.abs.top2.rt4[.img110[![QR](img/dcsaysp.png)]]
+
+---
+
+# Entry Quiz
+
+.topsub.subsections[
+### Quiz #1
+]
+.botbody.oldsections[
+### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the following classes.  Which assignments below does .X.drdtxt[not] cause compilation error?  Select ALL options that apply.
+]
+]
+]
+
+.col100[.op0[.]]
+
+.col100[
+.font14[
+```java
+class Pair<S, T> {
+  // : code omitted (assumed correct)
+}
+class DictionaryEntry<T> extends Pair<String, T> {
+  // : code omitted (assumed correct)
+}
+```
+]
+]
+
+.entry-mrq.cmt-m[
+1. .quiz-choice[`DictionaryEntry<String> d1 = new DictionaryEntry<String>(..);`] .quiz-ans[1] .quiz-hint[]
+1. .quiz-choice[`DictionaryEntry<String> d2 = new DictionaryEntry<Object>(..);`] .quiz-ans[0] .quiz-hint[]
+1. .quiz-choice[`DictionaryEntry<Object> d3 = new DictionaryEntry<Object>(..);`] .quiz-ans[1] .quiz-hint[]
+1. .quiz-choice[`DictionaryEntry<Object> d4 = new DictionaryEntry<String>(..);`] .quiz-ans[0] .quiz-hint[]
+1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[]
+
+.quizzes-time[90]
+]
+]
+
+---
+
+# Entry Quiz
+
+.topsub.subsections[
+### Quiz #1
+### Quiz #2
+]
+.botbody.oldsections[
+### Quiz #2
+
+.col100[
+.card.bg-b[
+##### Class Hierarchy
+.content.tight[
+.fsize24.center[.X[`U`] <: .X[`T`] <: .X[`S`]]
+]
+]
+]
+
+.col100[.op0[.]]
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+We are given the following .X[method definition].  Which of the following method invocation does not cause compilation error?  Select ALL options that apply.
+]
+]
+]
+
+.col100[.op0[.]]
+
+.col100[
+.font14[
+```java
+T f(T arg) { return null; }   // dummy method, do nothing
+```
+]
+]
+
+.col100[.op0[.]]
+
+.col100[
+.card.notes[
+##### Note
+.content.tight[
+Assume all constructors take in no parameters for simplicity.
+]
+]
+]
+
+.entry-mrq[
+1. .quiz-choice[`T res = f(new S())`] .quiz-ans[0] .quiz-hint[]
+1. .quiz-choice[`T res = f(new U())`] .quiz-ans[1] .quiz-hint[]
+1. .quiz-choice[`S res = f(new T())`] .quiz-ans[1] .quiz-hint[]
+1. .quiz-choice[`U res = f(new T())`] .quiz-ans[0] .quiz-hint[]
+1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[]
+
+.quizzes-time[90]
+]
+]
+
+---
+
+# Entry Quiz
+
+.topsub.subsections[
+### Quiz #1
+### Quiz #2
+### Quiz #3
+]
+.botbody.oldsections[
+### Quiz #3
+
+.col100[
+.card.bg-b[
+##### Class Hierarchy
+.content.tight[
+.fsize24.center[.X[`U`] <: .X[`T`] <: .X[`S`]]
+]
+]
+]
+
+.col100[.op0[.]]
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+We are given the following .X[method invocation].  Which of the following method definition does not cause compilation error?  Select ALL options that apply.
+]
+]
+]
+
+.col100[.op0[.]]
+
+.col100[
+.font14[
+```java
+T t = f(new T());  // fixed invocation
+```
+]
+]
+
+.col100[.op0[.]]
+
+.col100[
+.card.notes[
+##### Note
+.content.tight[
+Assume all constructors take in no parameters for simplicity.
+]
+]
+]
+
+.entry-mrq[
+1. .quiz-choice[`T f(S arg) { return null; }`] .quiz-ans[1] .quiz-hint[]
+1. .quiz-choice[`T f(U arg) { return null; }`] .quiz-ans[0] .quiz-hint[]
+1. .quiz-choice[`S f(T arg) { return null; }`] .quiz-ans[0] .quiz-hint[]
+1. .quiz-choice[`U f(T arg) { return null; }`] .quiz-ans[1] .quiz-hint[]
+1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[]
+
+.quizzes-time[90]
+]
+]
+
+---
+
+class: end, fadein
+
+<br>
+
+.eol.entry-check[<i class="fas fa-question-circle"></i> `check`]
+
+.entry-comment[]
