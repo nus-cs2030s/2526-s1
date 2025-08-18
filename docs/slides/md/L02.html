@@ -102,7 +102,7 @@ class Circle {
 2. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[YES: we can modify `r` directly]
 
 .quizzes-time[90]
-.quizzes-link[...]
+.quizzes-link[wzOQTCA5EG8sxqKU308mT]
 ]
 ]
 
@@ -153,7 +153,7 @@ For now, anything that is not .X[`private`] will be considered .X[`public`].
 
 .vs20[]
 
-.col100[
+.col100.rvl-tgl[
 .img65.center[![Private](img/02-Private.jpg)]
 ]
 ]
@@ -206,8 +206,8 @@ class Complex {
 1. .quiz-choice[Yes] .quiz-ans[0] .quiz-hint[YES: same class, can access `private`]
 1. .quiz-choice[No] .quiz-ans[0] .quiz-hint[NO: this is a common mistake]
 
-.quizzes-time[90]
-.quizzes-link[wzOQTCA5EG8sxqKU308mT]
+.quizzes-time[45]
+.quizzes-link[s3U9HbUd2HiiB6EnODsC1]
 ]
 ]
 
@@ -686,7 +686,7 @@ class Circle {
 }
 ```
 ]
-.col100.rvl-step[
+.col100[
 ```java[lite=2]
 class ColoredCircle extends Circle {
   private String color;  // how to access?
@@ -698,7 +698,6 @@ class ColoredCircle extends Circle {
   // : other methods inherited
 }
 ```
-.rvl-num[1]
 ]
 ]
 
@@ -772,7 +771,7 @@ Which of the following method invocation is .X.drdtxt[not] allowed?
 1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[NO: one of them is the answer]
 
 .quizzes-time[90]
-.quizzes-link[...]
+.quizzes-link[4vVlgPniWUyUhng5FOgWJ]
 ]
 ]
 
@@ -842,13 +841,12 @@ Which of the following assignment is .X.drdtxt[not] allowed?  Consider each assi
 ]
 
 .mrq[
-1. .quiz-choice[`c1 = c1;`] .quiz-ans[0] .quiz-hint[NO: this does nothing but it is allowed]
 1. .quiz-choice[`c1 = c2;`] .quiz-ans[1] .quiz-hint[YES: `Circle` .X.drdtxt[</:] `ColoredCircle`]
-1. .quiz-choice[`c2 = c2;`] .quiz-ans[0] .quiz-hint[NO: this does nothing but it is allowed]
 1. .quiz-choice[`c2 = c1;`] .quiz-ans[0] .quiz-hint[NO: `ColoredCircle` <: `Circle`]
+1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[NO: Remember widening]
 
 .quizzes-time[90]
-.quizzes-link[...]
+.quizzes-link[gyqrMz6CyFHZgIvh5C7HK]
 ]
 ]
 
@@ -924,7 +922,7 @@ Which of the following method invocation is .X.drdtxt[not] allowed?
 1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[NO: one of them is the answer]
 
 .quizzes-time[90]
-.quizzes-link[...]
+.quizzes-link[yTdzwsVH9sQlh5Doqggkq]
 ]
 ]
 
@@ -940,28 +938,30 @@ Which of the following method invocation is .X.drdtxt[not] allowed?
 #### Inheritance
 
 .col100[
-.card.bg-y[
+.card.bg-b[
 ##### Subclass Inheritance
 .content.tight[
 A subclass inherits all .X[accessible methods] from the superclass.
 ]
 ]
-.card.rvl-step[
+
+.vs10[]
+
+.card.bg-y[
+##### In Other Words
 .content.tight[
 Everything that a superclass .X[can do] .note18[(via methods)], the subclass .X[can also do].
-].rvl-num[1]
 ]
-.card.rvl-step[
 .content.tight[
 A code written for the superclass .X[can be used] by the subclass.
-].rvl-num[2]
+]
 ]
 ]
 
 .vs50[]
 
 .col100[
-.card.bg-b.rvl-step[
+.card.bg-g.rvl-step[
 ##### Inheritance Subtyping Relationship
 .content.tight[
 If `T` .X[inherits from] `S`, then .X[`T` <: `S`].
@@ -974,7 +974,7 @@ S v = new T(...);
 .content.tight.nol[
 - `T`: .X[runtime type] .note18[(RTT)]
 - `S`: .X[compile-time type] .note18[(CTT)]
-].rvl-num[3]
+].rvl-num[1]
 ]
 ]
 ]
@@ -1051,7 +1051,7 @@ class R extends Q { /* code omitted */ }
 3. .quiz-choice[`Q` <: `R`] .quiz-ans[0] .quiz-hint[NO: `Q` is the superclass of `R`]
 4. .quiz-choice[`P` <: `R`] .quiz-ans[0] .quiz-hint[NO: `P` is the superclass of `R`]
 
-.quizzes-time[60]
+.quizzes-time[90]
 .quizzes-link[T4hnOthZUcbLV8hNEJbf5]
 ]
 ]
@@ -1116,13 +1116,23 @@ class ColoredCircle extends Circle {
 .card.bg-b[
 ##### Method Descriptor
 .content.tight[
-We can get the .X[method descriptor] by removing parameter names, code body, and access modifiers.
+.X[Method descriptor] consists of
 ]
-]
-.card.rvl-step[
 .content.tight[
-.X[Method descriptor] consists of the .U[method name], .U[type of arguments], .U[order of arguments], .U[number of arguments], and the .U[return type].
-.rvl-num[1]
+- .U[method name]
+- .U[type of arguments]
+- .U[order of arguments]
+- .U[number of arguments], and
+- .U[return type].
+]
+]
+
+.vs10[]
+
+.card.bg-y[
+##### How to Find?
+.content.tight[
+We can get the .X[method descriptor] by removing parameter names, code body, and access modifiers.
 ]
 ]
 ]
@@ -1134,7 +1144,7 @@ We can get the .X[method descriptor] by removing parameter names, code body, and
 ##### Method Signature
 .content.tight[
 .X[Method signature] is a _method descriptor_ .U[without the return type].
-].rvl-num[2]
+].rvl-num[1]
 ]
 ]
 ]
@@ -1164,9 +1174,9 @@ Method .U[overriding] happens when a subclass defines an instance method with th
 ]
 ]
 
-.vs20[]
+.vs50[]
 
-.col100.rvl-tgl[
+.col100[
 .card.bg-g[
 ##### Change of Behavior
 .content.tight[
@@ -1278,7 +1288,7 @@ public int foo(double x, Point p) {
 3. .quiz-choice[`foo(double, Point)`] .quiz-ans[1] .quiz-hint[YES: this is all that you need]
 4. .quiz-choice[`int foo(double, Point)`] .quiz-ans[0] .quiz-hint[NO: return type should not be included]
 
-.quizzes-time[60]
+.quizzes-time[90]
 .quizzes-link[Dv46rY3O5QlrJQvj7fus6]
 ]
 ]
@@ -1327,8 +1337,8 @@ public int foo(int x, String y) {
 1. .quiz-choice[`public int foo(String y, int x) {}`] .quiz-ans[0] .quiz-hint[NO: different method descriptor]
 1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[NO: one of the above is the answer]
 
-.quizzes-time[60]
-.quizzes-link[Dv46rY3O5QlrJQvj7fus6]
+.quizzes-time[90]
+.quizzes-link[Ac37dVp0xit2wHcB4uAFi]
 ]
 ]
 
