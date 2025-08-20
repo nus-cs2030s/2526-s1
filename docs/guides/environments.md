@@ -7,11 +7,9 @@ Java is a language that continues to evolve.  A new version is released every si
 
 ## PE Hosts
 
-The school has provided a list of computing servers for you to use, with all the required software for CS2030S installed.  You can access them remotely via `ssh`, or Secure SHell.  The hosts are named `pe111`, `pe112`, ..., `pe120`.  (`pe` stands for "programming environment").  We will refer to these servers generally as the _PE hosts._
+The school has provided a list of computing servers for you to use, with all the required software for CS2030S installed.  You can access them remotely via `ssh`, or Secure SHell.  {++There is a load balancer named `pelogin`.  This is where we will connect.++}  (`pe` stands for "programming environment").  We will refer to these servers generally as the _PE hosts._
 
-For this semester, the three servers `pe115`, `pe116`, and {++`pe120`++} are not available.
-
-You can choose which of the eight hosts to use.  You share the same home directory across all the hosts (this home directory, however, is different from that of `stu1`).  If you notice that one host is crowded, you can use another host to spread out the load.
+{++You no longer need to choose which host to use.  The load balancer will automatically assign you to the appropriate host.++}
 
 While you can complete the programming assignments on your computers, the practical exams are done in a controlled environment using servers similar to the PE hosts.  It is therefore advisable for you to familiarize yourself with accessing the PE servers via `ssh` and edit your program with either `vim` or `emacs` (`vim` is recommended and supported).
 
@@ -41,12 +39,14 @@ ssh <username>@<hostname>
 Replace `<username>` with your SoC Unix username and `<hostname>` with the name of the host you want to connect to. For instance, I would do:
 
 ```
-ssh ooiwt@pe112.comp.nus.edu.sg
+ssh ooiwt@pelogin.comp.nus.edu.sg
 ```
 
-if I want to connect to `pe112.comp.nus.edu.sg`.
+if I want to connect to `pelogin.comp.nus.edu.sg`.
 
-After the command above, follow the instructions on the screen.  The first time you ever connect to `pe112.comp.nus.edu.sg`, you will be warned that you are connecting to a previously unknown host.  Answer `yes`.  After that, you will be prompted with your SoC Unix password.  Note that nothing is shown on the screen when your password is entered.
+After the command above, follow the instructions on the screen.  The first time you ever connect to `pelogin.comp.nus.edu.sg`, you will be warned that you are connecting to a previously unknown host.  Answer `yes`.  After that, you will be prompted with your SoC Unix password.  Note that nothing is shown on the screen when your password is entered.
+
+{++**The following animation is outdated as you you should connect to `pelogin.comp.nus.edu.sg`.  But what you will see is similar to what see below.**++}
 
 <script id="asciicast-4rtH1KENV6QOdKtlY0T7mce0M" src="https://asciinema.org/a/4rtH1KENV6QOdKtlY0T7mce0M.js" async></script>
 
@@ -68,9 +68,9 @@ First, you need to set up a Virtual Private Network (VPN) (See [instructions her
 
 Some common error messages and what they mean:
 
-1. > `ssh: Could not resolve hostname pe1xx.comp.nus.edu.sg`
+1. > `ssh: Could not resolve hostname pelogin.comp.nus.edu.sg`
 
-    `ssh` cannot recognize the name `pe1xx`. Likely, you tried to connect to the PE hosts directly from outside of the SoC network.
+    `ssh` cannot recognize the name `pelogin`. Likely, you tried to connect to the PE hosts directly from outside of the SoC network.
 
 2. > `Connection closed by 192.168.48.xxx port 22`
 
@@ -84,7 +84,7 @@ Some common error messages and what they mean:
 
     Check that you have entered your username correctly.  It is _case-sensitive_.
 
-    If you have lost your password, go here (to reset your password)[https://mysoc.nus.edu.sg/~myacct/resetpass.cgi).
+    If you have lost your password, go here [reset your password](https://mysoc.nus.edu.sg/~myacct/resetpass.cgi).
 
 4. > `Could not chdir to home directory /home/o/ooiwt: Permission denied`
 
@@ -95,27 +95,18 @@ Some common error messages and what they mean:
 
 ## Copying Files between PE Nodes and Local Computer
 
-Secure copy, or `scp`, is one way to transfer files between the programming environments and your local computer.  `scp` behaves just like `cp` (see [Unix: Essentials](../unix/essentials.md)).  The command takes in two arguments, the source, and the destination.  The difference is that we use the `<username>@<hostname>:<filename>` notation to specify a file on a remote host.
+{--Secure copy, or `scp`, is one way to transfer files between the programming environments and your local computer.  `scp` behaves just like `cp` (see [Unix: Essentials](../unix/essentials.md)).  The command takes in two arguments, the source, and the destination.  The difference is that we use the `<username>@<hostname>:<filename>` notation to specify a file on a remote host.--}
 
-Let's say you want to transfer a set of C files from the directory `lab01` to your local computer.  Then, on the local computer, run:
+{--Let's say you want to transfer a set of C files from the directory `lab01` to your local computer.  Then, on the local computer, run:--} (**command no longer work**)
 
-```bash
-ooiwt@macbook:~$ scp ooiwt@pe111.comp.nus.edu.sg:~/lab01/*.java .
-```
+{--The expression `*.java` is a regular expression that means all files with a filename ending with `.java` (see [Advanced Topics on Unix](../unix/advanced.md)).
+You can copy specific files as well.  For instance, to copy the file `Hello.java` from your local computer to your `~/lab01` directory:--} (**command no longer work**)
 
-!!! warning
-    If you have files with the same name in the remote directory, the files will be overwritten without warning.  I have lost my code a few times due to `scp`.  
+{--`scp` supports `-r` (recursive copy) as well.--}
 
-The expression `*.java` is a regular expression that means all files with a filename ending with `.java` (see [Advanced Topics on Unix](../unix/advanced.md)).
-You can copy specific files as well.  For instance, to copy the file `Hello.java` from your local computer to your `~/lab01` directory:
+{--Note that we always run `scp` on your local computer in the examples above, since the SSH server runs on the PE host.--}
 
-```bash
-ooiwt@macbook:~$ scp Hello.java ooiwt@pe111.comp.nus.edu.sg:~/lab01
-```
-
-`scp` supports `-r` (recursive copy) as well.
-
-Note that we always run `scp` on your local computer in the examples above, since the SSH server runs on the PE host.
+{++Currently, scp and sftp is blocked on `pelogin`.  We recommend working on `pelogin` directly as it will be a good practice to prepare for your practical.++}
 
 
 ## Setting up SSH Keys
@@ -132,33 +123,68 @@ ssh-keygen -t rsa
 
 This command will generate two keys, a private key `id_rsa`, and a public key `id_rsa.pub`.  {++You will be prompted for a passphrase.  This is the passphrase to protect your private key on your local computer.  You can enter an empty passphrase (at the cost of weaker security) to avoid being prompted for the passphrase whenever you access the private key[^1].++} 
 
-Keep the private key `id_rsa` on your local machine in the hidden `~/.ssh` directory and copy the public key `id_rsa.pub` to your account on PE `pe111`.
+Keep the private key `id_rsa` on your local machine in the hidden `~/.ssh` directory and copy the public key `id_rsa.pub` to your account on PE `pelogin`.
 
 There are two methods to do this.  {++You only need to apply one of them.++}
 
 ### Method 1: Using `ssh-copy-id`
 
-If your local machine has `ssh-copy-id` installed, then, run:
+{--If your local machine has `ssh-copy-id` installed, then, run:--} (**command no longer work**)
 
-```
-ssh-copy-id <username>@pe111.comp.nus.edu.sg
-```
+{--You will be prompted to enter your password for the PE host.  After this step is completed, your public key will be copied to and configured for password-less login to the PE hosts.--}
 
-You will be prompted to enter your password for the PE host.  After this step is completed, your public key will be copied to and configured for password-less login to the PE hosts.
+{++The method above should no longer work with the new restriction.++}
 
 ### Method 2: Using `scp`
 
-First, use `scp` to copy the public key `id_rsa.pub` from your local machine to your home directory on PE `pe111`.
+{--First, use `scp` to copy the public key `id_rsa.pub` from your local machine to your home directory on PE `pelogin`.--}
 
-On `pe111`, run
+{--On `pelogin`, run--} (**command no longer work**)
 
-```
-cat id_rsa.pub >> ~/.ssh/authorized_keys
-```
+{--Make sure that the permission for `.ssh` both on the local machine and on PE is set to `700` and the files `id_rsa` on the local machine and `authorized_keys` on the remote machine are set to `600`.  See the guide on using [`ls`](../unix/essentials.md#ls-list-content-of-a-directory) and [`chmod`](../unix/essentials.md#file-permission-management) if you are unsure how to do this.--}
 
-Make sure that the permission for `.ssh` both on the local machine and on PE is set to `700` and the files `id_rsa` on the local machine and `authorized_keys` on the remote machine are set to `600`.  See the guide on using [`ls`](../unix/essentials.md#ls-list-content-of-a-directory) and [`chmod`](../unix/essentials.md#file-permission-management) if you are unsure how to do this.
+{--Once set up, you need not enter your password every time you run `ssh` or `scp`.--}
 
-Once set up, you need not enter your password every time you run `ssh` or `scp`.
+{++The method above should no longer work with the new restriction.++}
+
+### Method 3: Copy-and-Paste
+
+{++This step is modified from [Ed discussion](https://edstem.org/us/courses/79067/discussion/6865432).++}
+
+1. Once you connect to `pelogin` and in your home directory, create a directory named `.ssh` using the following command.
+
+    ```Shell
+    mkdir .ssh
+    ```
+
+2. Set the permission so that only you can access (to make sure it is secure) using the following command.
+
+    ```Shell
+    chmod 700 .ssh
+    ```
+
+3. Enter the directory using the following command.
+
+    ```Shell
+    cd .ssh
+    ```
+
+4. Create a file named `authorized_keys`.  We will be using vim.
+
+    ```Shell
+    vim authorized_keys
+    ```
+
+5. Once in vim, you can copy-and-paste the content of `id_rsa.pub` into `authorized_keys`.  In insert mode if ++ctrl+v++ does not work, you may be able to use ++shift+insert++ instead.  You may press ++i++ to go into insert mode.
+
+6. Save and quit vim by typing `:wq` in command mode.  You may press ++esc++ to go into command mode.
+
+7. Set the permission so that only you can access (to make sure it is secure) using the following command.
+
+    ```Shell
+    chmod 600 authorized_keys
+    ```
+
 
 
 ## Stability of Network Connection

@@ -110,7 +110,7 @@ The methods above run the given lambda expression in the same thread as the call
 - `runAfterBoth` takes in another `CompletableFuture`[^1] and a `Runnable`.  It executes the `Runnable` after the current stage completes and the input `CompletableFuture` is completed.
 - `runAfterEither` takes in another `CompletableFuture`[^1] and a `Runnable`.  It executes the `Runnable` after the current stage completes or the input `CompletableFuture` is completed.
 
-All of the methods that take in `Runnable`` return `CompletableFuture<Void>`.  Similarly, they also have the asynchronous version (`thenRunAsync`, `runAfterBothAsync`, `runAfterEitherAsync`).
+All of the methods that take in `Runnable` return `CompletableFuture<Void>`.  Similarly, they also have the asynchronous version (`thenRunAsync`, `runAfterBothAsync`, `runAfterEitherAsync`).
 
 [^1]: Actually, this is a `CompletionStage` which is a supertype of `CompletableFuture`.
 

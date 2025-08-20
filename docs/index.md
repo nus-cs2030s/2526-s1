@@ -135,7 +135,7 @@
     
     - __Vim__
     
-        - [Backgroun](vim/philosophy.md)
+        - [Background](vim/philosophy.md)
         - [Setup](vim/setup.md)
         - [Lessons](vim/quick-lessons.md)
         - [Tips](vim/tips.md)
