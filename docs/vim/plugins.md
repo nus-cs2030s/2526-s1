@@ -16,7 +16,7 @@ The following are the officially supported vim extensions in CS2030S.
 
 ## Color Schemes
 
-We installed three color schemes `~cs2030s/.vim/colors`.
+We installed three color schemes `/opt/course/cs2030s/.vim/colors`.
 
 
 The three color schemes are:

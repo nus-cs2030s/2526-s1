@@ -43,7 +43,7 @@ Read through the question carefully before starting to complete the task.
 
 ### 3. Get a Copy on PE Hosts
 
-Run the command `~cs2030s/get exX` (where X is the exercise number) to clone a copy of the exercise on your home directory.  You will see a new directory named something like `exX-username` created, with the skeleton files inside.
+Run the command `/opt/course/cs2030s/get exX` (where X is the exercise number) to clone a copy of the exercise on your home directory.  You will see a new directory named something like `exX-username` created, with the skeleton files inside.
 
 You need to edit, compile, run, and test your code on the PE hosts.
 
@@ -52,7 +52,7 @@ You need to edit, compile, run, and test your code on the PE hosts.
 
 ### 4. Submit a Copy 
 
-When you are ready to submit, run `~cs2030s/submit exX` (where X is the exercise number).  This will submit a copy to GitHub.  You can submit multiple times, but only the last copy will be commented submitted before the deadline.
+When you are ready to submit, run `/opt/course/cs2030s/submit exX` (where X is the exercise number).  This will submit a copy to GitHub.  You can submit multiple times, but only the last copy will be commented if submitted before the deadline.
 
 !!! warning "WARNING"
     Do not use `git push` or other `git` commands to submit your code to GitHub.
