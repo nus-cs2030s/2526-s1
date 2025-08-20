@@ -149,7 +149,7 @@ There are two methods to do this.  {++You only need to apply one of them.++}
 
 ### Method 3: Copy-and-Paste
 
-{++This step is modified from [Ed discussion](https://edstem.org/us/courses/79067/discussion/6865432).++}
+{++This step is modified from [Ed discussion](https://edstem.org/us/courses/79067/discussion/6865432) post by Tan Yu Zhe, Rayn.++}
 
 1. Once you connect to `pelogin` and in your home directory, create a directory named `.ssh` using the following command.
 
