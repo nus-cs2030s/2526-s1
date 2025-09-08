@@ -36,10 +36,10 @@ Many major companies enforce coding styles, and some have published them.  For C
 
     ```Java
     if (x == 0) {
-        x++;
-        for (i = 0; i < x; i++) {
+      x++;
+      for (i = 0; i < x; i++) {
         x += i;
-        }
+      }
     }
     ```
 
@@ -73,7 +73,7 @@ Many major companies enforce coding styles, and some have published them.  For C
         void foo(double a, double b, double c, double d
             double e, double f) {
           if ((a > b) && (b > c) && (c > d) && (d > e) &&
-              (e > f)) {
+            (e > f)) {
           }
         }
         ```
@@ -83,18 +83,18 @@ Many major companies enforce coding styles, and some have published them.  For C
         ```Java
         void foo(double a, double b, double c, double d
           double e, double f) {
-            if ((a > b) && (b > c) && (c > d) && (d > e) &&
-              (e > f)) {
-            }
+          if ((a > b) && (b > c) && (c > d) && (d > e) &&
+            (e > f)) {
+          }
         }
         ```
 
         ```Java
         void foo(double a, double b, double c, double d
         double e, double f) {
-            if ((a > b) && (b > c) && (c > d) && (d > e) &&
+          if ((a > b) && (b > c) && (c > d) && (d > e) &&
             (e > f)) {
-            }
+          }
         }
         ```
 
@@ -108,14 +108,14 @@ Many major companies enforce coding styles, and some have published them.  For C
 
         ```Java
         /*
-            * Good style
-            */
+         * Good style
+         */
         ```
 
         ```Java
         /**
-            * Good style for JavaDoc
-            */
+         * Good style for JavaDoc
+         */
         ```
 
     !!! failure "Bad Example"
@@ -134,8 +134,8 @@ Many major companies enforce coding styles, and some have published them.  For C
 
         ```Java
         /**
-            * Also not a good style for JavaDoc
-            */
+          * Also not a good style for JavaDoc
+          */
         ```
 
 
@@ -145,10 +145,10 @@ Many major companies enforce coding styles, and some have published them.  For C
 
         ```Java
         if (x == 0) {
-            x++; // to make sure x is at least one.
-            for (i = 0; i < x; i++) {
+          x++; // to make sure x is at least one.
+          for (i = 0; i < x; i++) {
             x += i;
-            }
+          }
         }
         ```
 
@@ -156,12 +156,12 @@ Many major companies enforce coding styles, and some have published them.  For C
 
         ```Java
         if(x==0){
-            x++;//to make sure x is at least one.
-            for(i=0;i<x;i++){
+          x++;//to make sure x is at least one.
+          for(i=0;i<x;i++){
             x+=i;
-            }
+          }
         }
-            ```
+        ```
 
 
 ## Classes
@@ -184,7 +184,7 @@ Many major companies enforce coding styles, and some have published them.  For C
     !!! success "Good Example"
         ```Java
         if (x == 0) {
-            x++;
+          x++;
         }
         ```
 
@@ -195,13 +195,13 @@ Many major companies enforce coding styles, and some have published them.  For C
         ```Java
         if (x == 0) // Allman style (do not use)
         {
-            x++;
+          x++;
         }
         ```
         ```Java
         if (x == 0) // Pico style (do not use)
         {
-            x++; }
+          x++; }
         ```
 
 ## Lines
