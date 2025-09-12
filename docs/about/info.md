@@ -81,7 +81,7 @@ There are two types of assessments: formative and summative assessments.
 
 Formative assessments include problem sets, programming exercise, past year questions, online quizzes, and lab exercises.  They carry little to no marks and are meant to help students self-diagnose their learning to improve their software development skills and enhance their understanding of the concepts taught in class.  They are also meant to make students think deeper about the lessons, apply what they learn, and gain experience and confidence in their ability to develop complex software.  Despite the smaller weightage, we expect that students spend most of their time on formative assessments.
 
-The summative assessments, on the other hand, are meant to evaluate student learning.  These include three written assessments (Test 1, Test 2 [previously called midterm], and the final exam) as well as two practical exams.  These are high-stakes assessments carrying 90% of the total weights.
+The summative assessments, on the other hand, are meant to evaluate student learning.  These include {--three--} {++two++} written assessments ({--Test 1--}, {--Test 2 [previously called midterm]--} {++midterm++} and the final exam) as well as two practical exams.  These are high-stakes assessments carrying 90% of the total weights.
 
 The types of assessments include:
 
@@ -94,7 +94,7 @@ The types of assessments include:
 - **Lab Exercises:** These are "mini" practical assessments.  Questions follow closely with the topic of the current week and the previous week.  These are used to ensure that students continuous practice and are prepared for practical exams.
     - Lab exercises are done every 1-2 weeks during lab session.  They are timed and has to be finished within 45 minutes during the lab session.
 - **Practical Exams:** Students will be given programming questions to solve within a limited time frame (typically 1-2 hours), in an examination setting in SoC computer labs.  This is usually held in the evening or on a Saturday.
-- **Test 1**, **Test 2**, and **Final Exams** are written tests (on pen and paper) conducted in exam halls.
+- {--**Test 1**,--} **Midterm** and **Final Exams** are written tests (on pen and paper) conducted in exam halls.
 
 All summative assessments (i.e., practical exams and written exams) are closed book assessments.
 
@@ -106,8 +106,7 @@ All summative assessments (i.e., practical exams and written exams) are closed b
 | Lab Exercises | 5% | Every 1-2 Weeks | _during lab session and timed_ ; _1% per exercise_ ; _7 exercises_ ; _2 tasks per exercise_ ; **_we drop the bottom 2 exercises_** from the mark |
 | Practical Exam 1 | 15% | 11/10/2025 (tentative) | _on a Saturday_ ; **_in-person and timed (1 hour 30 minutes)_** |
 | Practical Exam 2 | 25% | 08/11/2025 (tentative) | _on a Saturday_ ; **_in-person and timed (2 hours)_** |
-| Test 1 | 5% | 13/08/2025 (tentative) | _on a Saturday_ ; _MCQ/MRQ only_ ; _written assessment_ ; **_in-person and timed (1 hour)_** |
-| Test 2 | 15% | 29/09/2025 (tentative) | _during lecture period_ ; _written assessment_ ; **_in-person and timed (1 hour)_** |
+| Midterm | 20% | 29/09/2025 (tentative) | _during lecture period_ ; _written assessment_ ; **_in-person and timed (1 hour)_** |
 | Final Exam | 30% | 26/11/2025 | _arranged by Office of University Registrar (OUR)_ ; **_please follow their instruction_** |
 
 ### Marking and Review
@@ -116,7 +115,7 @@ Mistakes in grading may occur and we try to minimize this issue as follows.
 
 - We will provide a review of grading for summative assessments (e.g., tests, practicals, and finals) after the grade for each assessment has been released.  We will use Canvas survey to request for regrading.
 - We will provide a review of marks capture at the end of Week 13.  We will use Canvas survey to request for review.  At this point, no regrading will be made.  Please check that the marks are correctly captured on Canvas.  Please check the following:
-    - Marks from [Softmark](https://softmark.nus.edu.sg/) have been correctly imported for Test 1 and Test 2 (we will have a separate review for Final exam).
+    - Marks from [Softmark](https://softmark.nus.edu.sg/) have been correctly imported for Midterm (we will have a separate review for Final exam).
     - Makeup assessments have been marked.
     - Marks from regrading requests have been correctly included.
     - Marks for Self Diagnostic Quizzes are correctly computed as follows. 
@@ -204,7 +203,7 @@ The team is responsible for facilitating your learning in CS2030S.  Their respon
 - Clarifying any doubts from students during class or offline via Ed;
 - Setting the assessment questions and practice exercises;
 - Providing feedback on submitted assessments and exercises;
-- Planning and running the practical exams, Test 1, and Test 2;
+- Planning and running the practical exams, midterm;
 
 Please note that the following are not handled by the CS2030S teaching team.  We can help to forward your requests to the relevant office but often it is faster if you contact them directly:
 
