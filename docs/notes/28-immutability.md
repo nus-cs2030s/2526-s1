@@ -304,9 +304,9 @@ public final class ImmutableSeq<T> {
 ```java
 Integer[] intArr = new Integer[] { 1, 2, 3 };
 ImmutableSeq<Integer> a = ImmutableSeq.of(intArr);
-a.get(0); // returns 0 because intArr is { 1, 2, 3 }
+a.get(0); // returns 1 because intArr is { 1, 2, 3 }
 intArr[0] = 9;
-a.get(0); // returns 0 because intArr is { 9, 2, 3 }
+a.get(0); // returns 9 because intArr is { 9, 2, 3 }
 ```
 
 So we need to remove this aliasing and one way to do that is to explicitly copy the array.
