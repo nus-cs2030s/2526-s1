@@ -14,20 +14,16 @@ class: bottom, titles
 ### L07: Immutability & Nested Class
 
 .abs.top2.rt4[.img110[![QR](img/dcsaysp.png)]]
-.abs.bot3.rt1.entry-refresh[<i class="fas fa-retweet"></i>]
 
 ---
 name: Immutability
 class: sections
-
-# Immutability
 
 .topsub.subsections[
 ### Motivation
 #### Understanding
 ]
 .botbody.oldsections[
-### Motivation
 #### Ease of Understanding
 
 .col100[
@@ -37,19 +33,15 @@ class: sections
 
 ---
 
-# Immutability
-
 .topsub.subsections[
 ### Motivation
 #### Understanding
-#### Problem #1
+#### Code
 ]
 .botbody.oldsections[
-### Motivation
-#### Problem #1
+#### Code
 
-.col60[
-.font14[
+.col100[
 ```java
 class Point {
   private double x;
@@ -75,8 +67,19 @@ class Circle {
 ```
 ]
 ]
+
+---
+
+.topsub.subsections[
+### Motivation
+#### Understanding
+#### Code
+#### Problem #1
+]
+.botbody.oldsections[
+#### Problem #1
+
 .col0.unrvl-tgl[
-.font14[
 ```java[lite=20]
 Point p0 = new Point(0, 0);
 Circle c1 = new Circle(p0, 1);
@@ -103,9 +106,7 @@ c1.getC();
 // is it (0, 0)?
 ```
 ]
-]
 .col0.rvl-tgl[
-.font14[
 ```java[lite=14,20,23]
 Point p0 = new Point(0, 0);
 Circle c1 = new Circle(p0, 1);
@@ -133,51 +134,20 @@ c1.getC();  // (1, 1)
 ```
 ]
 ]
-]
 
 ---
-
-# Immutability
 
 .topsub.subsections[
 ### Motivation
 #### Understanding
+#### Code
 #### Problem #1
 #### Problem #2
 ]
 .botbody.oldsections[
-### Motivation
 #### Problem #2
 
-.col60[
-.font14[
-```java
-class Point {
-  private double x;
-  private double y;
-  // : code omitted
-
-  public void moveTo(double x, double y) {
-    this.x = x;
-    this.y = y;
-  }
-}
-```
-```java
-class Circle {
-  private Point c;
-  private double r;
-  // : code omitted
-
-  public void moveTo(double x, double y) {
-    this.c.moveTo(x, y);
-  }
-}
-```
-]
-]
 .col0.unrvl-tgl[
-.font14[
 ```java[lite=20]
 Point p1 = new Point(0, 0);
 Circle c1 = new Circle(p1, 1);
@@ -204,9 +174,7 @@ c1.getC();
 // is it (0, 0)?
 ```
 ]
-]
 .col0.rvl-tgl[
-.font14[
 ```java[lite=14,20,23]
 Point p1 = new Point(0, 0);
 Circle c1 = new Circle(p1, 1);
@@ -234,18 +202,15 @@ c1.getC();  // (1, 1)
 ```
 ]
 ]
-]
 
 ---
-
-# Immutability
 
 .topsub.subsections[
 ### Motivation
 ### Immutability
+#### Advantages
 ]
 .botbody.oldsections[
-### Immutability
 #### Immutable Class
 
 .col100[
@@ -260,44 +225,66 @@ There are some .X[issues] with generic.  We will use the terminology .X[immutabl
 ]
 ]
 
-.col100[.op0[.]]
+.vs10[]
 
 .col100[
-.card.bg-g.rvl-step[
+.card.bg-g[
 ##### Advantages
 .content.tight[
-The following are some .note14[(non exhaustive)] advantages of immutable classes.
+The following are some .note20[(non exhaustive)] advantages of immutable classes.
 ]
 .content.tight[
 1. Ease of understanding.
 2. Enabling safe sharing of objects.
 3. Enabling safe concurrent execution.
-4. Enabling safe sharing of internals .note14[(to be discussed next)].
-].rvl-num[1]
+4. Enabling safe sharing of internals .note20[(to be discussed next)].
+]
+]
 ]
 ]
 
-.col100[.op0[.]]
+---
+
+.topsub.subsections[
+### Motivation
+### Immutability
+#### Advantages
+#### Guideline
+]
+.botbody.oldsections[
+#### Immutable Class
 
 .col100[
-.card.bg-y.rvl-step[
+.card.bg-b[
+##### Definition
+.content.tight[
+A class is considered an .X[immutable class] if the instance of the class .U[cannot have any visible changes outside of its abstraction barrier].
+]
+.content.tight[
+There are some .X[issues] with generic.  We will use the terminology .X[immutable up to `T`] to mean .X[`C<T>`] is immutable as long as `T` is immutable.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.card.bg-y[
 ##### Guideline
 .content.tight[
 The following is a general guideline.  It is not an exhaustive guide and some steps are good to have but may not be necessary.
 ]
 .content.tight[
-1. Add the modifier .X[`final`] to all fields as well as the class .note14[(if possible)].
-2. Remove any assignments to the fields .note14[(compilation error due to `final`)].
+1. Add the modifier .X[`final`] to all fields as well as the class .note20[(if possible)].
+2. Remove any assignments to the fields .note20[(compilation error due to `final`)].
 3. Change .X[setter] from .X[`void`] to return a .X[new instance].
-].rvl-num[2]
 ]
 ]
 ]
-.footnote.note14[For obvious reason, we do not consider [.U[Java Reflection]](https://docs.oracle.com/en/java/javase/21/docs/api//java.base/java/lang/reflect/package-summary.html) when determining immutability]
+]
+.footnote.note20[For obvious reason, we do not consider [.U[Java Reflection]](https://docs.oracle.com/en/java/javase/21/docs/api//java.base/java/lang/reflect/package-summary.html) when determining immutability]
 
 ---
-
-# Immutability
 
 .topsub.subsections[
 ### Motivation
@@ -305,10 +292,9 @@ The following is a general guideline.  It is not an exhaustive guide and some st
 ### Sequence
 ]
 .botbody.oldsections[
-### Sequence
 #### Internal Sharing
 
-.col100[.op0[.]]
+.vs10[]
 
 .col100[
 ![Slice](img/07-Slice.png)
@@ -316,8 +302,6 @@ The following is a general guideline.  It is not an exhaustive guide and some st
 ]
 
 ---
-
-# Immutability
 
 .topsub.subsections[
 ### Motivation
@@ -327,7 +311,6 @@ The following is a general guideline.  It is not an exhaustive guide and some st
 #### Quiz #1
 ]
 .botbody.oldsections[
-### Quizzes
 #### Quiz #1
 
 .col100[
@@ -339,10 +322,9 @@ Is the following class an immutable class?
 ]
 ]
 
-.col100[.op0[.]]
+.vs10[]
 
 .col100[
-.font14[
 ```java
 public final class Box {
   private int val;
@@ -358,18 +340,16 @@ public final class Box {
 }
 ```
 ]
-]
 .mrq[
 1. .quiz-choice[Yes] .quiz-ans[1] .quiz-hint[YES: no external change in behavior]
 1. .quiz-choice[NO] .quiz-ans[0] .quiz-hint[NO: no external change in behavior]
 
 .quizzes-time[120]
+.quizzes-link[aazxzzCMdbs1KtgoVBSQm]
 ]
 ]
 
 ---
-
-# Immutability
 
 .topsub.subsections[
 ### Motivation
@@ -380,7 +360,6 @@ public final class Box {
 #### Quiz #2
 ]
 .botbody.oldsections[
-### Quizzes
 #### Quiz #2
 
 .col100[
@@ -392,10 +371,9 @@ Is the following class an immutable class?
 ]
 ]
 
-.col100[.op0[.]]
+.vs10[]
 
 .col100[
-.font14[
 ```java
 public final class Box {
   private final int[] vals;
@@ -415,12 +393,12 @@ public final class Box {
 }
 ```
 ]
-]
 .mrq[
 1. .quiz-choice[Yes] .quiz-ans[1] .quiz-hint[YES: no external change in behavior]
 1. .quiz-choice[NO] .quiz-ans[0] .quiz-hint[NO: no external change in behavior]
 
 .quizzes-time[120]
+.quizzes-link[Xgx28feg2iV0TwmjikpXT]
 ]
 ]
 
@@ -439,13 +417,10 @@ class: middle, break
 name: Nested_Class
 class: sections
 
-# Nested Class
-
 .topsub.subsections[
 ### Motivation
 ]
 .botbody.oldsections[
-### Motivation
 #### Fine Grain Encapsulation
 
 .col50[
@@ -471,7 +446,7 @@ class: sections
 .card.bg-r[
 ##### Problem
 .content.tight[
-What if our class is not fine-grained enough?<br>.note14[(`ArrivalEvent` can be a nested class of `Event`)]
+What if our class is not fine-grained enough?<br>.note20[(`ArrivalEvent` can be a nested class of `Event`)]
 ]
 ]
 ]
@@ -482,8 +457,6 @@ What if our class is not fine-grained enough?<br>.note14[(`ArrivalEvent` can be 
 ]
 
 ---
-
-# Nested Class
 
 .topsub.subsections[
 ### Motivation
@@ -497,24 +470,29 @@ What if our class is not fine-grained enough?<br>.note14[(`ArrivalEvent` can be 
 .card.bg-b[
 ##### [Inner Class](#Inner_Class)
 ]
+]
 
+.col25[
 .card.bg-g[
 ##### [Static Nested](#Static_Nested)
 ]
+]
 
+.col25[
 .card.bg-y[
 ##### [Local Class](#Local_Class)
 ]
+]
 
+.col25[
 .card.bg-r[
-##### [Anonymous Class](#Anonymous_Class)
+##### [Anonymous](#Anonymous_Class)
 ]
 ]
 ]
 
 ---
 name:Inner_Class
-# Nested Class
 
 .topsub.subsections[
 ### Motivation
@@ -529,22 +507,27 @@ name:Inner_Class
 .card.bg-b[
 ##### [Inner Class](#Inner_Class)
 ]
+]
 
+.col25[
 .card.bg-g.op20[
 ##### [Static Nested](#Static_Nested)
 ]
+]
 
+.col25[
 .card.bg-y.op20[
 ##### [Local Class](#Local_Class)
 ]
+]
 
+.col25[
 .card.bg-r.op20[
-##### [Anonymous Class](#Anonymous_Class)
+##### [Anonymous](#Anonymous_Class)
 ]
 ]
 
-.col75[
-.font14[
+.col100[
 ```java[copy=nones|lite=3,7]
 class A {
   private int x;
@@ -559,11 +542,8 @@ class A {
 ```
 ]
 ]
-]
 
 ---
-
-# Nested Class
 
 .topsub.subsections[
 ### Motivation
@@ -578,22 +558,27 @@ class A {
 .card.bg-b[
 ##### [Inner Class](#Inner_Class)
 ]
+]
 
+.col25[
 .card.bg-g.op20[
 ##### [Static Nested](#Static_Nested)
 ]
+]
 
+.col25[
 .card.bg-y.op20[
 ##### [Local Class](#Local_Class)
 ]
+]
 
+.col25[
 .card.bg-r.op20[
-##### [Anonymous Class](#Anonymous_Class)
+##### [Anonymous](#Anonymous_Class)
 ]
 ]
 
-.col75[
-.font14[
+.col100[
 ```java[copy=nones|lite=7]
 class A {
   private int x = 1;
@@ -608,11 +593,9 @@ class A {
 ```
 ]
 ]
-]
 
 ---
 name:Static_Nested
-# Nested Class
 
 .topsub.subsections[
 ### Motivation
@@ -628,22 +611,27 @@ name:Static_Nested
 .card.bg-b.op20[
 ##### [Inner Class](#Inner_Class)
 ]
+]
 
+.col25[
 .card.bg-g[
 ##### [Static Nested](#Static_Nested)
 ]
+]
 
+.col25[
 .card.bg-y.op20[
 ##### [Local Class](#Local_Class)
 ]
+]
 
+.col25[
 .card.bg-r.op20[
-##### [Anonymous Class](#Anonymous_Class)
+##### [Anonymous](#Anonymous_Class)
 ]
 ]
 
-.col75[
-.font14[
+.col100[
 ```java[copy=nones|lite=4]
 class A {
   private int x;
@@ -658,11 +646,9 @@ class A {
 ```
 ]
 ]
-]
 
 ---
 name:Local_Class
-# Nested Class
 
 .topsub.subsections[
 ### Motivation
@@ -679,22 +665,27 @@ name:Local_Class
 .card.bg-b.op20[
 ##### [Inner Class](#Inner_Class)
 ]
+]
 
+.col25[
 .card.bg-g.op20[
 ##### [Static Nested](#Static_Nested)
 ]
+]
 
+.col25[
 .card.bg-y[
 ##### [Local Class](#Local_Class)
 ]
+]
 
+.col25[
 .card.bg-r.op20[
-##### [Anonymous Class](#Anonymous_Class)
+##### [Anonymous](#Anonymous_Class)
 ]
 ]
 
-.col75[
-.font14[
+.col100[
 ```java[copy=nones|lite=2]
 void sortNames(List<String> names) {
   class NameComparator implements Comparator<String> {
@@ -709,11 +700,8 @@ void sortNames(List<String> names) {
 ```
 ]
 ]
-]
 
 ---
-
-# Nested Class
 
 .topsub.subsections[
 ### Motivation
@@ -724,29 +712,33 @@ void sortNames(List<String> names) {
 ]
 .botbody.oldsections[
 ### Kinds
+#### Classifications
 
 .col25[
-#### Classifications
 .card.bg-b.op20[
 ##### [Inner Class](#Inner_Class)
 ]
+]
 
+.col25[
 .card.bg-g.op20[
 ##### [Static Nested](#Static_Nested)
 ]
+]
 
+.col25[
 .card.bg-y[
 ##### [Local Class](#Local_Class)
 ]
+]
 
+.col25[
 .card.bg-r.op20[
-##### [Anonymous Class](#Anonymous_Class)
+##### [Anonymous](#Anonymous_Class)
 ]
 ]
 
-.col75[
-#### Variable Capture
-.font14[
+.col100[
 ```java[copy=nones|lite=3,5,8]
 interface I { void g(); }
 class A {
@@ -764,11 +756,11 @@ class A {
 }
 ```
 ]
-
+]
+.abs.top65.rt2.wt40[
 .card.bg-y[
-##### Usage
+##### Variable Capture
 .content.tight[
-.font14[
 ```java[copy=nones]
 A a = new A();
 I i = a.f();
@@ -777,12 +769,8 @@ i.g();
 ]
 ]
 ]
-]
-]
 
 ---
-
-# Nested Class
 
 .topsub.subsections[
 ### Motivation
@@ -793,33 +781,37 @@ i.g();
 ]
 .botbody.oldsections[
 ### Kinds
+#### Classifications
 
 .col25[
-#### Classifications
 .card.bg-b.op20[
 ##### [Inner Class](#Inner_Class)
 ]
+]
 
+.col25[
 .card.bg-g.op20[
 ##### [Static Nested](#Static_Nested)
 ]
+]
 
+.col25[
 .card.bg-y[
 ##### [Local Class](#Local_Class)
 ]
+]
 
+.col25[
 .card.bg-r.op20[
-##### [Anonymous Class](#Anonymous_Class)
+##### [Anonymous](#Anonymous_Class)
 ]
 ]
 
-.col75[
-#### Effectively Final
-
-.font14[
-```java[copy=nones|lite=2,5,12]
+.col100[
+```java[copy=nones|lite=2,6,14]
 void sortNames(List<String> names) {
-  boolean ascendingOrder = true;
+  boolean ascendingOrder = true; // Effectively Final!
+
   class NameComparator implements Comparator<String> {
     public int compare(String s1, String s2) {
       if (ascendingOrder) { // is it true or false?
@@ -829,17 +821,16 @@ void sortNames(List<String> names) {
       }
     }
   }
+
   ascendingOrder = false; // cannot be re-assigned!
   names.sort(new NameComparator());
 }
 ```
 ]
 ]
-]
 
 ---
 name:Anonymous_Class
-# Nested Class
 
 .topsub.subsections[
 ### Motivation
@@ -851,30 +842,33 @@ name:Anonymous_Class
 ]
 .botbody.oldsections[
 ### Kinds
+#### Classifications
 
 .col25[
-#### Classifications
 .card.bg-b.op20[
 ##### [Inner Class](#Inner_Class)
 ]
+]
 
+.col25[
 .card.bg-g.op20[
 ##### [Static Nested](#Static_Nested)
 ]
+]
 
+.col25[
 .card.bg-y.op20[
 ##### [Local Class](#Local_Class)
 ]
+]
 
+.col25[
 .card.bg-r[
-##### [Anonymous Class](#Anonymous_Class)
+##### [Anonymous](#Anonymous_Class)
 ]
 ]
 
-.col75[
-#### Nameless
-
-.font14[
+.col100[
 ```java[copy=nones|lite=2-7]
 void sortNames(List<String> names) {
   names.sort(new Comparator<String>() {
@@ -882,16 +876,13 @@ void sortNames(List<String> names) {
     public int compare(String s1, String s2) {
       return s1.length() - s2.length();
     }
-  });
+  });  // what is the name of this class?
 }
 ```
 ]
 ]
-]
 
 ---
-
-# Nested Class
 
 .topsub.subsections[
 ### Motivation
@@ -900,7 +891,6 @@ void sortNames(List<String> names) {
 #### Quiz #1
 ]
 .botbody.oldsections[
-### Quizzes
 #### Quiz #1
 
 .col100[
@@ -912,10 +902,9 @@ Consider the following class.  Which variables are .X[captured] due to the const
 ]
 ]
 
-.col100[.op0[.]]
+.vs10[]
 
 .col100[
-.font14[
 ```java[copy=nones|lite=2,4,6,7,11]
 class E {
   int w;
@@ -931,7 +920,6 @@ class E {
 }
 ```
 ]
-]
 .mrq[
 1. .quiz-choice[`w`] .quiz-ans[0] .quiz-hint[NO: not a variable]
 1. .quiz-choice[`x`] .quiz-ans[1] .quiz-hint[YES: a variable and re-assigned]
@@ -939,6 +927,7 @@ class E {
 1. .quiz-choice[`z`] .quiz-ans[0] .quiz-hint[NO: not accessible]
 
 .quizzes-time[120]
+.quizzes-link[dchECZtkaYcFag8bbogYl]
 ]
 ]
 
