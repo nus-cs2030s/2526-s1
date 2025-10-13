@@ -327,7 +327,7 @@ How is currying useful?  Consider `add(1, 1)` &mdash; we have to have both argum
 In the example, we showed earlier,
 ```Java
 Point origin = new Point(0, 0);
-Transformer<Point, Double> dist = origin::distanceTo;
+Transformer<Point, Double> dist = p -> origin.distanceTo(p);
 ```
 
 the variable `origin` is captured by the lambda expression `dist`.  Just like in local and anonymous classes, a captured variable must be either explicitly declared as `final` or is effectively final.
