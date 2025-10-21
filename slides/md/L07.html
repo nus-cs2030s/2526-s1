@@ -1,0 +1,941 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: L07
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L07: Immutability & Nested Class
+
+.abs.top2.rt4[.img110[![QR](img/dcsaysp.png)]]
+
+---
+name: Immutability
+class: sections
+
+.topsub.subsections[
+### Motivation
+#### Understanding
+]
+.botbody.oldsections[
+#### Ease of Understanding
+
+.col100[
+.img85.center[![Immutable](img/07-Immutable.gif)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+#### Understanding
+#### Code
+]
+.botbody.oldsections[
+#### Code
+
+.col100[
+```java
+class Point {
+  private double x;
+  private double y;
+  // : code omitted
+
+  public void moveTo(double x, double y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+```
+```java
+class Circle {
+  private Point c;
+  private double r;
+  // : code omitted
+
+  public void moveTo(double x, double y) {
+    this.c.moveTo(x, y);
+  }
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+#### Understanding
+#### Code
+#### Problem #1
+]
+.botbody.oldsections[
+#### Problem #1
+
+.col0.unrvl-tgl[
+```java[lite=20]
+Point p0 = new Point(0, 0);
+Circle c1 = new Circle(p0, 1);
+Circle c2 = new Circle(p0, 4);
+
+// : 10000 lines omitted
+// : code operate only on c2
+// : no mention of c1
+
+
+
+
+// : code in another function?
+// : code not written by you?
+​
+
+
+
+
+
+c1.getC();
+​
+// what is the center point?
+// is it (0, 0)?
+```
+]
+.col0.rvl-tgl[
+```java[lite=14,20,23]
+Point p0 = new Point(0, 0);
+Circle c1 = new Circle(p0, 1);
+Circle c2 = new Circle(p0, 4);
+
+// : 10000 lines omitted
+// : code operate only on c2
+// : no mention of c1
+
+
+
+
+// : code in another function?
+// : code not written by you?
+c2.moveTo(1, 1);
+
+
+
+
+
+c1.getC();  // (1, 1)
+​
+// what is the center point?
+// is it (0, 0)?  NO!
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+#### Understanding
+#### Code
+#### Problem #1
+#### Problem #2
+]
+.botbody.oldsections[
+#### Problem #2
+
+.col0.unrvl-tgl[
+```java[lite=20]
+Point p1 = new Point(0, 0);
+Circle c1 = new Circle(p1, 1);
+Point p2 = new Point(0, 0);
+Circle c2 = new Circle(p2, 4);
+
+// : 10000 lines omitted
+// : no mention of c1 or c2
+
+
+
+
+// : code in another function?
+// : code not written by you?
+​
+
+
+
+
+
+c1.getC();
+​
+// what is the center point?
+// is it (0, 0)?
+```
+]
+.col0.rvl-tgl[
+```java[lite=14,20,23]
+Point p1 = new Point(0, 0);
+Circle c1 = new Circle(p1, 1);
+Point p2 = new Point(0, 0);
+Circle c2 = new Circle(p2, 4);
+
+// : 10000 lines omitted
+// : no mention of c1 or c2
+
+
+
+
+// : code in another function?
+// : code not written by you?
+p1.moveTo(1, 1);
+
+
+
+
+
+c1.getC();  // (1, 1)
+​
+// what is the center point?
+// is it (0, 0)?  NO!
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Immutability
+#### Advantages
+]
+.botbody.oldsections[
+#### Immutable Class
+
+.col100[
+.card.bg-b[
+##### Definition
+.content.tight[
+A class is considered an .X[immutable class] if the instance of the class .U[cannot have any visible changes outside of its abstraction barrier].
+]
+.content.tight[
+There are some .X[issues] with generic.  We will use the terminology .X[immutable up to `T`] to mean .X[`C<T>`] is immutable as long as `T` is immutable.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.card.bg-g[
+##### Advantages
+.content.tight[
+The following are some .note20[(non exhaustive)] advantages of immutable classes.
+]
+.content.tight[
+1. Ease of understanding.
+2. Enabling safe sharing of objects.
+3. Enabling safe concurrent execution.
+4. Enabling safe sharing of internals .note20[(to be discussed next)].
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Immutability
+#### Advantages
+#### Guideline
+]
+.botbody.oldsections[
+#### Immutable Class
+
+.col100[
+.card.bg-b[
+##### Definition
+.content.tight[
+A class is considered an .X[immutable class] if the instance of the class .U[cannot have any visible changes outside of its abstraction barrier].
+]
+.content.tight[
+There are some .X[issues] with generic.  We will use the terminology .X[immutable up to `T`] to mean .X[`C<T>`] is immutable as long as `T` is immutable.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.card.bg-y[
+##### Guideline
+.content.tight[
+The following is a general guideline.  It is not an exhaustive guide and some steps are good to have but may not be necessary.
+]
+.content.tight[
+1. Add the modifier .X[`final`] to all fields as well as the class .note20[(if possible)].
+2. Remove any assignments to the fields .note20[(compilation error due to `final`)].
+3. Change .X[setter] from .X[`void`] to return a .X[new instance].
+]
+]
+]
+]
+.footnote.note20[For obvious reason, we do not consider [.U[Java Reflection]](https://docs.oracle.com/en/java/javase/21/docs/api//java.base/java/lang/reflect/package-summary.html) when determining immutability]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Immutability
+### Sequence
+]
+.botbody.oldsections[
+#### Internal Sharing
+
+.vs10[]
+
+.col100[
+![Slice](img/07-Slice.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Immutability
+### Sequence
+### Quizzes
+#### Quiz #1
+]
+.botbody.oldsections[
+#### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Is the following class an immutable class?
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java
+public final class Box {
+  private int val;
+
+  public Box(int val) {
+    this.val = val;
+  }
+
+  @Override
+  public String toString() {
+    return "[" + this.val + "]";
+  }
+}
+```
+]
+.mrq[
+1. .quiz-choice[Yes] .quiz-ans[1] .quiz-hint[YES: no external change in behavior]
+1. .quiz-choice[NO] .quiz-ans[0] .quiz-hint[NO: no external change in behavior]
+
+.quizzes-time[120]
+.quizzes-link[aazxzzCMdbs1KtgoVBSQm]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Immutability
+### Sequence
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+]
+.botbody.oldsections[
+#### Quiz #2
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Is the following class an immutable class?
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java
+public final class Box {
+  private final int[] vals;
+
+  public Box(int[] vals) {
+    this.vals = vals;
+  }
+
+  @Override
+  public String toString() {
+    String out = "";
+    for (int val : vals) {
+      out += val + " ";
+    }
+    return out;
+  }
+}
+```
+]
+.mrq[
+1. .quiz-choice[Yes] .quiz-ans[1] .quiz-hint[YES: no external change in behavior]
+1. .quiz-choice[NO] .quiz-ans[0] .quiz-hint[NO: no external change in behavior]
+
+.quizzes-time[120]
+.quizzes-link[Xgx28feg2iV0TwmjikpXT]
+]
+]
+
+---
+
+name: Break
+class: middle, break
+
+# Break
+
+<br>
+
+## <i class="fa-regular fa-clock break-icon"></i>
+
+---
+name: Nested_Class
+class: sections
+
+.topsub.subsections[
+### Motivation
+]
+.botbody.oldsections[
+#### Fine Grain Encapsulation
+
+.col50[
+.card.bg-b[
+##### Encapsulation
+.content.tight[
+- Combine data
+- Combine method
+]
+]
+]
+.col50[
+.card.bg-g[
+##### Information Hiding
+.content.tight[
+- Limit access
+- Tell, Don't Ask
+]
+]
+]
+
+.col100[
+.card.bg-r[
+##### Problem
+.content.tight[
+What if our class is not fine-grained enough?<br>.note20[(`ArrivalEvent` can be a nested class of `Event`)]
+]
+]
+]
+
+.col100[
+.img45.center[![Nested](img/07-Nested.jpg)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Kinds
+]
+.botbody.oldsections[
+### Kinds
+#### Classifications
+
+.col25[
+.card.bg-b[
+##### [Inner Class](#Inner_Class)
+]
+]
+
+.col25[
+.card.bg-g[
+##### [Static Nested](#Static_Nested)
+]
+]
+
+.col25[
+.card.bg-y[
+##### [Local Class](#Local_Class)
+]
+]
+
+.col25[
+.card.bg-r[
+##### [Anonymous](#Anonymous_Class)
+]
+]
+]
+
+---
+name:Inner_Class
+
+.topsub.subsections[
+### Motivation
+### Kinds
+#### Inner Class
+]
+.botbody.oldsections[
+### Kinds
+#### Classifications
+
+.col25[
+.card.bg-b[
+##### [Inner Class](#Inner_Class)
+]
+]
+
+.col25[
+.card.bg-g.op20[
+##### [Static Nested](#Static_Nested)
+]
+]
+
+.col25[
+.card.bg-y.op20[
+##### [Local Class](#Local_Class)
+]
+]
+
+.col25[
+.card.bg-r.op20[
+##### [Anonymous](#Anonymous_Class)
+]
+]
+
+.col100[
+```java[copy=nones|lite=3,7]
+class A {
+  private int x;
+  static int y;
+  class B {
+    void foo() {
+      x = 1;
+      y = 1;
+    }
+  }
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Kinds
+#### Inner Class
+]
+.botbody.oldsections[
+### Kinds
+#### Classifications
+
+.col25[
+.card.bg-b[
+##### [Inner Class](#Inner_Class)
+]
+]
+
+.col25[
+.card.bg-g.op20[
+##### [Static Nested](#Static_Nested)
+]
+]
+
+.col25[
+.card.bg-y.op20[
+##### [Local Class](#Local_Class)
+]
+]
+
+.col25[
+.card.bg-r.op20[
+##### [Anonymous](#Anonymous_Class)
+]
+]
+
+.col100[
+```java[copy=nones|lite=7]
+class A {
+  private int x = 1;
+  ​
+  class B {
+    private int x = 2;
+    void foo() {
+      x = 3;
+    }
+  }
+}
+```
+]
+]
+
+---
+name:Static_Nested
+
+.topsub.subsections[
+### Motivation
+### Kinds
+#### Inner Class
+#### Static Nested
+]
+.botbody.oldsections[
+### Kinds
+#### Classifications
+
+.col25[
+.card.bg-b.op20[
+##### [Inner Class](#Inner_Class)
+]
+]
+
+.col25[
+.card.bg-g[
+##### [Static Nested](#Static_Nested)
+]
+]
+
+.col25[
+.card.bg-y.op20[
+##### [Local Class](#Local_Class)
+]
+]
+
+.col25[
+.card.bg-r.op20[
+##### [Anonymous](#Anonymous_Class)
+]
+]
+
+.col100[
+```java[copy=nones|lite=4]
+class A {
+  private int x;
+  static int y;
+  static class B {
+    void foo() {
+      x = 1;
+      y = 1;
+    }
+  }
+}
+```
+]
+]
+
+---
+name:Local_Class
+
+.topsub.subsections[
+### Motivation
+### Kinds
+#### Inner Class
+#### Static Nested
+#### Local Class
+]
+.botbody.oldsections[
+### Kinds
+#### Classifications
+
+.col25[
+.card.bg-b.op20[
+##### [Inner Class](#Inner_Class)
+]
+]
+
+.col25[
+.card.bg-g.op20[
+##### [Static Nested](#Static_Nested)
+]
+]
+
+.col25[
+.card.bg-y[
+##### [Local Class](#Local_Class)
+]
+]
+
+.col25[
+.card.bg-r.op20[
+##### [Anonymous](#Anonymous_Class)
+]
+]
+
+.col100[
+```java[copy=nones|lite=2]
+void sortNames(List<String> names) {
+  class NameComparator implements Comparator<String> {
+    @Override
+    public int compare(String s1, String s2) {
+      return s1.length() - s2.length();
+    }
+  }
+  names.sort(new NameComparator());
+}
+// NameComparator not available outside
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Kinds
+#### Inner Class
+#### Static Nested
+#### Local Class
+]
+.botbody.oldsections[
+### Kinds
+#### Classifications
+
+.col25[
+.card.bg-b.op20[
+##### [Inner Class](#Inner_Class)
+]
+]
+
+.col25[
+.card.bg-g.op20[
+##### [Static Nested](#Static_Nested)
+]
+]
+
+.col25[
+.card.bg-y[
+##### [Local Class](#Local_Class)
+]
+]
+
+.col25[
+.card.bg-r.op20[
+##### [Anonymous](#Anonymous_Class)
+]
+]
+
+.col100[
+```java[copy=nones|lite=3,5,8]
+interface I { void g(); }
+class A {
+  int x = 1;
+  I f() {
+    int y = 2;
+    class B implements I {
+      public void g() {
+        x = y; // accessing x and y are OK
+      }
+    }
+    B b = new B();
+    return b;
+  }
+}
+```
+]
+]
+.abs.top65.rt2.wt40[
+.card.bg-y[
+##### Variable Capture
+.content.tight[
+```java[copy=nones]
+A a = new A();
+I i = a.f();
+i.g();
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Kinds
+#### Inner Class
+#### Static Nested
+#### Local Class
+]
+.botbody.oldsections[
+### Kinds
+#### Classifications
+
+.col25[
+.card.bg-b.op20[
+##### [Inner Class](#Inner_Class)
+]
+]
+
+.col25[
+.card.bg-g.op20[
+##### [Static Nested](#Static_Nested)
+]
+]
+
+.col25[
+.card.bg-y[
+##### [Local Class](#Local_Class)
+]
+]
+
+.col25[
+.card.bg-r.op20[
+##### [Anonymous](#Anonymous_Class)
+]
+]
+
+.col100[
+```java[copy=nones|lite=2,6,14]
+void sortNames(List<String> names) {
+  boolean ascendingOrder = true; // Effectively Final!
+
+  class NameComparator implements Comparator<String> {
+    public int compare(String s1, String s2) {
+      if (ascendingOrder) { // is it true or false?
+        return s1.length() - s2.length();
+      } else {
+        return s2.length() - s1.length();
+      }
+    }
+  }
+
+  ascendingOrder = false; // cannot be re-assigned!
+  names.sort(new NameComparator());
+}
+```
+]
+]
+
+---
+name:Anonymous_Class
+
+.topsub.subsections[
+### Motivation
+### Kinds
+#### Inner Class
+#### Static Nested
+#### Local Class
+#### Anonymous Class
+]
+.botbody.oldsections[
+### Kinds
+#### Classifications
+
+.col25[
+.card.bg-b.op20[
+##### [Inner Class](#Inner_Class)
+]
+]
+
+.col25[
+.card.bg-g.op20[
+##### [Static Nested](#Static_Nested)
+]
+]
+
+.col25[
+.card.bg-y.op20[
+##### [Local Class](#Local_Class)
+]
+]
+
+.col25[
+.card.bg-r[
+##### [Anonymous](#Anonymous_Class)
+]
+]
+
+.col100[
+```java[copy=nones|lite=2-7]
+void sortNames(List<String> names) {
+  names.sort(new Comparator<String>() {
+    @Override
+    public int compare(String s1, String s2) {
+      return s1.length() - s2.length();
+    }
+  });  // what is the name of this class?
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Kinds
+### Quizzes
+#### Quiz #1
+]
+.botbody.oldsections[
+#### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the following class.  Which variables are .X[captured] due to the constructor of `F`?
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java[copy=nones|lite=2,4,6,7,11]
+class E {
+  int w;
+  void doTask() {
+    int x;
+    class F {
+      int y;
+      F() { w = 1;  x = 1;  y = 1;  z = 1; }
+    }
+    F f = new F();
+  }
+  class G { int z; }
+}
+```
+]
+.mrq[
+1. .quiz-choice[`w`] .quiz-ans[0] .quiz-hint[NO: not a variable]
+1. .quiz-choice[`x`] .quiz-ans[1] .quiz-hint[YES: a variable and re-assigned]
+1. .quiz-choice[`y`] .quiz-ans[0] .quiz-hint[NO: not a variable]
+1. .quiz-choice[`z`] .quiz-ans[0] .quiz-hint[NO: not accessible]
+
+.quizzes-time[120]
+.quizzes-link[dchECZtkaYcFag8bbogYl]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]

@@ -1,0 +1,779 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: L01
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L01: Class and Compilation
+
+.abs.top2.rt4[.img110[![QR](img/dcsaysp.png)]]
+
+---
+name: Java_Basic
+class: sections
+
+.topsub.subsections[
+### Motivation
+]
+.botbody.oldsections[
+#### Design Principle
+
+.col100[
+.card.bg-b[
+##### Programming Language Design
+.content.tight[
+A .X[well-designed] programming language should help us .X[catch errors as early as possible].
+]
+]
+]
+
+.vs10[]
+
+.col100.unrvl-tgl[
+![Bridge](img/01-bridge.jpg)
+]
+.col100.rvl-tgl[
+![Bridge](img/01-bridge2.jpg)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Compilation
+]
+.botbody.oldsections[
+#### Diagram
+
+.vs50[]
+
+.col70[
+.center[![Compilation](img/01-TS-Java.png)]
+]
+.col30.op40[
+.img120.center[![Interpretation](img/01-TS-Jshell.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Compilation
+### Type System
+#### Classification
+]
+.botbody.oldsections[
+#### Classification
+
+.col50[
+.card.bg-y[
+##### Type
+.content.tight[
+The .U[type] of a variable .X[decides the computation] that can be performed.
+]
+]
+]
+.col50[
+.card.bg-b[
+##### Type System
+.content.tight[
+The .U[type system] is a .X[set of rules] about types and their interactions.
+]
+]
+]
+
+.vs30[]
+
+.col46.rvl[
+.vs10[]
+
+.card.bg-r[
+##### Python
+.content.tight[
+```py
+x = 4
+x = "5"
+```
+]
+]
+]
+.col8.rvl[
+.img80.center[![Stronger](img/01-TS-01.png)]
+]
+.col46.rvl-step[
+.vs10[]
+
+.card.bg-g[
+##### Java
+.content.tight[
+```java[lite=2]
+int x = 4;
+x = (int) "5"; // error
+```
+]
+].rvl-num[2]
+]
+
+.col100[]
+
+.col40.rvl[
+![Dynamic](img/01-TS-04.png)
+]
+.col20[.op0[.]]
+.col35.rvl[
+![Static](img/01-TS-03.png)
+]
+
+.col100[]
+
+.col46.rvl[
+.card.bg-r[
+##### JavaScript
+.content.tight[
+```js
+let x = 4;
+x = "5" - 4;
+```
+]
+]
+]
+.col8.rvl[
+.img80.center[![Stronger](img/01-TS-02.png)]
+]
+.col46.rvl[
+.card.bg-r[
+##### C
+.content.tight[
+```c
+int x = 4;
+x = (int) "5"; // ??
+```
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Compilation
+### Type System
+#### Classification
+#### Primitive
+]
+.botbody.oldsections[
+#### Primitive
+
+.col50[
+.atbl.blhead[
+| Data | Type |
+|---|---|
+| Whole numbers | `byte`<br>`short`<br>`int`<br>`long` |
+| Floating point<br>numbers | `float`<br>`double` |
+| Character | `char` |
+| True/False | `boolean` | 
+]
+]
+.col50[
+.card.bg-r[
+##### Question
+.content.tight[
+What is the value of `j` at the end of the following code?
+]
+]
+
+.vs10[]
+
+```java
+int i = 10;
+int j = i;
+i = i + 1;
+```
+]
+
+.mrq[
+1. .quiz-choice[`10`] .quiz-ans[1] .quiz-hint[YES: primitive is not aliased]
+2. .quiz-choice[`11`] .quiz-ans[0] .quiz-hint[NO: the value is copied]
+
+.quizzes-time[90]
+.quizzes-link[NdpH2L66anOoAYSAtd8sS]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Compilation
+### Type System
+#### Classification
+#### Primitive
+#### Subtyping
+]
+.botbody.oldsections[
+#### Subtyping
+
+.col100[
+.card.bg-b[
+##### Subtype and Supertype
+.content.tight[
+A type *T* is a .U[subtype] of *S* .note18[(denoted *T* <: *S*)] if
+]
+.content.tight[
+.nol[
+- A code written for variable of type *S* can also be .X[safely used] on variables of type *T*
+]
+]
+.content.tight[
+We say that *S* is a .U[supertype] of *T*.
+]
+]
+]
+
+.vs10[]
+
+.col100.rvl[
+.card.bg-g[
+##### Properties
+.content.tight.flexcard[
+.col35[
+- .X[Reflexive]
+- .X[Transitive]
+- .X[Anti-Symmetric]
+]
+.nol.col65[
+- *T* <: *T*
+- if *U* <: *T* and *T* <: *S*, then *U* <: *S*
+- if *T* <: *S* and *S* <: *T*, then *T* = *S*<br>.note18[(prevents cyclic subtyping)]
+]
+]
+]
+]
+
+.vs10[]
+
+.col100.rvl-step[
+.center.img70[![Diagram](img/01-Subtype.png)]
+.rvl-num[2]
+]
+]
+
+---
+
+name: Break
+class: middle, break
+
+# Break
+
+<br>
+
+## <i class="fa-regular fa-clock break-icon"></i>
+
+---
+name: Abstraction
+class: sections
+
+.topsub.subsections[
+### Motivation
+#### Function
+]
+.botbody.oldsections[
+#### Function
+
+.col100[
+$$^{n}C_{k} = \frac{n!}{k!(n-k)!}$$
+
+$$n! = n \times (n - 1) \times (n - 2) \times ... \times 1$$
+]
+
+.vs10[]
+
+.col100.rvl-step.unrvl-step[
+```java
+int den = _k * _nk;
+int num = _n;
+int res = num / den;
+```
+.rvl-num[1].unrvl-num[3]
+]
+.col100.rvl-step[
+```java[lite=1-2]
+int den = fact(k) * fact(n - k);
+int num = fact(n);
+int res = num / den;
+```
+.rvl-num[3]
+]
+
+.col100.rvl-step[
+```java
+int fact(int n) {
+  int i = n;
+  int fac = 1;
+  while (i >= 0) {
+    fac = fac * i;
+    i = i - 1;
+  }
+  return fac;
+}
+```
+.rvl-num[2]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+#### Function
+#### Structure
+]
+.botbody.oldsections[
+#### Structure
+
+.vs10[]
+
+.col100[
+$q = (x_1 - x_2)^2 + (y_1 - y_2)^2$
+
+.img70.center[![Quadrance](img/01-Quadrance.png)]
+]
+
+.vs10[]
+
+.col100.rvl-step.unrvl-step[
+```java
+int quadrance(int a , int b , int c , int d ) {
+  return ((a  -  d) * (a  -  d))
+       + ((b  -  c) * (b  -  c));
+}
+```
+.rvl-num[1].unrvl-num[2]
+]
+.col100.rvl-step[
+```java
+int quadrance(int x1, int y1, int y2, int x2) {
+  return ((x1 - x2) * (x1 - x2))
+       + ((y1 - y2) * (y1 - y2));
+}
+```
+.rvl-num[2]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Encapsulation
+#### Circle Design
+]
+.botbody.oldsections[
+#### Circle Design
+
+.col100[
+.card.bg-b[
+##### Circle
+.content.tight[
+What is a circle?<br>
+&nbsp;&nbsp; What are the .X[properties] relevant for a circle?<br>
+&nbsp;&nbsp; What can you .X[do] with a circle?
+]
+]
+
+.img70.center.unrvl-tgl[![Circle](img/01-circ.png)]
+.img70.center.rvl-tgl[![Circle](img/01-circ2.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Encapsulation
+#### Circle Design
+#### Circle Class
+]
+.botbody.oldsections[
+#### Circle Class
+
+.col100.unrvl-step[
+.card.bg-b[
+##### Circle
+.content.tight[
+What is a circle?<br>
+&nbsp;&nbsp; What are the .X[properties] relevant for a circle?<br>
+&nbsp;&nbsp; What can you .X[do] with a circle?
+]
+].unrvl-num[1]
+]
+.col100.unrvl-step.rvl-step[
+.card.bg-b[
+##### Circle
+.content.tight[
+.op30[What is a circle?]<br>
+&nbsp;&nbsp; What are the .X[properties] relevant for a circle?<br>
+&nbsp;&nbsp; .op30[What can you .X[do] with a circle?]
+]
+].rvl-num[1].unrvl-num[2]
+]
+.col100.rvl-step.unrvl-step[
+.card.bg-b[
+##### Circle
+.content.tight[
+.op30[What is a circle?]<br>
+&nbsp;&nbsp; .op30[What are the .X[properties] relevant for a circle?]<br>
+&nbsp;&nbsp; What can you .X[do] with a circle?
+]
+].rvl-num[2].unrvl-num[3]
+]
+.col100.rvl-step[
+.card.bg-b[
+##### Circle
+.content.tight[
+What is a circle?<br>
+&nbsp;&nbsp; What are the .X[properties] relevant for a circle?<br>
+&nbsp;&nbsp; What can you .X[do] with a circle?
+]
+].rvl-num[3]
+]
+
+.vs10[]
+
+.col100.unrvl-step[
+```java
+class Circle {
+​
+​
+​
+​
+​
+​
+​
+}
+```
+.unrvl-num[1]
+]
+.col100.unrvl-step.rvl-step[
+```java
+class Circle {
+  double x;
+  double y;
+  double r;
+​
+​
+​
+​
+}
+```
+.rvl-num[1].unrvl-num[2]
+]
+.col100.rvl-step.unrvl-step[
+```java[emph=1,6-9]
+class Circle {
+  double x;
+  double y;
+  double r;
+​
+  double getArea() {
+    return 3.14 * r * r;
+  }
+}
+```
+.rvl-num[2].unrvl-num[3]
+]
+.col100.rvl-step[
+```java
+class Circle {
+  double x;
+  double y;
+  double r;
+​
+  double getArea() {
+    return 3.14 * r * r;
+  }
+}
+```
+.rvl-num[3]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Encapsulation
+#### Circle Design
+#### Circle Class
+#### Definition
+]
+.botbody.oldsections[
+#### Definition
+
+.col100[
+.card.bg-b[
+##### Encapsulation
+.content.tight[
+The concept of .X[keeping all the data and functions] operating on the data related to a composite data type together .X[within an abstraction barrier].
+]
+]
+
+.vs10[]
+
+.col100[
+```java[lite=1,5]
+Circle c = new Circle();          // instantiation
+c.x = 1.0;  // set x to 1.0
+c.y = 2.0;  // set y to 2.0
+c.r = 5.0;  // set r to 5.0
+double circle_area = c.getArea(); // invocation
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Encapsulation
+### Barrier
+]
+.botbody.oldsections[
+### Barrier
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Encapsulation
+### Barrier
+### Terminology
+]
+.botbody.oldsections[
+#### Object-Oriented Terminology
+
+.col100[
+.card.bg-b[
+##### Java
+.content.tight.flexcard[
+.col30[
+- **Methods**
+- **Fields**
+- **Instances**
+]
+.nol.col70[
+- Bundled Functions inside a class
+- Bundled data inside the class
+- Actual instantiation of the class
+]
+]
+]
+]
+
+.vs10[]
+
+.col50.rvl[
+##### Class
+![Blueprint](img/01-Blueprint.png)
+]
+.col50.rvl[
+##### Instance
+![Instance](https://media.ldlc.com/ld/products/00/05/44/00/LD0005440098_2_0005440176.jpg)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Encapsulation
+### Barrier
+### Terminology
+### Paradigm
+]
+.botbody.oldsections[
+#### OOP Paradigm
+
+.col100[
+.card.bg-b[
+##### Object-Oriented Programming
+.content.tight[
+- Instantiate objects .note18[(different classes)].
+- Interact by invoking each others' methods.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.card.bg-r.rvl-step[
+##### Question
+.content.tight[
+Your company, Apasaja Private Limited, is commissioned by Toko Kopi Luwak to design their point of sale system for all of their stores.  We want to record the address of each store.
+]
+.content.tight[
+Each store also keep several coffee beans.  A coffee bean has unique brand name .note18[(e.g., "La Bella", a Pacamara cultivar grown in Guatemala)].  The cultivar and region of the coffee beans are also recorded.
+]
+.content.tight[
+A drink can be made utilizing a particular coffee bean .note18[(e.g., an espresso with "La Bella" or an americano with "The Waterfall")].  If a store has the coffee then the store can sell the drink to a customer.  In the future, a drink can also require other ingredient.  Additionally, we may also have different kinds of customers in the future.
+]
+.rvl-num[1]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Encapsulation
+### Barrier
+### Terminology
+### Paradigm
+### Reference
+#### Reference Type
+]
+.botbody.oldsections[
+#### Reference Type
+
+.col100[
+.card.bg-b[
+##### Java Reference Type
+.content.tight[
+Everything else that is .X.drdtxt[not] a .X[primitive type] is a .X[reference type].
+A reference variable stores only the .X[reference to the value] and not the value itself.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+What is the value of `c1.r` at the end of the following code snippet?
+]
+]
+]
+
+.vs10[]
+
+.col100[
+```java
+Circle c1 = new Circle();
+Circle c2 = c1;
+c1.r = 10.0;
+c2.r = 3.0;
+```
+]
+
+.mrq[
+1. .quiz-choice[`0.0`] .quiz-ans[0] .quiz-hint[NO: no longer the default]
+2. .quiz-choice[`3.0`] .quiz-ans[1] .quiz-hint[YES: there is aliasing]
+3. .quiz-choice[`10.0`] .quiz-ans[0] .quiz-hint[NO: updated due to aliasing]
+4. .quiz-choice[Compilation error] .quiz-ans[0] .quiz-hint[NO: compile]
+5. .quiz-choice[Runtime error] .quiz-ans[0] .quiz-hint[NO: no error]
+
+.quizzes-time[120]
+.quizzes-link[QNCIp7FhxDZFALcfw8o3P]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Encapsulation
+### Barrier
+### Terminology
+### Paradigm
+### Reference
+#### Reference Type
+#### Stack/Heap
+]
+.botbody.oldsections[
+#### Stack/Heap
+
+.col100[
+```java
+Circle c1 = new Circle();
+Circle c2 = c1;
+c1.r = 10.0;
+c2.r = 3.0;
+```
+
+.img90.center[![Stack/Heap](img/StackHeap.png)]
+]
+]
+
+---
+name: Reminders
+class: sections
+
+.topsub.subsections[
+### Todo
+]
+.botbody.oldsections[
+.col100[
+.card.notes[
+##### Weekly
+.content.tight.todo[
+- Read notes on [.U[Week 01]](https://nus-cs2030s.github.io/2526-s1/notes/week01/index.html) ; [.U[Env]](https://nus-cs2030s.github.io/2526-s1/guides/environments.html) ; [.U[Unix]](https://nus-cs2030s.github.io/2526-s1/unix/background.html) ; [.U[Vim]](https://nus-cs2030s.github.io/2526-s1/vim/philosophy.html) ; [.U[GitHub]](https://nus-cs2030s.github.io/2526-s1/guides/github.html)
+- Complete [.U[Diagnostic Quiz 1]](https://canvas.nus.edu.sg/courses/77787/quizzes/64355)
+]
+]
+
+.card.notes[
+##### Recitation/Lab
+.content.tight.todo[
+- Register recitation + lab at [.U[CourseReg]](https://nus.edu.sg/coursereg/)
+]
+]
+
+.card.notes[
+##### Discussion
+.content.tight.todo[
+- Join the [.U[Ed]](https://edstem.org/us/courses/79067/discussion) forum .note18[(ask your questions here)]
+]
+]
+
+.card.notes[
+##### Announcement
+.content.tight.todo[
+- Lookout for announcements/emails on Unix and Vim bootcamp
+    - We will send announcement on Canvas, you may receive emails too if you do not modify the setting
+    - The email may arrive on the spam folder
+]
+]
+
+.card.notes[
+##### Programming Exercises
+.content.tight.todo[
+- Setup Github and submit your Github username on [.U[Canvas survey]](https://canvas.nus.edu.sg/courses/77787/quizzes/65613)
+]
+]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]
