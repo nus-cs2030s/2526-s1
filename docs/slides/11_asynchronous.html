@@ -132,63 +132,7 @@
         initReddit();
       }
       
-      let ans = new Date('2024-9-28');
-      let cur = new Date();
-      let tag = localStorage.getItem(_src + "entry") ?? "";
-
-      let entry = {
-        ratio: '8:9',
-        countIncrementalSlides: false,
-        highlightStyle: 'idle',
-        sourceUrl: 'md/' + _src + '_entry.html',
-        navigation: {
-          scroll: true,
-          touch: false,
-          click: false,
-        },
-        tooltip: {
-          position: 'right',
-          size: 'large'
-        },
-        sublink: {
-          pre: '',
-          kind: 'num'
-        },
-        qanvas: {
-          layout: 'horizontal',
-          pensize: 1
-        },
-        quizzes: {
-          poll: 'lc',
-          date: '2024-9-23',
-          alt: true,
-          hide: true
-        },
-        todo: {
-          name: _src
-        },
-        cursor: {
-          circle: false,
-          timeball: -1
-        },
-        entry: {
-          poll: 'lc',
-          alt: true,
-          hide: true,
-          tag: _src
-        }
-      };
-      function entryf() {
-        renderMath();
-        initCoding();
-        initAhref();
-        initReddit();
-      }
-      
-      let _o = (cur >= ans || tag === MD5(_src + "entry")) ? main  : entry ;
-      let _f = (cur >= ans || tag === MD5(_src + "entry")) ? mainf : entryf;
-
-      var slideshow = remark.create(_o, _f);
+      var slideshow = remark.create(main, mainf);
     </script>
   </body>
 </html>
