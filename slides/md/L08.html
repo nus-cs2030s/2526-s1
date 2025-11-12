@@ -1,0 +1,1529 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: L08
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L08: Lambda & Lazy
+
+.abs.top2.rt4[.img110[![QR](img/dcsaysp.png)]]
+
+---
+name: Function
+class: sections
+
+.topsub.subsections[
+### Pure
+#### Motivation #1
+]
+.botbody.oldsections[
+#### Motivation #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+What is the result of the following highlighted code?
+]
+]
+]
+
+.col50[
+.font18[
+```java[lite=12-16]
+class Box {
+  private int val;
+​
+  public Box(int val) {
+    this.val = val;
+  }
+​
+  public int getVal() {
+    return val;
+  }
+​
+  public int add(int x) {
+    ​
+    this.val += x;
+    return this.val;
+  }
+}
+```
+]
+]
+.col50[
+.font18[
+```java[lite=17]
+Box box = new Box(2030);
+​
+​
+​
+​
+​
+​
+// :
+// : 1000 lines omitted
+// :
+​
+​
+​
+​
+​
+​
+box.add(1010);
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Pure
+#### Motivation #1
+#### Motivation #2
+]
+.botbody.oldsections[
+#### Motivation #2
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+What is the result of the following highlighted code?
+]
+]
+]
+
+.col50[
+.font18[
+```java[lite=12-16]
+class Box {
+  private int val;
+​
+  public Box(int val) {
+    this.val = val;
+  }
+​
+  public int getVal() {
+    return val;
+  }
+​
+  public int add(int x,
+      int y) {
+    this.val += x + y;
+    return x + y;
+  }
+}
+```
+]
+]
+.col50[
+.font18[
+```java[lite=17]
+Box box = new Box(2030);
+​
+​
+​
+​
+​
+​
+// :
+// : 1000 lines omitted
+// :
+​
+​
+​
+​
+​
+​
+box.add(1101, 2040);
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Pure
+#### Motivation #1
+#### Motivation #2
+#### Motivation #3
+]
+.botbody.oldsections[
+#### Motivation #3
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+What is the result of the following highlighted code?
+]
+]
+]
+
+.col50[
+.font18[
+```java[lite=8-10]
+class Box {
+  private int val;
+​
+  public Box(int val) {
+    this.val = val;
+  }
+​
+  public int getVal() {
+    return val;
+  }
+​
+  public int add(int x,
+      int y) {
+    this.val += x + y;
+    return x + y;
+  }
+}
+```
+]
+]
+.col50[
+.font18[
+```java[lite=17]
+Box box = new Box(2030);
+​
+​
+​
+​
+​
+​
+// :
+// : 1000 lines omitted
+// :
+​
+​
+​
+​
+​
+​
+box.getVal();
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Pure
+#### Motivation #1
+#### Motivation #2
+#### Motivation #3
+#### Motivation #4
+]
+.botbody.oldsections[
+#### Motivation #4
+
+.col100[
+.img70.center[![Impure](img/08-impure.jpg)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Pure
+#### Motivation #1
+#### Motivation #2
+#### Motivation #3
+#### Motivation #4
+#### Definition
+]
+.botbody.oldsections[
+#### Definition
+
+
+.col40[
+.fsize60.X.right[X]
+
+.card.bg-b.rvl[
+##### .right[Domain]
+]
+]
+.col20[
+.fsize60.center[&rarr;]
+
+.card.bg-w.rvl[
+##### .center[mapped to]
+]
+]
+.col40[
+.fsize60.X[Y]
+
+.card.bg-b.rvl[
+##### Codomain
+]
+]
+
+.vs10[]
+
+.col100.rvl-step[
+.atbl.ylhead.font18[
+| Properties | Description |
+|---|---|
+| .X[Total] | Every input in the domain must map to exactly one output. |
+| .X[Referentially Transparent] | Identical input mapped to identical output. |
+| .X[No Side Effect] | Simply computes and returns the value. |
+].rvl-num[2]
+]
+
+.vs10[]
+
+.col100.rvl-step[
+.card.bg-y[
+##### Side-Effect
+.content.tight[
+- Print to the screen
+- Write to fields
+- Throw exceptions
+- Modify fields .note14[(reassignment/mutation)]
+- Modify the arguments .note14[(mutation)]
+]
+].rvl-num[3]
+]
+]
+
+---
+
+.topsub.subsections[
+### Pure
+#### Motivation #1
+#### Motivation #2
+#### Motivation #3
+#### Motivation #4
+#### Definition
+#### Quiz #1
+]
+.botbody.oldsections[
+#### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Which of the following is .X.drdtxt[not] a .X[pure function]?  Select all options that apply.
+]
+]
+]
+
+.vs10[]
+
+.col50[
+.font18[
+```java[copy=nones]
+int one(int i) {
+  return 1;
+}
+```
+]
+]
+.col50[
+.font18[
+```java[copy=nones]
+int div(int i, int j) {
+  return i / j;
+}
+```
+]
+]
+.col50[
+.font18[
+```java[copy=nones]
+int add(int i, int j) {
+  return i + j;
+}
+```
+]
+]
+.col50[
+.font18[
+```java[copy=nones]
+int rng() {
+  return 0 * rand();
+} // rand() is random
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`one`] .quiz-ans[0] .quiz-hint[NO: this is pure]
+1. .quiz-choice[`div`] .quiz-ans[1] .quiz-hint[YES: may throw exception]
+1. .quiz-choice[`add`] .quiz-ans[0] .quiz-hint[NO: this is pure]
+1. .quiz-choice[`rng`] .quiz-ans[0] .quiz-hint[NO: this is pure]
+
+.quizzes-time[90]
+.quizzes-link[dX2d3IaaoYuaRpfJ9hSGP]
+]
+]
+
+---
+
+.topsub.subsections[
+### Pure
+### Higher-Order
+#### Motivation
+]
+.botbody.oldsections[
+#### Motivation
+
+.col100[
+.font18[
+```java
+class IntSeq {
+  private int[] arr;
+  private int n;      // number of elements
+  // : code omitted
+}
+```
+]
+]
+
+.col50[
+.card.bg-r[
+##### +1
+.content.tight[
+`addOne` .X[add] 1 to each element in `arr`.
+]
+]
+]
+.col50[
+.card.bg-r[
+##### *2
+.content.tight[
+`timesTwo` .X[multiply] each element in `arr` by 2.
+]
+]
+]
+
+.vs10[]
+
+.col50.rvl-step[
+.font18[
+```java
+void addOne() {
+  for (int i=0; i<n; i++) {
+    this.arr[i] += 1;
+  }
+}
+```
+]
+.rvl-num[1]
+]
+.col50.rvl-step[
+.font18[
+```java
+void timesTwo() {
+  for (int i=0; i<n; i++) {
+    this.arr[i] *= 2;
+  }
+}
+```
+]
+.rvl-num[1]
+]
+
+.vs10[]
+
+.col100.rvl-step[
+.card.bg-y[
+##### New Functionality
+.content.tight[
+Now add a new functionality .note20[(e.g., multiply by 3)].
+]
+]
+.rvl-num[2]
+]
+]
+.op0[>]
+
+---
+
+.topsub.subsections[
+### Pure
+### Higher-Order
+#### Motivation
+#### First-Class
+]
+.botbody.oldsections[
+#### First-Class
+
+.col100[
+.card.bg-b[
+##### Higher-Order Function
+.content.tight[
+A function .X[F] is a .X[higher-order function] if .X[F] behaves like any _arbitrary_ variable.  We can also say that function is now a .X[first-class] citizen in the language.
+]
+.content.tight[
+1. Can be .X[assigned] to another variable.
+2. Can be .X[passed as arguments] to a function.
+3. Can be .X[returned as a return value] from a function.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Pure
+### Higher-Order
+#### Motivation
+#### First-Class
+#### Step #1
+]
+.botbody.oldsections[
+#### Step #1: An Instance
+
+.col100[
+.card.bg-b[
+##### Higher-Order Function
+.content.tight[
+A function .X[F] is a .X[higher-order function] if .X[F] behaves like any _arbitrary_ variable.  We can also say that function is now a .X[first-class] citizen in the language.
+]
+.content.tight[
+1. Can be .X[assigned] to another variable.
+2. Can be .X[passed as arguments] to a function.
+3. Can be .X[returned as a return value] from a function.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font18[
+```java
+class Fun {
+  public int call(int x) {
+    return x + 1;
+  }
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Pure
+### Higher-Order
+#### Motivation
+#### First-Class
+#### Step #1
+#### Step #2
+]
+.botbody.oldsections[
+#### Step #2: Interface
+
+.col100[
+.card.bg-b[
+##### Higher-Order Function
+.content.tight[
+A function .X[F] is a .X[higher-order function] if .X[F] behaves like any _arbitrary_ variable.  We can also say that function is now a .X[first-class] citizen in the language.
+]
+.content.tight[
+1. Can be .X[assigned] to another variable.
+2. Can be .X[passed as arguments] to a function.
+3. Can be .X[returned as a return value] from a function.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font18[
+```java
+interface Fun {
+  int call(int x);
+  // the implementation is
+  // left to the user
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Pure
+### Higher-Order
+#### Motivation
+#### First-Class
+#### Step #1
+#### Step #2
+#### Step #3
+]
+.botbody.oldsections[
+#### Step #3: Generic
+
+.col100[
+.card.bg-b[
+##### Higher-Order Function
+.content.tight[
+A function .X[F] is a .X[higher-order function] if .X[F] behaves like any _arbitrary_ variable.  We can also say that function is now a .X[first-class] citizen in the language.
+]
+.content.tight[
+1. Can be .X[assigned] to another variable.
+2. Can be .X[passed as arguments] to a function.
+3. Can be .X[returned as a return value] from a function.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font18[
+```java
+interface Fun<T, R> {
+  R   call(T   x);
+  // the implementation is
+  // left to the user
+}
+```
+]
+]
+
+.col100[
+.card.notes[
+##### Note
+.content.tight[
+This is simply our .X[`Transformer`] class!  This is also [.U[Java Function]](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Function.html).
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Pure
+### Higher-Order
+#### Motivation
+#### First-Class
+#### Step #1
+#### Step #2
+#### Step #3
+#### Function
+]
+.botbody.oldsections[
+#### Functional Interface
+
+.col100[
+.card.bg-b[
+##### Functional Interface
+.content.tight[
+A .X[functional interface] is an .U[interface] with .X[a single abstract method].
+]
+]
+]
+
+.col100[]
+
+.col100[
+#### Function&lt;T, R&gt;
+
+<iframe class="inline-frame" id="ifrm1" src="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Function.html" width="100%" height="450px" frameborder="0" ></iframe>
+]
+]
+
+---
+
+.topsub.subsections[
+### Pure
+### Higher-Order
+#### Motivation
+#### First-Class
+#### Step #1
+#### Step #2
+#### Step #3
+#### Function
+#### Quiz #1
+]
+.botbody.oldsections[
+#### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the following implementation of .X[`apply`] in `Seq<T>`.  What is the .X[most flexible type] for parameter `f` in the method `apply`?
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font18[
+```java[lite=4]
+class Seq<T> {
+  private T[] arr;
+  // : code omitted
+  public void apply(Fun<T, T> f) {
+    for (int i = 0; i < arr.length; i++) {
+      this.arr[i] = f.call(this.arr[i])
+    }
+  }
+}
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`Fun<? extends T, ? extends T>`] .quiz-ans[0] .quiz-hint[NO: param cannot be subtype of `T`]
+1. .quiz-choice[`Fun<? extends T, ? super T>`] .quiz-ans[0] .quiz-hint[NO: param cannot be subtype of `T`]
+1. .quiz-choice[`Fun<? super T, ? extends T>`] .quiz-ans[1] .quiz-hint[YES: this follows PECS]
+1. .quiz-choice[`Fun<? super T, ? super T>`] .quiz-ans[0] .quiz-hint[NO: return cannot be supertype of `T`]
+
+.quizzes-time[90]
+.quizzes-link[kt5w9AVg00rYSl8i0Dah7]
+]
+]
+
+---
+
+name: Break
+class: middle, break
+
+# Break
+
+<br>
+
+## <i class="fa-regular fa-clock break-icon"></i>
+
+---
+name: Lambda
+class: sections
+
+.topsub.subsections[
+### Arrow
+#### Motivation
+]
+.botbody.oldsections[
+#### Motivation
+
+.col100[
+.card.bg-r[
+##### Returning a Function
+.content.tight[
+Implement a function .X[`mul`] that .X[returns a function] to multiply a number by 2.
+]
+]
+]
+
+.vs10[]
+
+.col100.rvl-tgl[
+.font16[
+```java
+class Main {
+  public static Fun<Integer, Integer> mul() {
+    Fun<Integer, Integer> res = new Mul2(n);
+    return res;
+  }
+}
+```
+]
+]
+.col100.rvl-tgl[
+.font16[
+```java[lite=4]
+class Mul2 implements Fun<Integer, Integer> {
+  @Override
+  public Integer call(Integer n) {
+    return n * 2;
+  }
+}
+```
+]
+]
+]
+
+.abs.top2.rt0[
+.font16[
+```java[copy=nones]
+@FunctionalInterface
+interface Fun<T, R> {
+  R call(T x);
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Arrow
+#### Motivation
+#### Step #1
+]
+.botbody.oldsections[
+#### Step #1: Anonymous Class
+
+.col100[
+.card.bg-r[
+##### Returning a Function
+.content.tight[
+Implement a function .X[`mul`] that .X[returns a function] to multiply a number by 2.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font16[
+```java[lite=3-10]
+class Main {
+  public static Fun<Integer, Integer> mul() {
+    Fun<Integer, Integer> res = new Fun<Integer, Integer>() {
+        /* T */  /* R */                /* T */  /* R */
+      @Override
+      public    Integer     call(Integer n)    {
+                /* R */          /* T */
+        return n * 2;
+      }
+    };
+    return res;
+  }
+}
+```
+]
+]
+]
+
+.abs.top2.rt0[
+.font16[
+```java[copy=nones]
+@FunctionalInterface
+interface Fun<T, R> {
+  R call(T x);
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Arrow
+#### Motivation
+#### Step #1
+#### Step #2
+]
+.botbody.oldsections[
+#### Step #2: Remove Unnecessary Information
+
+.col100[
+.card.bg-r[
+##### Returning a Function
+.content.tight[
+Implement a function .X[`mul`] that .X[returns a function] to multiply a number by 2.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font16[
+```java[lite=3-10]
+class Main {
+  public static Fun<Integer, Integer> mul() {
+    Fun<Integer, Integer> res = new Fun<                >() {
+        /* T */  /* R */                /* T */  /* R */
+      @Override
+      public                call(        n)    {
+                /* R */          /* T */
+        return n * 2;
+      }
+    };
+    return res;
+  }
+}
+```
+]
+]
+]
+
+.abs.top2.rt0[
+.font16[
+```java[copy=nones]
+@FunctionalInterface
+interface Fun<T, R> {
+  R call(T x);
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Arrow
+#### Motivation
+#### Step #1
+#### Step #2
+]
+.botbody.oldsections[
+#### Step #2: Remove Unnecessary Information
+
+.col100[
+.card.bg-r[
+##### Returning a Function
+.content.tight[
+Implement a function .X[`mul`] that .X[returns a function] to multiply a number by 2.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font16[
+```java[lite=3-10]
+class Main {
+  public static Fun<Integer, Integer> mul() {
+    Fun<Integer, Integer> res = new Fun<                >() {
+        /* T */  /* R */                /* T */  /* R */
+               ​
+                            call(        n)    {
+                /* R */          /* T */
+        return n * 2;
+      }
+    };
+    return res;
+  }
+}
+```
+]
+]
+.col100[
+]
+]
+.abs.top2.rt0[
+.font16[
+```java[copy=nones]
+@FunctionalInterface
+interface Fun<T, R> {
+  R call(T x);
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Arrow
+#### Motivation
+#### Step #1
+#### Step #2
+]
+.botbody.oldsections[
+#### Step #2: Remove Unnecessary Information
+
+.col100[
+.card.bg-r[
+##### Returning a Function
+.content.tight[
+Implement a function .X[`mul`] that .X[returns a function] to multiply a number by 2.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font16[
+```java[lite=3-10]
+class Main {
+  public static Fun<Integer, Integer> mul() {
+    Fun<Integer, Integer> res =                              
+        /* T */  /* R */                /* T */  /* R */
+               ​
+                                (        n)    {
+                /* R */          /* T */
+        return n * 2;
+      }
+     ;
+    return res;
+  }
+}
+```
+]
+]
+.col100[
+]
+]
+.abs.top2.rt0[
+.font16[
+```java[copy=nones]
+@FunctionalInterface
+interface Fun<T, R> {
+  R call(T x);
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Arrow
+#### Motivation
+#### Step #1
+#### Step #2
+#### Step #3
+]
+.botbody.oldsections[
+#### Step #3: Simplify
+
+.col100[
+.card.bg-r[
+##### Returning a Function
+.content.tight[
+Implement a function .X[`mul`] that .X[returns a function] to multiply a number by 2.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font16[
+```java[emph=3,6,8-10]
+class Main {
+  public static Fun<Integer, Integer> mul() {
+    Fun<Integer, Integer> res =                              
+        /* T */  /* R */                /* T */  /* R */
+               ​
+                                (        n)    {
+                /* R */          /* T */
+        return n * 2;
+      }
+     ;
+    return res;
+  }
+}
+```
+]
+]
+.col100.rvl-tgl[
+.font16[
+```java
+    Fun<Integer, Integer> res = (        n) -> {
+        return n * 2;
+      }
+     ;
+```
+]
+]
+]
+.abs.top2.rt0[
+.font16[
+```java[copy=nones]
+@FunctionalInterface
+interface Fun<T, R> {
+  R call(T x);
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Arrow
+#### Motivation
+#### Step #1
+#### Step #2
+#### Step #3
+]
+.botbody.oldsections[
+#### Step #3: Simplify
+
+.col100[
+.card.bg-r[
+##### Returning a Function
+.content.tight[
+Implement a function .X[`mul`] that .X[returns a function] to multiply a number by 2.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font16[
+```java[emph=3,6,8-10]
+class Main {
+  public static Fun<Integer, Integer> mul() {
+    Fun<Integer, Integer> res =                              
+        /* T */  /* R */                /* T */  /* R */
+               ​
+                                (        n)    {
+                /* R */          /* T */
+        return n * 2;
+      }
+     ;
+    return res;
+  }
+}
+```
+]
+]
+.col100.unrvl-tgl[
+.font16[
+```java
+    Fun<Integer, Integer> res = (n) -> { return n * 2; };
+```
+].rvl-num[1].unrvl-num[2]
+]
+.col100.rvl-tgl[
+.font16[
+```java
+    Fun<Integer, Integer> res =  n  ->          n * 2   ;
+```
+]
+]
+]
+.abs.top2.rt0[
+.font16[
+```java[copy=nones]
+@FunctionalInterface
+interface Fun<T, R> {
+  R call(T x);
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Arrow
+#### Motivation
+#### Step #1
+#### Step #2
+#### Step #3
+#### Syntax
+]
+.botbody.oldsections[
+#### Syntax
+
+.col50[
+##### No Parameters
+```java
+() -> expr
+```
+]
+.col50[
+##### Single Parameter
+```java
+param -> expr
+```
+]
+
+.col100[
+##### Multiple Parameters
+```java
+(param1, param2) -> expr
+```
+]
+
+.col100[
+##### Multi-Line Body
+```java
+(param1, param2) -> {
+  body;
+  return expr;
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Arrow
+#### Motivation
+#### Step #1
+#### Step #2
+#### Step #3
+#### Syntax
+#### Quiz #1
+]
+.botbody.oldsections[
+#### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+What is the output of the following function?
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font18[
+```java[lite=2]
+Fun<Integer, Fun<Integer, Integer>> f = x -> y -> y - x;
+f.call(3).call(5);
+```
+]
+]
+.col100.rel.inblock[
+<pre class="text-editor editor14" id="arrow_editor" style="height:250px">
+</pre>
+]
+
+.mrq[
+1. .quiz-choice[Error] .quiz-ans[0] .quiz-hint[NO: there is no error]
+1. .quiz-choice[`-2`] .quiz-ans[0] .quiz-hint[NO: wrong order]
+1. .quiz-choice[`2`] .quiz-ans[1] .quiz-hint[YES: correct order]
+1. .quiz-choice[`8`] .quiz-ans[0] .quiz-hint[NO: not an addition]
+
+.quizzes-time[90]
+.quizzes-link[WZBlWf9GWWa6WAnJT2eEU]
+]
+]
+
+---
+
+.topsub.subsections[
+### Arrow
+#### Motivation
+#### Step #1
+#### Step #2
+#### Step #3
+#### Syntax
+#### Quiz #1
+#### Quiz #2
+]
+.botbody.oldsections[
+#### Quiz #2
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+What is the output of the following function?
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font18[
+```java
+class Box {
+  private int x = 1;
+  public int f(int n) {
+    Fun<Integer, Integer> f = m -> this.x + m;
+    return f.call(n);
+  }
+}
+```
+```java[lite=1]
+new Box().f(3)
+```
+]
+]
+.col100.rel.inblock[
+<pre class="text-editor editor14" id="arrow_editor2" style="height:100px">
+</pre>
+]
+
+.mrq[
+1. .quiz-choice[Error] .quiz-ans[0] .quiz-hint[NO: there is no error]
+1. .quiz-choice[`3`] .quiz-ans[1] .quiz-hint[YES: is it straightforward?]
+1. .quiz-choice[`2`] .quiz-ans[0] .quiz-hint[NO: 1 + 2 = 3]
+1. .quiz-choice[`1`] .quiz-ans[0] .quiz-hint[NO: 1 + 2 = 3]
+
+.quizzes-time[90]
+.quizzes-link[SoDokTJ1V2uAW9nufkqST]
+]
+]
+
+---
+
+.topsub.subsections[
+### Arrow
+### Closure
+#### Motivation
+]
+.botbody.oldsections[
+#### Motivation
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+You are hungry, find the .X[nearest restaurant] from your location!  Then go there...
+]
+]
+]
+
+.vs10[]
+
+.col100.rvl-step.unrvl-step[
+.font18[
+```java
+Seq<Point> restaurants = new Seq<>(..);
+Point location = new Point(0, 0);
+restaurants.apply(rest -> location.quad(rest));
+​
+​
+```
+].rvl-num[1].unrvl-num[2]
+]
+.col100.rvl-step[
+.font18[
+```java[lite=4]
+Seq<Point> restaurants = new Seq<>(..);
+Point location = new Point(0, 0);
+restaurants.apply(rest -> location.quad(rest));
+location = restaurants.getSmallest();
+// left as an exercise ...
+```
+].rvl-num[2]
+]
+]
+
+---
+
+.topsub.subsections[
+### Arrow
+### Closure
+#### Motivation
+#### Reference
+]
+.botbody.oldsections[
+#### Method Reference
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+You are hungry, find the .X[nearest restaurant] from your location!  Then go there...
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font18[
+```java[lite=3]
+Seq<Point> restaurants = new Seq<>(..);
+Point location = new Point(0, 0);
+restaurants.apply( location::quad );   // avoids capture!
+location = restaurants.getSmallest();
+// left as an exercise ...
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Arrow
+### Closure
+#### Motivation
+#### Reference
+#### Equivalence
+]
+.botbody.oldsections[
+#### Equivalence
+
+.col100[
+.atbl.blhead.font16[
+| Method Reference | Equivalent |
+|---|---|
+| .X[`object::f`]<br>.op0[....].note12[`object` is an instance] | .op0[`.....`]`x -> object.f(x)`<br>`(x, y) -> object.f(x, y)` |
+| .X[`Class::f`]<br>.op0[....].note12[`Class` is a class name].op0[.]/.op0[.].note12[`f` is an instance method] | .op0[`...`]`(x, y) -> x.f(y)`<br>`(x, y, z) -> x.f(y, z)` |
+| .X[`Class::f`]<br>.op0[....].note12[`Class` is a class name].op0[.]/.op0[.].note12[`f` is a class method] | .op0[`...`]`(x, y) -> Class.f(x, y)`<br>`(x, y, z) -> Class.f(x, y, z)` |
+]
+]
+
+.col50[
+.font16[
+```java
+interface Fn<T> {
+  T call(T t1, T t2);
+}
+A a = new A();
+```
+]
+]
+.col50[
+.font16[
+```java
+class A {
+  int foo(int x) { .. }
+  int bar(int x, int y) { .. }
+}
+```
+]
+]
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Which of the following assignment can be .X[compiled without error]?  Select ALL options that apply.
+]
+]
+]
+
+.mrq[
+1. .quiz-choice[`Fn<Integer, Integer> g = a::foo`] .quiz-ans[0] .quiz-hint[NO:: `foo` takes 1 param only]
+1. .quiz-choice[`Fn<A, Integer> g = A::foo`] .quiz-ans[1] .quiz-hint[YES: using rule at line 2]
+1. .quiz-choice[`Fn<Integer, Integer> g = a::bar`] .quiz-ans[1] .quiz-hint[YES: using rule at line 1]
+1. .quiz-choice[`Fn<Integer, Integer> g = A::bar`] .quiz-ans[0] .quiz-hint[NO: `bar` is not class method]
+
+.quizzes-time[120]
+.quizzes-link[hPwcoa4MFr29IlIlCoPA4]
+]
+]
+
+---
+name: Lazy
+class: sections
+
+.topsub.subsections[
+### Motivation
+]
+.botbody.oldsections[
+### Motivation
+#### Logging
+
+.col100[
+.font18[
+```java
+class Logger {
+  enum LogLevel { INFO, WARNING, ERROR };
+
+  public static LogLevel currLogLevel = LogLevel.WARNING;
+  
+  static void log(LogLevel level, String msg) {
+    if (level.compareTo(Logger.currLogLevel) >= 0) {
+      System.out.println(" [" + level + "] "
+          + msg);
+    }
+  }
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Lazy
+#### Step 1
+]
+.botbody.oldsections[
+#### Step 1: Procrastinate
+
+.col100[
+.font18[
+```java[lite=6,8-9]
+class Logger {
+  enum LogLevel { INFO, WARNING, ERROR };
+
+  public static LogLevel currLogLevel = LogLevel.WARNING;
+  
+  static void log(LogLevel level, Producer<String> msg) {
+    if (level.compareTo(Logger.currLogLevel) >= 0) {
+      System.out.println(" [" + level + "] "
+          + msg.produce());
+    }
+  }
+}
+```
+]
+
+.card.bg-b[
+##### Procrastinate
+.content.tight[
+Only compute if it is really necessary.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Lazy
+#### Step 1
+#### Step 2
+]
+.botbody.oldsections[
+#### Step 2: Memoize
+
+.col100[
+.font18[
+```java[lite=6,8-9]
+class Logger {
+  enum LogLevel { INFO, WARNING, ERROR };
+
+  public static LogLevel currLogLevel = LogLevel.WARNING;
+  
+  static void log(LogLevel level, Lazy<String> msg) {
+    if (level.compareTo(Logger.currLogLevel) >= 0) {
+      System.out.println(" [" + level + "] "
+          + msg.get());
+    }
+  }
+}
+```
+]
+
+.card.bg-b[
+##### Memoize
+.content.tight[
+Do not repeat computation.
+]
+]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]

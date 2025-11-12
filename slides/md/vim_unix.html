@@ -1,0 +1,1952 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Bootcamp
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### Bootcamp: Unix + Vim
+
+.abs.top2.rt4[.img110[![QR](img/dcsaysp.png)]]
+
+---
+
+name: Unix
+class: sections
+
+.topsub.subsections[
+### Starting
+]
+.botbody.oldsections[
+#### Windows
+.col50[
+##### Command Prompt
+![cmd](img/unix-cmd.png)
+]
+.col50[
+##### PowerShell
+![pws](img/unix-pws.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+#### SSH
+]
+.botbody.oldsections[
+#### SSH
+
+```sh
+ssh <username>@pelogin.comp.nus.edu.sg
+```
+
+.col100[
+![ssh](img/vim/01.png)
+]
+
+
+
+.col50[
+.card.notes[
+##### Note
+.content.tight[
+`<username>` is your SoC Unix account username.
+]
+]
+]
+.col50[
+.card.bg-b[
+##### Useful Links
+.content.tight[
+- .U[[Create account](https://mysoc.nus.edu.sg/~newacct/)]
+- .U[[Reset password](https://mysoc.nus.edu.sg/~myacct/resetpass.cgi)]
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+#### SSH
+#### Password
+]
+.botbody.oldsections[
+#### Password
+
+```sh
+ssh <username>@pelogin.comp.nus.edu.sg
+```
+
+.col100[
+![pass](img/vim/02.png)
+]
+
+
+
+.col50[
+.card.notes[
+##### Note
+.content.tight[
+Your password will .X.drdtxt[not] be echoed back.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+#### SSH
+#### Password
+#### Homepage
+]
+.botbody.oldsections[
+#### Homepage
+
+```sh
+ssh <username>@pelogin.comp.nus.edu.sg
+```
+
+.col100[
+![home](img/vim/03.png)
+]
+
+
+
+.col50[
+.card.notes[
+##### Note
+.content.tight[
+Practical exam will be in .X[EXAM] mode.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+#### Current Directory
+]
+.botbody.oldsections[
+#### Current Directory
+
+```sh
+pwd
+```
+
+.col100[
+![pwd](img/vim/04.png)
+]
+
+
+
+.col100[
+.card.bg-y[
+##### pwd
+.content.tight.nol[
+- .X.U[p]rint &nbsp; .X.U[w]orking &nbsp;
+- .X.U[d]irectory
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+#### Current Directory
+#### List Directory
+]
+.botbody.oldsections[
+#### List Directory
+
+```sh
+ls
+```
+
+.col100[
+![ls](img/vim/05.png)
+]
+
+
+
+.col100[
+.card.bg-y[
+##### ls
+.content.tight.nol[
+- .X.U[l]i.X.U[s]t
+- directory
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+#### Current Directory
+#### List Directory
+]
+.botbody.oldsections[
+#### List Directory
+
+```sh
+ls -al
+```
+
+.col100[
+![lsal](img/vim/06.png)
+]
+
+
+
+.col50[
+.card.bg-y[
+##### ls
+.content.tight.nol[
+- .X.U[l]i.X.U[s]t
+- directory
+]
+]
+]
+.col50[
+.card.bg-b[
+##### Flags
+.content.tight[
+- .X[`a`]: show .U[a]ll .note16[(include hidden)]
+- .X[`l`]: .U[l]ong info
+]
+]
+]
+]
+.footnote[For a more _human-readable_ information, use .X[`ls -lah`].]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+#### Current Directory
+#### List Directory
+]
+.botbody.oldsections[
+#### List Directory
+
+```sh
+ls -al
+```
+
+.col100.font14[
+```text
+-rwxrw-r--    10    root   root 2048    Jan 13 07:11 afile.exe
+?UUUGGGOOOS   00  UUUUUU GGGGGG ####    MON DD XX:XX FILENAME
+^ ^  ^  ^             ^      ^    ^      ^            ^
+| |  |  |             |      |    |      |            |
+| |  |  |             |      |    |      |             Filename
+| |  |  |             |      |    |      Time of last modification
+| |  |  |             |      |    File Size
+| |  |  |             |      Group Name
+| |  |  |             Owner Acct
+| +--+--+       
+|    |                      
+|    Read, Write and Special access
+File[-] / Dir[d] Flag
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+#### Current Directory
+#### List Directory
+#### Make Directory
+]
+.botbody.oldsections[
+#### Make Directory
+
+```sh
+mkdir <dirname>
+```
+
+.col100[
+![mkdir](img/vim/07.png)
+]
+
+
+
+.col100[
+.card.bg-y[
+##### mkdir
+.content.tight.nol[
+- .X.U[m]a.X.U[k]e
+- .X.U[dir]ectory
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+#### Current Directory
+#### List Directory
+#### Make Directory
+#### Change Directory
+]
+.botbody.oldsections[
+#### Change Directory
+
+```sh
+cd <dirname>
+```
+
+.col100[
+![cd](img/vim/08.png)
+]
+
+
+
+.col50[
+.card.bg-y[
+##### cd
+.content.tight.nol[
+- .X.U[c]hange
+- .X.U[d]irectory
+]
+]
+]
+]
+.col50[
+.card.bg-y[
+##### Shortcuts
+.content.tight[
+- .X[`/`]: Root .note16[(do not enter)]
+- .X[`~`]: Home directory
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+#### Current Directory
+#### List Directory
+#### Make Directory
+#### Change Directory
+]
+.botbody.oldsections[
+#### Change Directory
+
+```sh
+cd <dirname>
+```
+
+.col100.font14[
+```text
+<username>@<hostname>: ~/dir1/dir2$
+  ^           ^        ^  ^   ^   ^  ^
+  |           |        |  |   |   |  |
+  |           |        |  |   |   |  Your code here
+  |           |        |  +-+-+   Prompt
+  |           |        |    |
+  |           |        |    Current Sub Directory
+  |           |        Home Directory
+  |           Hostname (peXXX)
+  Username (SoC Unix)
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+### File Manipulation
+#### Create
+]
+.botbody.oldsections[
+#### Create
+
+```sh
+touch <filename>
+```
+
+.col100[
+![touch](img/vim/09.png)
+]
+
+
+
+.col50[
+.card.bg-y[
+##### touch
+.content.tight.nol[
+- Touch a file, you put your
+- ".X.U[_fingerprint_]" on the file
+]
+]
+]
+]
+.col50[
+.card.notes[
+##### Note
+.content.tight.nol[
+- We will be using `vim`
+- to create/edit file
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+### File Manipulation
+#### Create
+#### Copy
+]
+.botbody.oldsections[
+#### Copy
+
+```sh
+cp <src> <dst>
+```
+
+.col100[
+![cp](img/vim/10.png)
+]
+
+
+
+.col50[
+.card.bg-y[
+##### cp
+.content.tight.nol[
+- .X.U[c]o.X.U[p]y
+- file/directory
+]
+]
+]
+]
+.col50[
+.card.notes[
+##### Note
+.content.tight.nol[
+- Destination can be in
+- .X[different] directory
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+### File Manipulation
+#### Create
+#### Copy
+#### Remove
+]
+.botbody.oldsections[
+#### Remove
+
+```sh
+rm <name>
+```
+
+.col100[
+![cp](img/vim/11.png)
+]
+
+
+
+.col50[
+.card.bg-y[
+##### rm
+.content.tight.nol[
+- .X.U[r]e.X.U[m]ove
+- file/directory
+]
+]
+]
+]
+.col50[
+.card.bg-b[
+##### Flags
+.content.tight.nol[
+- .X[`r`]: recursive .note16[(include dir)]
+- .X[`f`]: forced .note16[(use with caution!)]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+### File Manipulation
+#### Create
+#### Copy
+#### Remove
+#### Move
+]
+.botbody.oldsections[
+#### Move
+
+```sh
+mv <src> <dst>
+```
+
+.col100[
+![cp](img/vim/12.png)
+]
+
+
+
+.col50[
+.card.bg-y[
+##### mv
+.content.tight.nol[
+- .X.U[m]o.X.U[v]e
+- file/directory
+]
+]
+]
+]
+.col50[
+.card.bg-b[
+##### Renaming
+.content.tight.nol[
+- Destination can be in 
+- .X[same] directory
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+### File Manipulation
+#### Create
+#### Copy
+#### Remove
+#### Move
+#### Read
+]
+.botbody.oldsections[
+#### Read
+
+```sh
+cat <filename>
+```
+
+.col100[
+![cat](img/vim/13.png)
+]
+
+
+
+.col50[
+.card.bg-y[
+##### cat
+.content.tight.nol[
+- con.X.U[cat]enate
+- text
+]
+]
+]
+]
+.col50[
+.card.notes[
+##### Note
+.content.tight.nol[
+- Useful for small file,
+- no so for large file
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+### File Manipulation
+#### Create
+#### Copy
+#### Remove
+#### Move
+#### Read
+]
+.botbody.oldsections[
+#### Read
+
+```sh
+less <filename>
+```
+
+.col100[
+![cat](img/vim/14.png)
+]
+
+
+
+.col50[
+.card.bg-y[
+##### less
+.content.tight.nol[
+- .X.U[less]
+- is more?
+]
+]
+]
+]
+.col50[
+.card.bg-b[
+##### Navigation
+.content.tight.nol[
+- ↑ &nbsp; ↓ &nbsp; ← &nbsp; →
+- .X[`q`]uit
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+### File Manipulation
+### Help
+]
+.botbody.oldsections[
+#### Manual
+
+```sh
+man <command>
+```
+
+.col100[
+![cat](img/vim/15.png)
+]
+
+
+
+.col50[
+.card.bg-y[
+##### man
+.content.tight.nol[
+- user .X.U[man]ual
+- .note16[(like reference book)]
+]
+]
+]
+]
+.col50[
+.card.bg-b[
+##### Navigation
+.content.tight.nol[
+- ↑ &nbsp; ↓ &nbsp; ← &nbsp; →
+- .X[`q`]uit
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+### File Manipulation
+### Help
+### Shortcut
+#### Directory
+]
+.botbody.oldsections[
+#### Directory
+##### Root
+.col35[
+```sh[copy=nones]
+/
+```
+
+##### Home
+```sh[copy=nones]
+~
+```
+
+##### Current
+```sh[copy=nones]
+.
+```
+
+##### Parent
+```sh[copy=nones]
+..
+```
+]
+.ft65[
+.card.bg-y[
+##### Example #1
+.content.tight[
+Go to .U[_parent_] directory, then .X[`CS2030S`] directory, and then .X[`ex1`] directory.
+```sh[copy=nones]
+cd ../CS2030S/ex1
+```
+]
+]
+
+
+
+.card.bg-y[
+##### Example #2
+.content.tight[
+Copy .X[`test.txt`] to .X[`CS2030S`] directory inside .U[home] directory.
+```sh[copy=nones]
+cp test.txt ~/CS2030S/test.txt
+```
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Starting
+### Connecting
+### Navigating
+### File Manipulation
+### Help
+### Shortcut
+#### Directory
+#### Commands
+]
+.botbody.oldsections[
+#### Commands
+##### Command History
+.col35[
+```sh[copy=nones]
+↑
+```
+```sh[copy=nones]
+↓
+```
+
+##### Auto-Complete
+```sh[copy=nones]
+<tab>
+```
+
+##### Match 0 or More
+```sh[copy=nones]
+*
+```
+]
+.ft65[
+.card.bg-y[
+##### Example #1
+.content.tight[
+Delete .X[all `.class`] file .note16[(to ensure clean compilation, but be careful not to delete `.java` files)].
+```sh[copy=nones]
+rm *.class
+```
+]
+]
+
+
+
+.card.bg-y[
+##### Example #2
+.content.tight[
+Compile .X[all `.java`] file in the current directory.
+```sh[copy=nones]
+javac *.java
+```
+]
+]
+]
+]
+
+---
+
+name: VIM
+class: sections
+
+.topsub.subsections[
+### Setup
+#### Basic
+]
+.botbody.oldsections[
+#### Basic
+
+```sh
+cp /opt/course/cs2030s/.vimrc ~
+cp -r /opt/course/cs2030s/.vim ~
+mkdir ~/.backup
+```
+
+.col100[
+![setup](img/vim/16.png)
+]
+
+.col100[
+.card.bg-y[
+##### Check
+.content.tight[
+Make sure you have the following: .X[`.backup`], .X[`.vim`], and .X[`.vimrc`].
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+#### Basic
+#### Test
+]
+.botbody.oldsections[
+#### Test
+
+```sh
+vim .vimrc
+​
+​
+```
+
+.col100[
+![vimrc](img/vim/17.png)
+]
+
+.col100[
+.card.bg-y[
+##### Check
+.content.tight[
+You should see colorful screen with line numbers on the bottom right corner.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+#### Get
+]
+.botbody.oldsections[
+#### Get
+
+```sh
+/opt/course/cs2030s/get ex0
+​
+​
+```
+
+.col100[
+![get](img/vim/18.png)
+]
+
+.col100[
+.card.bg-r[
+##### Failed?
+.content.tight[
+- Have you filled in the Github username survey?
+- Have you setup [.X[`.gitconfig`]](https://nus-cs2030s.github.io/2526-s1/guides/github.html#1-setting-up-gitconfig)?
+- Have you setup [.X[password-less]](https://nus-cs2030s.github.io/2526-s1/guides/github.html#2-setting-up-password-less-login) login .note16[(with token)]?
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+#### Get
+#### Question
+]
+.botbody.oldsections[
+#### Question
+
+```sh
+cd ex0-<username>
+vim question.md
+​
+```
+
+.col100[
+![get](img/vim/20.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+#### Get
+#### Question
+#### Submit
+]
+.botbody.oldsections[
+#### Submit
+
+```sh
+/opt/course/cs2030s/submit ex0
+​
+​
+```
+
+.col100[
+![submit](img/vim/21.png)
+]
+
+
+
+.col100[
+.card.bg-y[
+##### Note
+.content.tight[
+Do this only after you finish working with your lab assignments .note16[(or if you are out of time)].
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+#### Get
+#### Question
+#### Submit
+]
+.botbody.oldsections[
+#### Submit
+
+```sh
+/opt/course/cs2030s/submit ex0
+​
+​
+```
+
+.col100[
+![submit](img/vim/23.png)
+]
+
+
+
+.col100[
+.card.warns[
+##### Warning
+.content.tight[
+If you have compilation error, you will be notified as you may not get useful comments from your TA.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+#### Get
+#### Question
+#### Submit
+]
+.botbody.oldsections[
+#### Submit
+
+.center[
+<video controls width="350" height="600px" muted><source src="vid/vim-recompile.mp4" type="video/mp4" /></video>
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+#### Get
+#### Question
+#### Submit
+#### History
+]
+.botbody.oldsections[
+#### History
+
+.op0[
+```sh
+/opt/course/cs2030s/submit ex0
+​
+​
+```
+]
+
+.col70[
+![history](img/vim/22.png)
+]
+
+.col30[
+.card.notes[
+##### Note
+.content.tight[
+You can view this on [.X[github]](https://github.com/).
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+#### Create/Open
+]
+.botbody.oldsections[
+#### Create/Open
+
+```sh
+vim Point.java
+```
+
+.col100[
+![open](img/vim/24.png)
+]
+
+
+
+.col100[
+.card.bg-y[
+##### Note
+.content.tight[
+If a file does not exist, it will be created and you will see .X[`[New File]`].
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+#### Create/Open
+#### Edit
+]
+.botbody.oldsections[
+#### Edit
+
+.col100[
+.card.bg-g[
+##### Steps
+.content.tight[
+1. Press .X[`i`] to go into .X[`INSERT`] mode .note16[(you will see .X[`-- INSERT --`])].
+2. Now you can type on the editor.
+]
+]
+]
+
+
+
+.col50[
+![edit01](img/vim/25a.png)
+]
+.col50[
+![edit02](img/vim/25b.png)
+]
+
+.col100[
+.card.bg-b[
+##### Modified?
+.content.tight[
+The .X[`[+]`] sign after the file name indicates that the file has been modified and not saved.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+#### Create/Open
+#### Edit
+#### Save
+]
+.botbody.oldsections[
+#### Save
+
+.col100[
+.card.bg-g[
+##### Steps
+.content.tight[
+1. Press .X[`<esc>`] to go into .X[`COMMAND`] mode.
+2. Type .X[`:w`] to save the file .note16[(`w` for .X[`w`]rite)].
+]
+]
+]
+
+
+
+.col50[
+![save01](img/vim/26a.png)
+]
+.col50[
+![save02](img/vim/26b.png)
+]
+
+.col100[
+.card.warns[
+##### Warning
+.content.tight.nol[
+It is more difficult to quit vim when there is unsaved work.
+You will need to force quit.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+#### Create/Open
+#### Edit
+#### Save
+#### Quit
+]
+.botbody.oldsections[
+#### Quit
+
+.col100[
+.card.bg-g[
+##### Steps
+.content.tight[
+1. Press `<esc>` to go into .X[`COMMAND`] mode.
+2. Type .X[`:q`] to quit vim .note16[(`q` for .X[`q`]uit)].
+]
+]
+]
+
+
+
+.col50[
+![quit01](img/vim/27a.png)
+]
+.col50[
+![quit02](img/vim/27b.png)
+]
+
+.col100[
+.card.bg-b[
+##### Force Quit
+.content.tight.nol[
+If the file is modified, use .X[`:q!`] to force quit without saving.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+#### Create/Open
+#### Edit
+#### Save
+#### Quit
+#### Compiling
+]
+.botbody.oldsections[
+#### Compiling
+
+```sh
+javac Test1.java
+```
+
+.col100[
+![compile](img/vim/28.png)
+]
+
+.col100[
+.card.notes[
+##### Note
+.content.tight.nol[
+No news is .X[good news].
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+#### Create/Open
+#### Edit
+#### Save
+#### Quit
+#### Compiling
+#### Running
+]
+.botbody.oldsections[
+#### Running
+
+```sh
+java Test1
+```
+
+.col100[
+![run](img/vim/29.png)
+]
+
+.col50[
+.card.bg-b[
+##### Todo
+.content.tight[
+Check that all are `ok`.
+]
+]
+]
+.col50[
+.card.warns[
+##### Warning
+.content.tight[
+Do not put .X.drdtxt[`.java`]/.X.drdtxt[`.class`] in the command.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+#### Motivation
+]
+.botbody.oldsections[
+#### Motivation
+
+```sh
+vim Circle.java
+```
+
+.col100[
+![circle](img/vim/30.png)
+]
+
+.col100[
+.card.warns[
+##### Issue?
+.content.tight[
+What are the methods in .X[`Point`] class again?
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+#### Motivation
+#### Split
+]
+.botbody.oldsections[
+#### Split (COMMAND Mode)
+
+```sh
+:vsp Point.java
+```
+
+.col100[
+![vsp](img/vim/31.png)
+]
+
+.col50[
+.card.bg-y[
+##### :vsp
+.content.tight[
+.nol[
+- .X.U[v]ertical
+- .X.U[sp]lit
+]
+]
+]
+]
+.col50[
+.card.bg-y[
+##### :sp
+.content.tight[
+.nol[
+- .X.U[sp]lit
+- view
+]
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+#### Motivation
+#### Split
+#### Moving
+]
+.botbody.oldsections[
+#### Moving to Other Viewport (COMMAND Mode)
+
+.col50[
+```sh
+<ctrl> + w
+```
+]
+.ft50[
+```sh
+<ctrl> + w
+```
+]
+
+.col100[
+![ctrlw](img/vim/32.png)
+]
+
+.col50[
+.card.bg-b[
+##### Direction
+.content.tight.nol[
+- You can also specify direction:
+- .X[`h`] .note16[(→)], .X[`j`] .note16[(↓)], .X[`k`] .note16[(↑)], .X[`l`] .note16[(←)]
+]
+]
+]
+.col50[
+.card.notes[
+##### Note
+.content.tight[
+The current view is being highlighted at the bottom.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+#### Motivation
+#### Split
+#### Moving
+#### Closing
+]
+.botbody.oldsections[
+#### Closing (COMMAND Mode)
+
+.col50[
+```sh
+<ctrl> + w
+```
+]
+.ft50[
+```sh
+q
+```
+]
+
+.col100[
+![ctrlq](img/vim/33.png)
+]
+
+.col100[
+.card.warns[
+##### Important
+.content.tight[
+Move to the viewport you want to close first!
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+#### Motivation
+#### Split
+#### Moving
+#### Closing
+#### Opening
+]
+.botbody.oldsections[
+#### Opening a File (COMMAND Mode)
+
+```sh
+:e <filename>
+```
+
+.col100[
+![e](img/vim/34.png)
+]
+
+.col100[
+.card.bg-y[
+##### Note
+.content.tight[
+.X[Replaces] the file in the current view.
+
+```sh
+:vsp Circle.java
+:e RandomPoint.java
+```
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+### Shortcut
+]
+.botbody.oldsections[
+#### Useful Shortcuts
+##### Yank (Copy)
+
+.col35[
+```sh[copy=nones]
+yy
+```
+]
+.col65.nol[
+- Go to the line you want to copy first
+]
+
+
+
+##### Paste
+
+.col35[
+```sh[copy=nones]
+p
+```
+]
+.col65.nol[
+- Will insert _after_ the line your cursor is in.
+]
+
+
+
+##### Delete
+
+.col35[
+```sh[copy=nones]
+dd
+```
+]
+.col65.nol[
+- Go to the line you want to delete
+- This is actually a ".uline[_cut_]"
+]
+
+
+
+##### Auto-Indent
+
+.col35[
+```sh[copy=nones]
+gg=G
+```
+]
+.col65.nol[
+.col10[
+- `gg`
+- `=`
+- `G`
+]
+.col60[
+- go to top
+- auto-indent
+- until end of file
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+### Shortcut
+### Edit
+#### Find
+]
+.botbody.oldsections[
+#### Find (COMMAND Mode)
+
+```sh
+/<text>
+```
+
+.col100[
+![find](img/vim/35.png)
+]
+
+.col100[
+.card.bg-b[
+##### Continue?
+.content.tight.nol[
+- Find next: `<n>`
+- Find prev: `<shift> + <n>`
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+### Shortcut
+### Edit
+#### Find
+#### Replace
+]
+.botbody.oldsections[
+#### Replace (COMMAND Mode)
+
+```sh
+:%s/<old>/<new>/gc
+```
+
+.col100[
+![replace](img/vim/36.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+### Shortcut
+### Edit
+#### Find
+#### Replace
+]
+.botbody.oldsections[
+#### Replace (COMMAND Mode)
+
+```sh
+:%s/<old>/<new>/gc
+```
+
+.col100[
+![replace](img/vim/37.png)
+]
+
+.col50[
+.card.bg-b[
+##### Replace?
+.content.tight[
+- .X[`y`]: Yes
+- .X[`n`]: No .note16[(skip)]
+- .X[`a`]: Yes to all
+- .X[`l`]: Yes to just one
+- .X[`q`]: Quit
+]
+]
+]
+.col50[
+.card.notes[
+##### Note
+.content.tight[
+.X[`a`] is good for .X[renaming].
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+### Shortcut
+### Edit
+#### Find
+#### Replace
+#### Undo
+]
+.botbody.oldsections[
+#### Undo/Redo (COMMAND Mode)
+
+.col50[
+```sh
+u
+```
+]
+.col50[
+```sh
+<ctrl> + r
+```
+]
+
+.col100[
+![replace](img/vim/38.png)
+]
+
+.col100[
+.card.notes[
+##### Note
+.content.tight[
+Do not quit vim first, may not work after you quit.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+### Shortcut
+### Edit
+### Unix Command
+#### Compiling
+]
+.botbody.oldsections[
+#### Compiling (COMMAND Mode)
+
+```sh
+:!javac Test1.java
+```
+
+.col100[
+![javac](img/vim/39.png)
+]
+
+.col100[
+.card.notes[
+##### Note
+.content.tight[
+You don't have to leave VIM!
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+### Shortcut
+### Edit
+### Unix Command
+#### Compiling
+#### Running
+]
+.botbody.oldsections[
+#### Running (COMMAND Mode)
+
+```sh
+:!java Test1
+```
+
+.col100[
+![java](img/vim/40.png)
+]
+
+.col100[
+.card.notes[
+##### Note
+.content.tight[
+You don't have to leave VIM!
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+### Shortcut
+### Edit
+### Unix Command
+### Problems
+#### Swap File
+]
+.botbody.oldsections[
+#### Swap File
+
+.col100[
+![java](img/vim/41.png)
+]
+
+.col100[
+.card.bg-r[
+##### Bad Circumstances
+.content.tight.nol[
+- Connection timeout
+- Accidentally closing Vim
+- Accidentally closing terminal
+- .note16[etc]
+]
+.content.tight.nol[
+.U[Swap files] will be created .X[`.swp`].
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+### Shortcut
+### Edit
+### Unix Command
+### Problems
+#### Swap File
+#### Recovery
+]
+.botbody.oldsections[
+#### Recovery
+
+.col100[
+![java](img/vim/42.png)
+]
+
+.col50[
+.card.bg-g[
+##### Recovery
+.content.tight.nol[
+If you try to open it, you will be greeted with .X.drdtxt[`ATTENTION`].
+]
+]
+]
+.col50[
+.card.bg-b[
+##### Options
+.content.tight[
+.nol[
+- `O`: Open Read-Only
+- `E`: Edit Anyway
+- `R`: Recover
+- `Q`: Quit
+- `A`: Abort
+]
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+### Shortcut
+### Find/Replace
+### Unix Command
+### Problems
+#### Swap File
+#### Recovery
+]
+.botbody.oldsections[
+#### Recovery
+
+.col100[
+![java](img/vim/43.png)
+]
+
+.col100[
+.card.bg-g[
+##### Recovery Steps
+.content.tight[
+1. Press .X[`R`] .note16[(usually)] to recover
+2. Check if the file is correct
+3. If you are happy, save
+4. Then delete the swap file
+5. Repeat for all swap files
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+### Shortcut
+### Find/Replace
+### Unix Command
+### Problems
+#### Swap File
+#### Recovery
+]
+.botbody.oldsections[
+#### Recovery
+
+.col100[
+![java](img/vim/45.png)
+]
+
+.col100[
+.card.bg-g[
+##### Recovery Steps
+.content.tight[
+1. Press .X[`R`] .note16[(usually)] to recover
+2. Check if the file is correct
+3. If you are happy, save
+4. Then delete the swap file
+5. Repeat for all swap files
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Setup
+### Lab Assignment
+### Workflow
+### Split Screen
+### Shortcut
+### Find/Replace
+### Unix Command
+### Problems
+### Exit
+]
+.botbody.oldsections[
+#### Logout
+
+.col100[
+![java](img/vim/46.png)
+]
+]
+
+---
+
+layout: false
+class: middle, end, fadein
+
+`jshell> /exit`
+
+`|  Goodbye`

@@ -1,0 +1,1654 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: L10
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L10: Monad & Parallel Stream
+
+---
+name: Functor
+class: sections
+
+.topsub.subsections[
+### Motivation
+]
+.botbody.oldsections[
+#### Box
+
+.col100[
+.font18[
+```java
+class Box<T> {
+  private final T val;
+​
+  public Box(T val) {
+    this.val = val;
+  }
+  public T getVal() {
+    return this.val;
+  }
+  // : other code omitted
+}
+```
+]
+]
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Given a box of integer,
+- .X[multiply]/.X[add] the value by .X[`n`].
+]
+.content.tight[
+Given a box of String,
+- find the .X[length] of the string.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Functor
+#### Box
+]
+.botbody.oldsections[
+#### Box
+
+.col100[
+.font18[
+```java
+class Box<T> {
+  private final T val;
+​
+  // : other code omitted
+​
+  public <S> Box<S> map(Transformer<T, S> fn) {
+    T val = this.val;
+    S res = fn.transform(val);
+    return new Box<S>(res);
+  }
+}
+```
+]
+]
+
+.col50[
+.card.bg-b[
+##### Steps
+.content.tight[
+1. Access the value
+2. Transform the value
+3. Put into a new box
+]
+]
+]
+]
+
+.abs.rt1.top60.wt50.unrvl-step[
+![Map](img/10-Map01a.png)
+.unrvl-num[1]
+]
+.abs.rt1.top60.wt50.rvl-step.unrvl-step[
+![Map](img/10-Map01b.png)
+.rvl-num[1].unrvl-num[2]
+]
+.abs.rt1.top60.wt50.rvl-step.unrvl-step[
+![Map](img/10-Map01c.png)
+.rvl-num[2].unrvl-num[3]
+]
+.abs.rt1.top60.wt50.rvl-step.unrvl-step[
+![Map](img/10-Map01d.png)
+.rvl-num[3].unrvl-num[4]
+]
+.abs.rt1.top60.wt50.rvl-step.unrvl-step[
+![Map](img/10-Map01e.png)
+.rvl-num[4].unrvl-num[5]
+]
+.abs.rt1.top60.wt50.rvl-step[
+![Map](img/10-Map01f.png)
+.rvl-num[5]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Functor
+#### Box
+#### Properties
+]
+.botbody.oldsections[
+#### Properties
+
+.col100[
+.font18.op0[
+```java
+class Box<T> {
+  private final T val;
+​
+  // : other code omitted
+​
+  public <S> Box<S> map(Transformer<T, S> fn) {
+    T val = this.val;
+    S res = fn.transform(val);
+    return new Box<S>(res);
+  }
+}
+```
+]
+]
+
+.col100[
+.card.bg-b[
+##### Box Properties
+.content.tight[
+- `box.map(n -> id(n))` .X[&nbsp; &nbsp; &equiv; &nbsp; &nbsp; ]`box`
+.nol[
+- where `id = x -> x` &nbsp; &nbsp; .note20[(i.e., identity)]
+]
+- `box.map(n -> f(n)).map(n -> g(n))`
+.nol[
+- .X[&equiv; &nbsp; &nbsp;] `box.map(n -> h(n))`
+- where `h = x -> g(f(x))` &nbsp; &nbsp; .note20[(i.e., composition)]
+]
+]
+]
+]
+
+.abs.top15.w90.lt0[
+.img70.center[![Functor](img/Cat01-Functor.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Functor
+#### Box
+#### Properties
+#### Computation
+]
+.botbody.oldsections[
+#### Computation
+
+.col100[
+.font18[
+```java
+String csCourse(String code) {
+  if (code.startsWith("CS")) {
+    return code;
+  } else {
+    return "";
+  }
+}
+```
+]
+]
+
+.col50[
+.font16[
+```java
+int length(String s) {
+  String s0 = s;
+  String s1 = csCourse(s0);
+  int i = s1.length();
+  return i;
+}
+```
+]
+]
+
+.col50[
+.font16[
+```java
+int length(String s) {
+  return new Box<String>(s)
+      .map(s0 -> csCourse(s0))
+      .map(s1 -> s1.length())
+      .getVal();
+}
+```
+]
+]
+
+.col100.rvl-tgl[
+.font16[
+```java
+int length(String s) {
+  return                          new Box<String>(s).map(s0 -> 
+      csCourse(s0)                ).map(s1 -> s1
+      .length()                   ).getVal()
+    ;
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Functor
+#### Box
+#### Properties
+#### Computation
+#### Laws
+]
+.botbody.oldsections[
+#### Laws
+
+.col100[
+.card.bg-g[
+##### Functor Law
+.content.tight[
+1. .X[Identity]
+.nol[
+- &forall; `fct`: .X.hilite-y[`fct`]`.map(`.X.hilite-y[`x -> x`]`)`
+  - &equiv; .X.hilite-y[`fct`]
+  - .op0[.]
+]
+2. .X[Composition]
+.nol[
+- &forall; `fct`,`f`,`g`:
+  - .X.hilite-y[`fct`]`.map(`.X.hilite-y[`x -> f(x)`]`)`
+  - .op0[.X.hilite-y[`fct`]]`.map(`.X.hilite-y[`x -> g(x)`]`)`
+  - &nbsp;&nbsp;&nbsp;&nbsp; &equiv;
+  - .X.hilite-y[`fct`]`.map(`.X.hilite-y[`x -> g(f(x))`]`)`
+  - .op0[.]
+]
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Functor
+### Context
+#### NULL
+]
+.botbody.oldsections[
+#### NULL
+
+.col100[
+.font18[
+```java[lite=5]
+String csCourse(String code) {
+  if (code.startsWith("CS")) {
+    return code;
+  } else {
+    return null;
+  }
+}
+```
+]
+]
+
+.col50[
+.font16[
+```java
+int length(String s) {
+  String s0 = s;
+  String s1 = csCourse(s0);
+  int i = s1.length();
+  return i;
+}
+```
+]
+]
+
+.col50[
+.font16[
+```java
+int length(String s) {
+  return new Box<String>(s)
+      .map(s0 -> csCourse(s0))
+      .map(s1 -> s1.length())
+      .getVal();
+}
+```
+]
+]
+
+
+.col100.rvl-tgl[
+.font16[
+```java
+int length(String s) {
+  return new Box<String>(s)
+      .map(s0 -> s0 == null ? null : csCourse(s0))
+      .map(s1 -> s1 == null ? null : s1.length())
+      .getVal();
+}
+```
+]
+]
+]
+
+.abs.top2.rt2.wt40[
+.rvl-tgl[
+![null](img/10-null.jpg)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Functor
+### Context
+#### NULL
+#### Maybe
+]
+.botbody.oldsections[
+#### Maybe
+
+.col100.unrvl-tgl[
+.font18[
+```java
+class Box<T> {
+  private final T val;
+​
+  // : other code omitted
+​
+  public <S> Box<S> map(Transformer<T, S> fn) {
+        ​
+    T val = this.val;
+    S res = fn.transform(val);
+    return new Box<S>(res);
+      ​
+      ​
+  }
+}
+```
+]
+]
+
+.col100.rvl-tgl[
+.font18[
+```java[lite=8-10|emph=7-12]
+class Box<T> {
+  private final T val;
+​
+  // : other code omitted
+​
+  public <S> Box<S> map(Transformer<T, S> fn) {
+    if (this.val != null) {
+      T val = this.val;
+      S res = fn.transform(val);
+      return new Box<S>(res);
+    }
+    return new Box<S>(null);
+  }
+}
+```
+]
+]
+
+.col100.unrvl-tgl[
+.font16[
+```java
+int length(String s) {
+  return new Box<String>(s)
+      .map(s0 -> s0 == null ? null : csCourse(s0))
+      .map(s1 -> s1 == null ? null : s1.length())
+      .getVal();
+}
+```
+]
+]
+.col100.rvl-tgl[
+.font16[
+```java
+int length(String s) {
+  return new Box<String>(s)
+      .map(s0 -> csCourse(s0))
+      .map(s1 -> s1.length())
+      .getVal();
+}
+```
+]
+]
+]
+
+.abs.top2.rt2.wt40[
+![null](img/10-null.jpg)
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Functor
+### Context
+### Quizzes
+#### Quiz #1
+]
+.botbody.oldsections[
+#### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the class .X[`Box`] below.  Is it a functor?
+]
+]
+]
+.col100[
+.font18[
+```java[lite=12]
+class Box {
+  private int v;
+  private Box(int v) {
+    this.v = v;
+  }
+  public static Box of(int v) {
+    return new Box(v);
+  }
+  public Box f(Transformer<Integer, Integer> fn) {
+    int val = fn.transform(this.v);
+    int res = Math.max(this.v, val);
+    return Box.of(res);
+  }
+}
+```
+]
+]
+
+.mrq.cmnt-s[
+1. .quiz-choice[Yes] .quiz-ans[0] .quiz-hint[NO: violate both]
+1. .quiz-choice[No, violate .X[identity] only] .quiz-ans[0] .quiz-hint[NO: violate composition]
+1. .quiz-choice[No, violate .X[composition] only] .quiz-ans[1] .quiz-hint[YES: only this]
+1. .quiz-choice[No, violate .X[both]] .quiz-ans[0] .quiz-hint[NO: only composition]
+
+.quizzes-time[120]
+.quizzes-link[2XpsG7Sj5iD7FaJbC3iJm]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Functor
+### Context
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+]
+.botbody.oldsections[
+#### Quiz #2
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the class .X[`Box`] below.  Is it a functor?
+]
+]
+]
+.col100[
+.font18[
+```java[lite=12]
+class Box {
+  private int v;
+  private Box(int v) {
+    this.v = v;
+  }
+  public static Box of(int v) {
+    return new Box(v);
+  }
+  public Box f(Transformer<Integer, Integer> fn) {
+    int val = fn.transform(this.v);
+    int res = this.v;
+    return Box.of(res);
+  }
+}
+```
+]
+]
+
+.mrq.cmnt-s[
+1. .quiz-choice[Yes] .quiz-ans[1] .quiz-hint[YES: but not useful]
+1. .quiz-choice[No, violate .X[identity] only] .quiz-ans[0] .quiz-hint[NO: no violation]
+1. .quiz-choice[No, violate .X[composition] only] .quiz-ans[0] .quiz-hint[NO: no violation]
+1. .quiz-choice[No, violate .X[both]] .quiz-ans[0] .quiz-hint[NO: no violation]
+
+.quizzes-time[120]
+.quizzes-link[fVvHGlXEIW3ndEmR7sffA]
+]
+]
+
+---
+name: Monad
+class: sections
+
+.topsub.subsections[
+### Motivation
+]
+.botbody.oldsections[
+#### Loggable
+
+.col100.unrvl-step[
+.font18[
+```java
+class Loggable {
+  private final int val;
+  private final String log;
+​
+  public Loggable(int val, String log) {
+    this.val = val;
+    this.log = log;
+  }
+​
+  ​
+  ​
+  ​
+  ​
+  ​
+​
+​
+  public Loggable incr() {
+    return new Loggable(this.val + 1,
+        this.log + "; incr " + this.val);
+  }
+}
+```
+].unrvl-num[1]
+]
+.col100.rvl-step.unrvl-step[
+.font18[
+```java[lite=10-15]
+class Loggable {
+  private final int val;
+  private final String log;
+​
+  public Loggable(int val, String log) {
+    this.val = val;
+    this.log = log;
+  }
+​
+  public Loggable map(Transformer<Integer, Integer> fn) {
+    int val = this.val;
+    int res = fn.transform(val);
+    return new Loggable(res,
+        this.log + "; map " + this.val);
+  }
+​
+  public Loggable incr() {
+    return new Loggable(this.val + 1,
+        this.log + "; incr " + this.val);
+  }
+}
+```
+].rvl-num[1].unrvl-num[2]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Attempts
+#### Attempt #1
+]
+.botbody.oldsections[
+#### Attempt #1: Bi-Functor
+
+.col100[
+.font18[
+```java
+class Loggable {
+  private final int val;
+  private final String log;
+​
+  public Loggable(int val, String log) {
+    this.val = val;
+    this.log = log;
+  }
+​
+  public Loggable map(Transformer<Integer, Integer> fn1,
+        Transformer<String, String> fn2) {
+    int val  = this.val;
+    String log = this.log;
+    int rval = fn1.transform(val);
+    String rlog = fn2.transform(log);
+    return new Loggable(rval, rlog);
+  }
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Attempts
+#### Attempt #1
+#### Attempt #2
+]
+.botbody.oldsections[
+#### Attempt #2: Pair
+
+.col100[
+.font18[
+```java
+class Loggable {
+  private final int val;
+  private final String log;
+​
+  public Loggable(int val, String log) {
+    this.val = val;
+    this.log = log;
+  }
+​
+  public Loggable map(Transformer<Pair<Integer, String>,
+        Pair<Integer, String>> fn) {
+    Pair<Integer, String> val =
+        new Pair<>(this.val, this.log);
+    Pair<Integer, String> res =
+        fn.transform(val);
+    return new Loggable(res.getFirst(), res.getSecond());
+  }
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Attempts
+#### Attempt #1
+#### Attempt #2
+#### Attempt #3
+]
+.botbody.oldsections[
+#### Attempt #3: Simpler Pair
+
+.col100[
+.font18[
+```java
+class Loggable {
+  private final int val;
+  private final String log;
+​
+  public Loggable(int val, String log) {
+    this.val = val;
+    this.log = log;
+  }
+​
+  public Loggable map(Transformer<Integer,
+      Pair<Integer, String>> fn) {
+​
+    int val = this.val;
+    Pair<Integer, String> res = fn.transform(val);
+    return new Loggable(res.getFirst(),
+        this.log + "; " + res.getSecond());
+  }
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Attempts
+### Monad
+#### Box + Context
+]
+.botbody.oldsections[
+#### Loggable = Box + Log
+
+.col100[
+.font18[
+```java[lite=15-16]
+class Loggable {
+  private final int val;
+  private final String log;
+​
+  public Loggable(int val, String log) {
+    this.val = val;
+    this.log = log;
+  }
+​
+  public Loggable flatMap(Transformer<Integer,
+      Loggable> fn) {
+    ​
+    int val = this.val;
+    Loggable res = fn.transform(val);
+    return new Loggable(res.val,
+        this.log + "; " + res.log); // log composition
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Attempts
+### Monad
+#### Box + Context
+#### Properties
+]
+.botbody.oldsections[
+#### Properties
+
+.col100[
+.card.bg-g[
+##### Monad Law
+.content.tight[
+A .X[monad] has .note18[(at least)] .X[`of`] and .X[`flatMap`] .note18[(may have different names)] obeying
+]
+.content.tight[
+1. .X[Left Identity]
+.nol.fsize18[
+- &forall; `x`,`f`: `Monad.of(`.X.hilite-y[`x`]`).flatMap(`.X.hilite-y[`y -> f(y)`]`)`
+- &nbsp; &nbsp; &equiv;
+- .op0[&forall; `x`,`f`: `Monad.of(`.X.hilite-y[`x`]`).flatMap(`].op0[`y ->.`].X.hilite-y[`f(y)`].op0[`)`]
+- .op0[.]
+]
+2. .X[Right Identity]
+.nol.fsize18[
+- &forall; `mn`: .X.hilite-y[`mn`]`.flatMap(x -> Monad.of(x))`
+- &nbsp; &nbsp; &equiv;
+- .op0[&forall; `mn`: ].X.hilite-y[`mn`]
+- .op0[.]
+]
+3. .X[Associative]
+.nol.fsize18[
+- &forall; `mn`,`f`,`g`: `mn.flatMap(x -> f(x)`.X.drdtxt.hilite-y[`)`]`.flatMap(y -> g(y))`
+- &nbsp; &nbsp; &equiv;
+- .op0[&forall; `mn`,`f`,`g`:] `mn.flatMap(x -> f(x).flatMap(y -> g(y))`.X.drdtxt.hilite-y[`)`]
+- .op0[.]
+]
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Attempts
+### Monad
+#### Box + Context
+#### Properties
+]
+.botbody.oldsections[
+#### Properties
+
+.col100.unrvl-step[
+![FlatMap](img/10-FlatMap01a.png)
+.unrvl-num[1]
+]
+.col100.rvl-step.unrvl-step[
+![FlatMap](img/10-FlatMap01b.png)
+.rvl-num[1].unrvl-num[2]
+]
+.col100.rvl-step.unrvl-step[
+![FlatMap](img/10-FlatMap01c.png)
+.rvl-num[2].unrvl-num[3]
+]
+.col100.rvl-step.unrvl-step[
+![FlatMap](img/10-FlatMap01d.png)
+.rvl-num[3].unrvl-num[4]
+]
+.col100.rvl-step.unrvl-step[
+![FlatMap](img/10-FlatMap01e.png)
+.rvl-num[4].unrvl-num[5]
+]
+.col100.rvl-step.unrvl-step[
+![FlatMap](img/10-FlatMap01f.png)
+.rvl-num[5].unrvl-num[6]
+]
+.col100.rvl-step[
+![FlatMap](img/10-FlatMap01g.png)
+.rvl-num[6]
+]
+
+.col100[
+.card.bg-b[
+##### Steps
+.content.tight[
+1. Access the value
+2. Transform the value .note18[(with context)]
+3. Compose the two contexts
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font18[
+```java
+public Loggable flatMap(Transformer<Integer,
+    Loggable> fn) {
+  int val = this.val;
+  Loggable res = fn.transform(val);
+  return new Loggable(res.val, this.log + "; " + res.log);
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Attempts
+### Monad
+#### Box + Context
+#### Properties
+#### Sketch 1
+]
+.botbody.oldsections[
+#### Proof Sketch #1: Left Identity
+
+.col100[
+.card.bg-g[
+##### Left Identity Law
+.content.tight[
+.nol.fsize18[
+- &forall; `x`,`f`: `Monad.of(`.X.hilite-y[`x`]`).flatMap(`.X.hilite-y[`y -> f(y)`]`)`
+- &nbsp; &nbsp; &equiv;
+- .op0[&forall; `x`,`f`: `Monad.of(`.X.hilite-y[`x`]`).flatMap(`].op0[`y ->.`].X.hilite-y[`f(y)`].op0[`)`]
+]
+]
+]
+]
+
+.vs10[]
+
+.col100.rvl-tgl[
+.center[![Monad1](img/10-Monad01a.png)]
+
+.vs10[]
+
+.center[![Monad1](img/10-Monad01b.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Attempts
+### Monad
+#### Box + Context
+#### Properties
+#### Sketch 1
+#### Sketch 2
+]
+.botbody.oldsections[
+#### Proof Sketch #2: Right Identity
+
+.col100[
+.card.bg-g[
+##### Right Identity Law
+.content.tight[
+.nol.fsize18[
+- &forall; `mn`: .X.hilite-y[`mn`]`.flatMap(x -> Monad.of(x))`
+- &nbsp; &nbsp; &equiv;
+- .op0[&forall; `mn`: ].X.hilite-y[`mn`]
+]
+]
+]
+]
+
+.vs10[]
+
+.col100.rvl-tgl[
+.center[![Monad1](img/10-Monad02a.png)]
+
+.vs10[]
+
+.center[![Monad1](img/10-Monad02b.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Attempts
+### Monad
+#### Box + Context
+#### Properties
+#### Sketch 1
+#### Sketch 2
+#### Sketch 3
+]
+.botbody.oldsections[
+#### Proof Sketch #3: Associative
+
+.col100[
+.card.bg-g[
+##### Associative Law
+.content.tight[
+.nol.fsize18[
+- &forall; `mn`,`f`,`g`: `mn.flatMap(x -> f(x)`.X.drdtxt.hilite-y[`)`]`.flatMap(y -> g(y))`
+- &nbsp; &nbsp; &equiv;
+- .op0[&forall; `mn`,`f`,`g`:] `mn.flatMap(x -> f(x).flatMap(y -> g(y))`.X.drdtxt.hilite-y[`)`]
+- .op0[.]
+]
+]
+]
+]
+
+.vs10[]
+
+.col100.rvl-tgl[
+.center[![Monad1](img/10-Monad03a.png)]
+
+.vs10[]
+
+.center[![Monad1](img/10-Monad03b.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Attempts
+### Monad
+### Context
+]
+.botbody.oldsections[
+#### Common Container
+
+.col100[
+.atbl.blhead[
+| Monad | Context |
+|---|---|
+| .X[`Box<T>`] | Item in a box. |
+| .X[`Maybe<T>`] | Item might be .X[missing]. |
+| .X[`Lazy<T>`] | Item is evaluated .X[when needed] and .X[only once]. |
+| .X[`Loggable<T>`] | Item with the .X[log of operations] on the item. |
+| .X[`InfiniteList<T>`] | Item in a .X[lazily-evaluated] sequence.<br><br>Non-deterministic computation<br>.op0[....].note18[(the answer is one of the value in the list)]. |
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Attempts
+### Monad
+### Context
+### Computation
+]
+.botbody.oldsections[
+#### Main Computation vs Contextual Computation
+
+.col100[
+.font16[
+```java
+return Maybe.of(   dbase.get(student)      )
+            .flatMap(std -> Maybe.of(std.get(course)))
+            .flatMap(crs -> Maybe.of(crs.get(assessment)))
+            .orElse(() -> "No such entry");
+```
+]
+]
+
+.vs10[]
+
+.col100.rvl-step[
+.font16[
+```java
+return Maybe.of(
+      dbase.get(student)      ).flatMap(std -> Maybe.of(std
+          .get(course)      )).flatMap(crs -> Maybe.of(crs
+          .get(assessment)  )).orElse(() -> "No such entry");
+```
+].rvl-num[1]
+]
+
+.vs10[]
+
+.col100.rvl-step[
+.font16[
+```java
+      dbase.get(student)
+          .get(course)
+          .get(assessment)                                  ;
+```
+].rvl-num[2]
+]
+
+.vs10[]
+
+.col100.rvl-step[
+.font16[
+```java
+std = dbase.get(student)
+crs =   std.get(course)
+return  crs.get(assessment);
+```
+].rvl-num[3]
+]
+]
+
+---
+
+name: Break
+class: middle, break
+
+# Break
+
+<br>
+
+## <i class="fa-regular fa-clock break-icon"></i>
+
+---
+name: Concurrent_&_Parallel
+class: sections
+
+.topsub.subsections[
+### Motivation
+#### Sequential
+]
+.botbody.oldsections[
+#### Sequential
+
+.col100[
+.img85.center[![Node](img/10-Parallel01.png)]
+]
+
+.col100.abs.bot2[
+.col100[
+```java
+v1 = init;
+v2 = f1(v1);          // 10s
+v3 = f2(v1);          // 10s
+v4 = g1(v2);          // 10s
+v5 = g3(v3);          // 10s
+v6 = h3(v5);          // 10s
+v7 = fn(v4, v3, v6);  // 10s
+v8 = gn(v7)           // 10s
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+#### Sequential
+#### Concurrent
+]
+.botbody.oldsections[
+#### Concurrent
+
+.col100[
+.img85.center[![Node](img/10-Parallel02.png)]
+]
+
+.col100.abs.bot2[
+.col50[
+```java[copy=nones]
+v1 = init;
+v2 = f1(v1);  // 10s
+​              // 10s (idle)
+v4 = g1(v2);  // 10s
+​              // 10s (idle)
+​              // 10s (idle)
+v7 = fn(v4, v3, v6); // 10s
+v8 = gn(v7)          // 10s
+```
+]
+.col50[
+```java[copy=nones]
+​
+​              // 10s (idle)
+v3 = f2(v1);  // 10s
+​              // 10s (idle)
+v5 = g3(v3);  // 10s
+v6 = h3(v5);  // 10s
+​
+​
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+#### Sequential
+#### Concurrent
+#### Parallel
+]
+.botbody.oldsections[
+#### Parallel
+
+.col100[
+.img85.center[![Node](img/10-Parallel03.png)]
+]
+
+.col100.abs.bot2[
+.col50[
+```java[copy=nones]
+v1 = init;
+v2 = f1(v1);  // 10s
+v4 = g1(v2);  // 10s
+​              // 10s (idle)
+v7 = fn(v4, v3, v6); // 10s
+v8 = gn(v7)          // 10s
+```
+]
+.col50[
+```java[copy=nones]
+​
+v3 = f2(v1);  // 10s
+v5 = g3(v3);  // 10s
+v6 = h3(v5);  // 10s
+​
+​
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### IntStream
+]
+.botbody.oldsections[
+#### Parallelizing Computation
+
+.col100[
+.font18[
+```java
+boolean isPrime(int n) {
+  return IntStream.range(2, (int)Math.sqrt(n) + 1)
+                  .noneMatch(x -> n % x == 0);
+}
+```
+]
+]
+
+.col100.unrvl-tgl[
+.font18[
+```java
+IntStream.range(2_030_000, 2_040_000)
+​
+         .filter(x -> isPrime(x))
+         .forEach(System.out::println);
+```
+]
+]
+.col100.rvl-tgl[
+.font18[
+```java[lite=2]
+IntStream.range(2_030_000, 2_040_000)
+         .parallel()
+         .filter(x -> isPrime(x))
+         .forEach(System.out::println);
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### IntStream
+### Considerations
+]
+.botbody.oldsections[
+
+.col100[
+#### No Interference
+
+.font18[
+```java
+List<String> list =
+    new ArrayList<>(List.of("Luke", "Leia", "Han"));
+list.stream().peek(name -> { if (name.equals("Han")) {
+                                list.add("Chewie");
+                              } })
+             .forEach(x -> {});  
+```
+]
+]
+
+.vs10[]
+
+.col100.rvl[
+#### No Side Effect
+
+.font18[
+```java
+List<Integer> list = new ArrayList<>(
+  Arrays.asList(1, 3, 5, 7, 9, 11, 13, 15, 17,
+                19, 21, 23, 25, 27, 29)
+);
+
+List<Integer> result = new ArrayList<>();
+list.parallelStream().filter(x -> isPrime(x))
+    .forEach(System.out::println);
+list.parallelStream().filter(x -> isPrime(x))
+    .forEach(x -> result.add(x));
+list.parallelStream().filter(x -> isPrime(x)).toList();
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### IntStream
+### Considerations
+### Reduce
+#### API
+]
+.botbody.oldsections[
+#### API
+
+.col100[
+<iframe class="inline-frame" id="ifrm1" src="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#reduce(java.util.function.BinaryOperator)" width="100%" height="700px" frameborder="0" ></iframe>
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### IntStream
+### Considerations
+### Reduce
+#### API
+#### Sequential
+]
+.botbody.oldsections[
+#### Sequential
+
+.col100[
+.font18[
+```java
+T reduce(T e, BinaryOperator<T> f)
+  ​
+```
+]
+]
+
+.vs10[]
+
+.col100[
+.img80[![Reduce](img/10-Reduce01.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### IntStream
+### Considerations
+### Reduce
+#### API
+#### Sequential
+#### Parallel
+]
+.botbody.oldsections[
+#### Parallel
+
+.col100[
+.font18[
+```java
+T reduce(T e, BinaryOperator<T> f)
+  ​
+```
+]
+]
+
+.vs10[]
+
+.col100[
+.img80[![Reduce](img/10-Reduce02.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### IntStream
+### Considerations
+### Reduce
+#### API
+#### Sequential
+#### Parallel
+]
+.botbody.oldsections[
+#### Parallel
+
+.col100[
+.font18[
+```java
+<U> U reduce(U e, BiFunction<U,? super T,U> f,
+    BinaryOperator<U> g)
+```
+]
+]
+
+.vs10[]
+
+.col100[
+.img80[![Reduce](img/10-Reduce03.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### IntStream
+### Considerations
+### Reduce
+#### API
+#### Sequential
+#### Parallel
+#### Properties
+]
+.botbody.oldsections[
+#### Properties
+
+.col100[
+.font18[
+```java
+<U> U reduce(U e, BiFunction<U,? super T,U> f,
+    BinaryOperator<U> g)
+```
+]
+]
+
+.vs10[]
+
+.col100[
+.card.bg-b[
+##### Sufficient Condition
+.content.tight[
+If the following properties are satisfied, then the call to .X[`reduce`] is .X[parallelizable].  In other words, the .U[sequential] and .U[parallel] execution always produce the same result.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.atbl.blhead.font18[
+| Property | Description |
+|---|---|
+| `e` is .X[identity] | `g(e, x)` &equiv; `x`<br>.op0[.....].U[or] `f(e, x)` &equiv; `x` .note12[(for 2 param variants)] |
+| `f` and `g` are .X[pure functions] | `f` and `g` has no side-effect and deterministic |
+| `f` and `g` are .X[associative] | `g(g(x, y), z)` &equiv; `g(x, g(y, z))`<br>.op0[.....].U[or] `f(f(x, y), z)` &equiv; `f(x, f(y, z))` .note12[(for 2 param variants)] |
+| `f` and `g` are [.U[compatible]](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#reduce%28java.lang.Object,java.util.function.BiFunction,java.util.function.BinaryOperator%29) | `g(x, f(e, y))` &equiv; `f(x, y)` |
+]
+]
+
+.vs10[]
+
+.col100.rvl[
+.card.bg-r[
+##### Not Necessary
+.content.tight[
+The condition is not necessary.  In particular, we may have .X.drdtxt[non-associative] `f` and `g` but the reduction is still parallelizable.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### IntStream
+### Considerations
+### Reduce
+### Examples
+#### Example #1
+]
+.botbody.oldsections[
+#### Example #1
+
+.col100[
+##### Sum
+
+.font18[
+```java
+List<Integer> list = new ArrayList<Integer>();
+for (int i=1; i<=10000; i++) {
+  list.add(i);
+}
+list.stream().parallel().reduce(0,
+    (acc, elem) -> acc + elem);  
+```
+]
+]
+
+.col100.rvl-step[
+.card.bg-y[
+##### Information
+.content.tight.nol[
+- .X[`e`:] `0`
+- .X[`f`:] `(acc, elem) -> acc + elem`
+].rvl-num[1]
+]
+]
+
+.vs10[]
+
+.col100.rvl-step[
+##### Identity
+
+<textarea class="text-editor editor20 wt95" style="height:50px">
+</textarea>
+
+##### Associative
+
+<textarea class="text-editor editor20 wt95" style="height:50px">
+</textarea>
+.rvl-num[1]
+]
+]
+.abs.top2.rt0.wt45[
+.atbl.blhead.font12[
+| Property | Description |
+|---|---|
+| .X[identity] | `f(e, x)` &equiv; `x` |
+| .X[associative] | `f(f(x, y), z)` &equiv; `f(x, f(y, z))` |
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### IntStream
+### Considerations
+### Reduce
+### Examples
+#### Example #1
+#### Example #2
+]
+.botbody.oldsections[
+#### Example #2
+
+.col100[
+##### Length
+
+.font18[
+```java
+List<String> list = List.of("CS", "2030", "S");
+list.stream().parallel().reduce(0,
+    (acc, elem) -> acc + elem.length(),
+    (acc1, acc2) -> acc1 + acc2);
+```  
+]
+]
+
+.col100.rvl-step[
+.card.bg-y[
+##### Information
+.content.tight.nol[
+- .X[`e`:] `0`
+- .X[`f`:] `(acc, elem) -> acc + elem.length()`
+- .X[`g`:] `(acc1, acc2) -> acc1 + acc2`
+].rvl-num[1]
+]
+]
+
+.vs10[]
+
+.col100.rvl-step[
+##### Identity
+
+<textarea class="text-editor editor20 wt95" style="height:50px">
+</textarea>
+
+##### Associative
+
+<textarea class="text-editor editor20 wt95" style="height:50px">
+</textarea>
+
+##### Compatible
+
+<textarea class="text-editor editor20 wt95" style="height:50px">
+</textarea>
+.rvl-num[1]
+]
+]
+.abs.top2.rt0.wt45[
+.atbl.blhead.font12[
+| Property | Description |
+|---|---|
+| .X[identity] | `g(e, x)` &equiv; `x` |
+| .X[associative] | `g(g(x, y), z)` &equiv; `g(x, g(y, z))` |
+| .X[compatible] | `g(x, f(e, y))` &equiv; `f(x, y)` |
+]
+]
+
+---
+
+.topsub.subsections[
+### Preliminary
+### IntStream
+### Considerations
+### Reduce
+### Examples
+### Timing
+]
+.botbody.oldsections[
+#### Code
+
+.col100.unrvl-step[
+.font18[
+```java
+boolean isPrime(int n) {
+  return IntStream.range(2, (int)Math.sqrt(n) + 1)
+  ​
+                  .noneMatch(x -> n % x == 0);
+}
+```
+].unrvl-num[2]
+]
+.col100.rvl-step[
+.font18[
+```java[lite=2]
+boolean isPrime(int n) {
+  return IntStream.range(2, (int)Math.sqrt(n) + 1)
+                  .parallel()
+                  .noneMatch(x -> n % x == 0);
+}
+```
+].rvl-num[2]
+]
+.col100.unrvl-step[
+.font18[
+```java[lite=3,7]
+class Timing {
+  public static void main(String[] args) {
+    Instant start = Instant.now();
+    long count = IntStream.range(2_000_000, 3_000_000)
+        .filter(x -> isPrime(x))
+        .count();
+    Instant stop = Instant.now();
+    long duration = Duration.between(start, stop)
+                            .toMillis();
+    System.out.println("count: " + count);
+    System.out.println("time : " + duration + " ms");
+  }
+}
+```
+].unrvl-num[1]
+]
+]
+.col100.rvl-step[
+.font18[
+```java[lite=5]
+class Timing {
+  public static void main(String[] args) {
+    Instant start = Instant.now();
+    long count = IntStream.range(2_000_000, 3_000_000)
+        .filter(x -> isPrime(x)).parallel()
+        .count();
+    Instant stop = Instant.now();
+    long duration = Duration.between(start, stop)
+                            .toMillis();
+    System.out.println("count: " + count);
+    System.out.println("time : " + duration + " ms");
+  }
+}
+```
+].rvl-num[1]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]

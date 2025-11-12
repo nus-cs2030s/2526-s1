@@ -1,0 +1,2883 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: L11
+class: bottom, titles
+## Programming Methodology II
+### L11: Asynchronous Computation
+
+---
+name: Threads
+class: sections
+
+.topsub.subsections[
+### Motivation
+]
+.botbody.oldsections[
+#### Waiting...
+
+.col100[
+```text
+> What do you want to do?
+>   1. Compute the 1000000-th prime
+>   2. What is my name again?
+>   3. Exit
+>>> Which task:
+```
+]
+]
+
+.col100[
+.font16[
+```java
+boolean running = true;
+while (running) {
+  // read input
+  switch(task) {
+    case 1:     // compute 1,000,000-th prime
+      task1();
+      break;
+    case 2:     // print my name
+      task2();
+      break;
+    case 3:     // exit
+      running = false;
+      break;
+    default:
+      // error message
+  }
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+#### Instantiation
+]
+.botbody.oldsections[
+#### Code
+
+##### Instantiation
+
+.col50[
+.font16[
+```java[copy=nones]
+Thread thrd1 = new Thread(
+() -> {
+  for (int i = 0; i < N; i++) {
+    System.out.print("*");
+  }
+});
+```
+]
+]
+.col50[
+.font16[
+```java[copy=nones]
+Thread thrd2 = new Thread(
+() -> {
+  for (int i = 0; i < N; i++) {
+    System.out.print("_");
+  }
+});
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+#### Instantiation
+#### Execution
+]
+.botbody.oldsections[
+#### Code
+
+##### Instantiation
+
+.col50[
+.font16[
+```java[copy=nones]
+Thread thrd1 = new Thread(
+() -> {
+  for (int i = 0; i < N; i++) {
+    System.out.print("*");
+  }
+});
+```
+]
+]
+.col50[
+.font16[
+```java[copy=nones]
+Thread thrd2 = new Thread(
+() -> {
+  for (int i = 0; i < N; i++) {
+    System.out.print("_");
+  }
+});
+```
+]
+]
+
+.col100[
+##### Execution
+]
+
+.col50[
+```java[copy=nones]
+thrd1.start();
+```
+]
+.col50[
+```java[copy=nones]
+thrd2.start();
+```
+]
+
+.vs10[]
+
+.col100[
+.card.notes[
+##### Note
+.content.tight[
+The thread will .X.drdtxt[not] start unless .X[`Thread::start`] is invoked.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+#### 1
+]
+.botbody.oldsections[
+#### Execution
+
+.col50[
+.card.bg-g[
+##### .center[Thread 1 Runs]
+]
+]
+
+.col50[
+.card.bg-r.op25[
+##### .center[Thread 2 Waits]
+]
+]
+
+.col100[
+![Interleaving](img/11-Interleave01.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+#### 1
+#### 2
+]
+.botbody.oldsections[
+#### Execution
+
+.col50[
+.card.bg-r.op25[
+##### .center[Thread 1 Waits]
+]
+]
+
+.col50[
+.card.bg-g[
+##### .center[Thread 2 Runs]
+]
+]
+
+.col100[
+![Interleaving](img/11-Interleave02.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+#### 1
+#### 2
+#### 3
+]
+.botbody.oldsections[
+#### Execution
+
+.col50[
+.card.bg-g[
+##### .center[Thread 1 Runs]
+]
+]
+
+.col50[
+.card.bg-r.op25[
+##### .center[Thread 2 Waits]
+]
+]
+
+.col100[
+![Interleaving](img/11-Interleave03.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+#### 1
+#### 2
+#### 3
+#### 4
+]
+.botbody.oldsections[
+#### Execution
+
+.col50[
+.card.bg-r.op25[
+##### .center[Thread 1 Waits]
+]
+]
+
+.col50[
+.card.bg-g[
+##### .center[Thread 2 Runs]
+]
+]
+
+.col100[
+![Interleaving](img/11-Interleave04.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+#### 1
+#### 2
+#### 3
+#### 4
+#### 5
+]
+.botbody.oldsections[
+#### Execution
+
+.col50[
+.card.bg-g[
+##### .center[Thread 1 Runs]
+]
+]
+
+.col50[
+.card.bg-r.op25[
+##### .center[Thread 2 Waits]
+]
+]
+
+.col100[
+![Interleaving](img/11-Interleave05.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+#### 1
+#### 2
+#### 3
+#### 4
+#### 5
+#### 6
+]
+.botbody.oldsections[
+#### Execution
+
+.col100[
+.card.bg-y[
+##### .center[Overall Execution]
+]
+]
+
+.col100[
+![Interleaving](img/11-Interleave06.png)
+]
+
+.col100[
+.card.notes[
+##### Notes
+.content.tight[
+The gaps are due to .X[context-switching].
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+### Drawback
+#### Overhead
+]
+.botbody.oldsections[
+#### Overhead
+
+.col100[
+.img90.center[![Wait](img/11-ParentWait01.jpg)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+### Drawback
+#### Overhead
+]
+.botbody.oldsections[
+#### Overhead
+
+.col100[
+.img90.center[![Wait](img/11-ParentWait02.jpg)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+### Drawback
+#### Overhead
+#### Exception
+]
+.botbody.oldsections[
+#### Exception
+
+.col100[
+.font18[
+```java
+int x = 0;
+Thread div = new Thread(() -> {});
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+### Drawback
+#### Overhead
+#### Exception
+]
+.botbody.oldsections[
+#### Exception
+
+.col100[
+.font18[
+```java
+int x = 0;
+Thread div = new Thread(() -> {});
+```
+]
+.font18[
+```java[lite=2]
+try {
+  divide = new Thread( () -> { println(1/x); })
+} catch(Exception e) {
+  // Catch here?
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+### Drawback
+#### Overhead
+#### Exception
+]
+.botbody.oldsections[
+#### Exception
+
+.col100[
+.font18[
+```java
+int x = 0;
+Thread div = new Thread(() -> {});
+```
+]
+.font18[
+```java[lite=2]
+try {
+  divide = new Thread( () -> { println(1/x); })
+} catch(Exception e) {
+  // Catch here?
+}
+```
+]
+.font18[
+```java[lite=2]
+try {
+  divide.start();
+} catch(Exception e) {
+  // Catch here?
+}
+```
+]
+]
+
+.col100[
+.card.bg-r[
+##### Issue
+.content.tight[
+The error occurs at an unknown time in the future.
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+### Drawback
+#### Overhead
+#### Exception
+#### Single Use
+]
+.botbody.oldsections[
+#### Single Use
+
+.col100[
+.font18[
+```java
+Thread hello = new Thread(()- > {
+  System.out.println("Hello World!");
+});
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+### Drawback
+#### Overhead
+#### Exception
+#### Single Use
+]
+.botbody.oldsections[
+#### Single Use
+
+.col100[
+.font18[
+```java
+Thread hello = new Thread(()- > {
+  System.out.println("Hello World!");
+});
+```
+]
+]
+
+.vs10[]
+
+.col100[
+.font18[
+```java
+hello.start();
+```
+.dbltxt.nol[
+- `Hello World!`
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+### Drawback
+#### Overhead
+#### Exception
+#### Single Use
+]
+.botbody.oldsections[
+#### Single Use
+
+.col100[
+.font18[
+```java
+Thread hello = new Thread(()- > {
+  System.out.println("Hello World!");
+});
+```
+]
+]
+
+.vs10[]
+
+.col100[
+.font18[
+```java
+hello.start();
+```
+.dbltxt.nol[
+- `Hello World!`
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.font18[
+```java
+hello.start();
+```
+.drdtxt.nol[
+- `Exception in thread "main"`
+- `java.lang.IllegalThreadStateException`
+    - `at java.base/java.lang.Thread.start (Thread.java:795)`
+    - `at SingleUse.main(SingleUse.java:15)`
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+### Drawback
+#### Overhead
+#### Exception
+#### Single Use
+#### Sharing
+]
+.botbody.oldsections[
+#### Sharing
+
+.col50.font16[
+```java[lite=1]
+int n = 100000;
+int[] arr = new int[n];
+​
+​
+for (int i = 0; i < n; i++) {
+  arr[i] = 1;
+}
+
+​
+// : thread initialization
+​
+
+t1.start();
+t2.start();
+```
+]
+
+.col50.font16[
+```java[lite=3]
+Thread t1 = new Thread(() -> {
+  int sum = 0;
+  for (int i=0; i < n/2; i++) {
+    sum += arr[i];
+  }
+});
+```
+```java[lite=3]
+Thread t2 = new Thread(() -> {
+  int sum = 0;
+  for (int i=n/2; i < n; i++) {
+    sum += arr[i];
+  }
+});
+```
+]
+
+.col100[
+.card.bg-r[
+##### Issue
+.content.tight[
+How do I return the .X[`sum`] from each half?
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+### Drawback
+#### Overhead
+#### Exception
+#### Single Use
+#### Sharing
+]
+.botbody.oldsections[
+#### Sharing
+
+.col50.font16[
+```java[lite=3]
+int n = 100000;
+int[] arr = new int[n];
+int sum = 0;
+​
+for (int i = 0; i < n; i++) {
+  arr[i] = 1;
+}
+
+​
+// : thread initialization
+​
+
+t1.start();
+t2.start();
+```
+]
+
+.col50.font16[
+```java[lite=2]
+Thread t1 = new Thread(() -> {
+  // sum from outside
+  for (int i=0; i < n/2; i++) {
+    sum += arr[i];
+  }
+});
+```
+```java[lite=2]
+Thread t2 = new Thread(() -> {
+  // sum from outside
+  for (int i=n/2; i < n; i++) {
+    sum += arr[i];
+  }
+});
+```
+]
+
+.col100[
+.card.bg-r[
+##### Issue
+.content.tight[
+.X[`sum`] is .U[effectively final].  How can we overcome this?
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+### Drawback
+#### Overhead
+#### Exception
+#### Single Use
+#### Sharing
+]
+.botbody.oldsections[
+#### Sharing
+
+.col50.font16[
+```java[lite=3]
+int n = 100000;
+int[] arr = new int[n];
+int[] sum = new int[] { 0 };
+​
+for (int i = 0; i < n; i++) {
+  arr[i] = 1;
+}
+
+​
+// : thread initialization
+​
+
+t1.start();
+t2.start();
+```
+]
+
+.col50.font16[
+```java[lite=4]
+Thread t1 = new Thread(() -> {
+  // sum from outside
+  for (int i=0; i < n/2; i++) {
+    sum[0] += arr[i];
+  }
+});
+```
+```java[lite=4]
+Thread t2 = new Thread(() -> {
+  // sum from outside
+  for (int i=n/2; i < n; i++) {
+    sum[0] += arr[i];
+  }
+});
+```
+]
+
+.col100[
+.card.bg-r[
+##### Issue
+.content.tight[
+.X[Race condition!]
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Thread
+### Interleaving
+### Drawback
+#### Overhead
+#### Exception
+#### Single Use
+#### Sharing
+]
+.botbody.oldsections[
+#### Sharing
+
+.col100[
+.center.img80[![Give up](img/11-GiveUp.jpg)]
+
+.card.notes[
+##### Note
+.content.tight[
+These problems will not be tested directly.  We will use abstractions.
+]
+]
+]
+]
+
+---
+name: Dependency_Management
+class: sections
+
+.topsub.subsections[
+### Dependency
+#### Task
+]
+.botbody.oldsections[
+#### Task
+
+.col40.font16[
+```java
+int foo(int x) {
+  int a = taskA(x);
+  int b = taskB(a);
+  int c = taskC(a);
+  int d = taskD(a);
+  int e = taskE(b, c);
+  ​
+  return e;
+}
+```
+]
+
+.vs10[]
+
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+#### Task
+]
+.botbody.oldsections[
+#### Task
+
+.col40.font16[
+```java
+int foo(int x) {
+  int a = taskA(x);
+  int b = taskB(a);
+  int c = taskC(a);
+  int d = taskD(a);
+  int e = taskE(b, c);
+  ​
+  return e;
+}
+```
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Dependency](img/11-Dependency.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+#### Task
+]
+.botbody.oldsections[
+#### Task
+
+.col40.font16[
+```java
+int foo(int x) {
+  int a = taskA(x);
+  int b = taskB(a);
+  int c = taskC(a);
+  int d = taskD(a);
+  int e = taskE(b, c);
+  ​
+  return e;
+}
+```
+]
+.col60.font16[
+```java
+int foo(int x) {
+  int a = taskA(x);
+  int b = taskB(taskA(x));
+  int c = taskC(taskA(x));
+  int d = taskD(taskA(x));
+  int e = taskE(taskB(taskA(x)),
+                taskC(taskA(x)));
+  return e;
+}
+```
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Dependency](img/11-Dependency.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+#### Task
+]
+.botbody.oldsections[
+#### Task
+
+.col40.font16[
+```java
+int foo(int x) {
+  int a = taskA(x);
+  int b = taskB(a);
+  int c = taskC(a);
+  int d = taskD(a);
+  int e = taskE(b, c);
+  ​
+  return e;
+}
+```
+]
+.col60.font16[
+```java
+int foo(int x) {
+  int a = x.taskA();
+  int b = x.taskA().taskB();
+  int c = x.taskA().taskC();
+  int d = x.taskA().taskD();
+  int e = taskE(x.taskA().taskB(),
+                x.taskA().taskC());
+  return e;
+}
+```
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Dependency](img/11-Dependency.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+#### Task
+#### Maybe
+]
+.botbody.oldsections[
+#### Maybe&lt;T&gt;
+
+.col100.font16[
+```java
+Maybe<Integer> foo(int x) {
+  Maybe<Integer> a = Maybe.of(       taskA(x));
+  Maybe<Integer> b = a.flatMap(a_ -> taskB(a_));
+  Maybe<Integer> c = a.flatMap(a_ -> taskC(a_));
+  Maybe<Integer> d = a.flatMap(a_ -> taskD(a_));
+  Maybe<Integer> e = b.flatMap(b_ ->
+                     c.flatMap(c_ -> taskE(b_, c_)));
+  return e;
+}
+```
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Dependency](img/11-Dependency.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+#### Task
+#### Maybe
+#### Lazy
+]
+.botbody.oldsections[
+#### Lazy&lt;T&gt;
+
+.col100.font16[
+```java
+Lazy <Integer> foo(int x) {
+  Lazy <Integer> a = Lazy.of(        taskA(x));
+  Lazy <Integer> b = a.flatMap(a_ -> taskB(a_));
+  Lazy <Integer> c = a.flatMap(a_ -> taskC(a_));
+  Lazy <Integer> d = a.flatMap(a_ -> taskD(a_));
+  Lazy <Integer> e = b.flatMap(b_ ->
+                     c.flatMap(c_ -> taskE(b_, c_)));
+  return e;
+}
+```
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Dependency](img/11-Dependency.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+#### Task
+#### Maybe
+#### Lazy
+#### CompletableFuture
+]
+.botbody.oldsections[
+#### CompletableFuture&lt;T&gt;
+
+.col100.font16[
+```java
+CF<Integer> foo(int x) {
+  CF<Integer> a = CF.completedFuture(      taskA(x));
+  CF<Integer> b = a.thenComposeAsync(a_ -> taskB(a_));
+  CF<Integer> c = a.thenComposeAsync(a_ -> taskC(a_));
+  CF<Integer> d = a.thenComposeAsync(a_ -> taskD(a_));
+  CF<Integer> e = b.thenComposeAsync(b_ ->
+                  c.thenComposeAsync(c_ -> taskE(b_, c_)));
+  return e;
+}
+```
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Dependency](img/11-Dependency.png)]
+]
+]
+.abs.bot3.rt0.wt40[
+.card.notes[
+##### Note
+.content.tight.fsize18[
+Here .X[`CF`] is actually
+.X.center.hilite-r[`CompletableFuture`]
+but we don't have space
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+### Future
+#### Example
+]
+.botbody.oldsections[
+#### Example
+
+.col100[
+.font18[
+```java
+class PrimeDiff {
+  public static void main(String[] args) {
+    int i = 200_000;
+    int j = 100_000;
+    int ithPrime = findIthPrime(i);
+    int jthPrime = findIthPrime(j);
+    int diff = ithPrime - jthPrime;
+    System.out.println(diff);
+  }
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+### Future
+#### Example
+#### Advantages
+]
+.botbody.oldsections[
+#### Advantages
+
+.col100[
+.card.bg-b[
+##### Focus on Dependency
+.content.tight[
+We do not have to worry about
+.nol[
+- actual order of operations
+- communications between threads .note14[(e.g., synchronization, etc)]
+]
+]
+.content.tight[
+We can focus on
+.nol[
+- .X[logical] order of operations
+- .X[dependencies] between the values
+]
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.card.bg-y[
+##### Logical Order
+.content.tight[
+- .X[`cf1.thenComposeAsync(op)`] 
+.nol[
+- .X[`op`] is .U[logically executed] after .X[`cf1`] completes.
+- Operation is .X.dgntxt[non-blocking].<br><br>
+]
+- .X[`cf1.thenCombineAsync(cf2, op)`]
+.nol[
+- .X[`op`] is .U[logically executed] after .X[`cf1`] and .X[`cf2`] complete.
+- Operation is .X.dgntxt[non-blocking].<br><br>
+]
+- .X[`cf1.join()`]
+.nol[
+- The current task .U[waits] for .X[`cf1`] to be completed
+- Operation is .X.drdtxt[blocking].
+]
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+### Future
+#### Example
+#### Advantages
+#### Java API
+]
+.botbody.oldsections[
+#### Java API
+
+.col100[
+<iframe class="inline-frame" id="ifrm1" src="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/CompletableFuture.html" height="600px" width="100%"></iframe>
+]
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+### Future
+### vs Lazy
+]
+.botbody.oldsections[
+#### Timing
+
+.col100[
+##### Lazy
+
+.img80.center[![Timing](img/11-Timing01.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+### Future
+### vs Lazy
+]
+.botbody.oldsections[
+#### Timing
+
+.col100[
+##### CompletableFuture
+
+.img80.center[![Timing](img/11-Timing02.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+### Future
+### vs Lazy
+### Properties
+]
+.botbody.oldsections[
+#### CompletableFuture&lt;T&gt;
+
+.col100[
+.card.bg-y[
+##### Monadic
+.content.tight[
+`CompletableFuture` is a .X[Monad].
+]
+.content.tight[
+If you know how to chain a monad, you hopefully know how to chain a `CompletableFuture`.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.card.bg-b[
+##### Super Interface
+.content.tight[
+Some methods in `CompletableFuture` returns .X[`CompletionStage`].
+]
+.content.tight[
+`CompletionStage` is an interface implemented by `CompletableFuture`.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.card.bg-r[
+##### Exception Handling
+.content.tight[
+Can be done using the [.U[`handle`]](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/CompletableFuture.html#handle%28java.util.function.BiFunction%29) method.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.card.bg-g[
+##### Overhead Reduction
+.content.tight[
+We can reduce overhead of thread creation using `ForkJoinPool` .note14[(to be discussed later)].  This is a form of .X[Thread Pool].
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+### Future
+### vs Lazy
+### Properties
+### Quizzes
+#### Quiz #1
+]
+.botbody.oldsections[
+#### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the following code snippet.  Which of the following string .X[may be printed] by the code snippet?  Select the most appropriate option.
+]
+]
+.font16[
+```java
+taskA = CompletableFuture.supplyAsync(() -> {
+  System.out.print("A");  return "A";
+});
+taskB = CompletableFuture.supplyAsync(() -> {
+  System.out.print("B");  return "B";
+});
+taskC = taskA.thenApplyAsync(a -> { // similar to map
+  System.out.print("C");  a + return "C";
+});
+taskD = taskB.thenCombineAsync(taskA, (b, a) -> {
+  System.out.print("D");  return a + b + "D";
+});
+res = taskD.join();
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`"ABCD"`] .quiz-ans[0] .quiz-hint[NO]
+1. .quiz-choice[`"ABD"`] .quiz-ans[0] .quiz-hint[NO]
+1. .quiz-choice[`"BADC"`] .quiz-ans[0] .quiz-hint[NO]
+1. .quiz-choice[All of the above] .quiz-ans[1] .quiz-hint[YES: all of the above]
+1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[NO: all of the above]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+.topsub.subsections[
+### Dependency
+### Future
+### vs Lazy
+### Properties
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+]
+.botbody.oldsections[
+#### Quiz #2
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the following code snippet.  What is the .X[possible value of `res`] at the end of the following code snippet?  Select the most appropriate option.
+]
+]
+.font16[
+```java
+taskA = CompletableFuture.supplyAsync(() -> {
+  System.out.print("A");  return "A";
+});
+taskB = CompletableFuture.supplyAsync(() -> {
+  System.out.print("B");  return "B";
+});
+taskC = taskA.thenApplyAsync(a -> { // similar to map
+  System.out.print("C");  a + return "C";
+});
+taskD = taskB.thenCombineAsync(taskA, (b, a) -> {
+  System.out.print("D");  return a + b + "D";
+});
+res = taskD.join();
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`"ABCD"`] .quiz-ans[0] .quiz-hint[NO]
+1. .quiz-choice[`"ABD"`] .quiz-ans[1] .quiz-hint[YES: deterministic!]
+1. .quiz-choice[`"BADC"`] .quiz-ans[0] .quiz-hint[NO]
+1. .quiz-choice[All of the above] .quiz-ans[0] .quiz-hint[NO: only one]
+1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[NO: only one]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+name: Break
+class: middle, break
+
+.vs10[]
+
+## <i class="fa-regular fa-clock break-icon"></i>
+
+---
+name: Fork_and_Join
+class: sections
+
+.topsub.subsections[
+### Motivation
+#### Problem
+]
+.botbody.oldsections[
+#### Problem
+
+.col100[
+.img80.center[![Marge Sort](img/11-MargeSort.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+#### Problem
+]
+.botbody.oldsections[
+#### Problem
+
+.col100[
+.img70.center[![Sum](img/11-Sum.png)]
+]
+
+.col100[
+```java
+int sum(int lo, int hi, int[] arr) {
+  int res = 0;
+  for (int i = lo; i < hi; i++) {
+    res += arr[i];
+  }
+  return res;
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+#### Problem
+#### Parallelize
+]
+.botbody.oldsections[
+#### Parallelize
+
+.col100[
+.img70.center[![Sum](img/11-Sum.png)]
+]
+
+.col100.font16[
+```java
+int recurse(int lo, int hi, int[] arr) {
+  if (hi - lo < THRESHOLD) {
+    return sum(lo, hi, arr);
+  }
+
+  int mid = (lo + hi)/ 2;
+  CompletableFuture<Integer> lsum =
+      CompletableFuture.supplyAsync(() -> recurse(lo, mid, arr));
+  CompletableFuture<Integer> rsum =
+      CompletableFuture.supplyAsync(() -> recurse(mid, hi, arr));
+  return lsum.join() + rsum.join();
+}
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+]
+.botbody.oldsections[
+#### One Thread ; Multiple Tasks
+
+.col100[
+```java
+Queue<Runnable> tasks = new LinkedList<>();
+Thread scheduler = new Thread(() -> {
+    while (true) {
+      if (!tasks.isEmpty()) {
+        Runnable r = tasks.remove();
+        r.run();
+      }
+    }
+  });
+```
+]
+.col100[
+```java[lite=3]
+for (int i = 0; i < 100; i++) {
+  int count = i;
+  tasks.add(() -> System.out.println(count));
+}
+```
+]
+.col100[
+```java
+scheduler.start();
+```
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+]
+.botbody.oldsections[
+#### Fork Join Model
+
+.col100[
+.card.bg-b[
+##### Computational Model
+.content.tight[
+A .X[fork-and-join] model is a .X[parallel divide-and-conquer] model of computation where
+]
+.content.tight[
+- .X[`fork()`:] divides a problem
+.nol[
+- This does .X.drdtxt[not] execute the .X[spawned task] directly
+- This does .X.drdtxt[not] block the .X[current task]
+- This does .X.drdtxt[not] block the .X.dgntxt.U[current thread]<br><br>
+]
+- .X[`join()`:] retrieves the result
+.nol[
+- If the result is .X.drdtxt[not yet] available, the .X[current task] may be suspended
+    - Then the .X[joined task] may be executed
+- This does .X.drdtxt[not necessarily] block the .X.dgntxt.U[current thread]
+]
+]
+]
+]
+
+.col100[
+.card.notes[
+##### Note
+.content.tight[
+When discussing fork-and-join model, we need to differentiate between .X[task] and .X.U.dgntxt[thread].  A single .X.U.dgntxt[thread] may execute multiple .X[tasks].
+]
+.content.tight[
+We need to further differentiate between .X.U[main thread] and .X.U.dgntxt[worker thread].
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+]
+.botbody.oldsections[
+#### Global Task Queue
+
+.col100[
+.img70.center[![Sum](img/11-Sum00.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue00.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+]
+.botbody.oldsections[
+#### Global Task Queue
+
+.col100[
+.img70.center[![Sum](img/11-Sum01.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue00.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+]
+.botbody.oldsections[
+#### Global Task Queue
+
+.col100[
+.img70.center[![Sum](img/11-Sum01.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue01a.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+]
+.botbody.oldsections[
+#### Global Task Queue
+
+.col100[
+.img70.center[![Sum](img/11-Sum01.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue01b.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+]
+.botbody.oldsections[
+#### Global Task Queue
+
+.col100[
+.img70.center[![Sum](img/11-Sum01.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue01c.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+]
+.botbody.oldsections[
+#### Global Task Queue
+
+.col100[
+.img70.center[![Sum](img/11-Sum01.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue01d.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+]
+.botbody.oldsections[
+#### Local Task Deque
+
+.col100[
+.img70.center[![Sum](img/11-Sum02.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue01d.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+]
+.botbody.oldsections[
+#### Local Task Deque
+
+.col100[
+.img70.center[![Sum](img/11-Sum02.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue02a.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+]
+.botbody.oldsections[
+#### Local Task Deque
+
+.col100[
+.img70.center[![Sum](img/11-Sum02.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue02b.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+]
+.botbody.oldsections[
+#### Local Task Deque
+
+.col100[
+.img70.center[![Sum](img/11-Sum02.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue02c.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+]
+.botbody.oldsections[
+#### Local Task Deque
+
+.col100[
+.img70.center[![Sum](img/11-Sum02.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue02d.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+]
+.botbody.oldsections[
+#### Local Task Deque
+
+.col100[
+.img70.center[![Sum](img/11-Sum03.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue02d.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+]
+.botbody.oldsections[
+#### Local Task Deque
+
+.col100[
+.img70.center[![Sum](img/11-Sum03.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue03a.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+]
+.botbody.oldsections[
+#### Local Task Deque
+
+.col100[
+.img70.center[![Sum](img/11-Sum03.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue03b.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+]
+.botbody.oldsections[
+#### Local Task Deque
+
+.col100[
+.img70.center[![Sum](img/11-Sum04.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue03b.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+]
+.botbody.oldsections[
+#### Local Task Deque
+
+.col100[
+.img70.center[![Sum](img/11-Sum04.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue04a.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+]
+.botbody.oldsections[
+#### Local Task Deque
+
+.col100[
+.img70.center[![Sum](img/11-Sum04.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue04b.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+]
+.botbody.oldsections[
+#### Local Task Deque
+
+.col100[
+.img70.center[![Sum](img/11-Sum05.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue04b.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+#### Steal
+]
+.botbody.oldsections[
+#### Task Stealing
+
+.col100[
+.img70.center[![Sum](img/11-Sum06.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue04b.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+#### Steal
+]
+.botbody.oldsections[
+#### Task Stealing
+
+.col100[
+.img70.center[![Sum](img/11-Sum06.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue06a.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+#### Steal
+]
+.botbody.oldsections[
+#### Task Stealing
+
+.col100[
+.img70.center[![Sum](img/11-Sum06.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue06b.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+#### Steal
+]
+.botbody.oldsections[
+#### Task Stealing
+
+.col100[
+.img70.center[![Sum](img/11-Sum06.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue06c.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+#### Steal
+]
+.botbody.oldsections[
+#### Task Stealing
+
+.col100[
+.img70.center[![Sum](img/11-Sum07.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue06c.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+#### Steal
+]
+.botbody.oldsections[
+#### Task Stealing
+
+.col100[
+.img70.center[![Sum](img/11-Sum07.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue07a.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+#### Steal
+]
+.botbody.oldsections[
+#### Task Stealing
+
+.col100[
+.img70.center[![Sum](img/11-Sum07.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue07b.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+#### Steal
+]
+.botbody.oldsections[
+#### Task Stealing
+
+.col100[
+.img70.center[![Sum](img/11-Sum07.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue07c.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+#### Steal
+]
+.botbody.oldsections[
+#### Task Stealing
+
+.col100[
+.img70.center[![Sum](img/11-Sum07.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue07d.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+#### Queue
+#### Deque
+#### Steal
+]
+.botbody.oldsections[
+#### Task Stealing
+
+.col100[
+.img70.center[![Sum](img/11-Sum07.png)]
+]
+
+.vs10[]
+
+.col100[
+.img70.center[![Queue](img/11-Queue07e.png)]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+]
+.botbody.oldsections[
+#### API
+
+.col100[
+<iframe class="inline-frame" id="ifrm1" src="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ForkJoinPool.html" height="600px" width="100%"></iframe>
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+#### Main
+]
+.botbody.oldsections[
+#### Main
+
+.col100[
+.card.bg-b[
+##### Idea
+.content.tight[
+A .X[fork-join-pool] uses a .X[fixed number of threads] to parallelize the computation by automatic thread management.  An example of a fork-join-pool is .X[`RecursiveTask`] class.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.card.bg-y[
+##### Main Thread
+.content.tight[
+- .X[`fork()`:]
+.nol[
+- .X[Adds] the forked task to the back of the .U[global task queue]
+]
+- .X[`join()`:]
+.nol[
+- Puts the .X[current task] in the waiting area
+- Waits for the result from the .X[joined task] to be available
+    - May execute other tasks in the meantime
+]
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+#### Main
+#### Worker
+]
+.botbody.oldsections[
+#### Worker
+
+.col100[
+.card.bg-b[
+##### Idea
+.content.tight[
+A .X[fork-join-pool] uses a .X[fixed number of threads] to parallelize the computation by automatic thread management.  An example of a fork-join-pool is .X[`RecursiveTask`] class.
+]
+]
+]
+
+.vs10[]
+
+.col100[
+.card.bg-g[
+##### Worker Thread
+.content.tight[
+- .X[`fork()`:]
+.nol[
+- .X[Adds] the forked task to the front of the .U[local task deque]
+]
+- .X[`join()`:]
+.nol[
+- Puts the .X[current task] in the waiting area
+- If the .X[joined task] is in the deque, execute the joined task
+    - Otherwise, waits for the result from the .X[joined task] to be available
+    - May execute other tasks in the deque in the meantime
+]
+]
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+#### Main
+#### Worker
+#### Examples
+]
+.botbody.oldsections[
+#### Examples
+
+.col100[
+.font16[
+```java
+​
+  ​
+  ​
+  ​
+​
+  ​
+​
+​
+  int recurse(int lo, int hi, int[] arr) {
+    if (hi - lo < THRESHOLD) {
+      return sum(lo, hi, arr);
+    }
+​
+    int mid = (lo + hi)/ 2;
+    CompletableFuture<Integer> lsum =
+      CompletableFuture.supplyAsync(() -> recurse(lo, mid, arr));
+    CompletableFuture<Integer> rsum =
+      CompletableFuture.supplyAsync(() -> recurse(mid, hi, arr));
+    return lsum.join() + rsum.join();
+  }
+​
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+#### Main
+#### Worker
+#### Examples
+]
+.botbody.oldsections[
+#### Examples
+
+.col100[
+.font16[
+```java[lite=1-4,8-9]
+class Summer extends RecursiveTask<Integer> {
+  private int lo;
+  private int hi;
+  private int[] arr;
+​
+  // : constructor omitted
+​
+  @Override
+  public Integer compute() {
+    if (hi - lo < THRESHOLD) {
+      return sum(lo, hi, arr);
+    }
+​
+    int mid = (lo + hi)/ 2;
+    CompletableFuture<Integer> lsum =
+      CompletableFuture.supplyAsync(() -> recurse(lo, mid, arr));
+    CompletableFuture<Integer> rsum =
+      CompletableFuture.supplyAsync(() -> recurse(mid, hi, arr));
+    return lsum.join() + rsum.join();
+  }
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+#### Main
+#### Worker
+#### Examples
+]
+.botbody.oldsections[
+#### Examples
+
+.col100[
+.font16[
+```java[lite=15-16]
+class Summer extends RecursiveTask<Integer> {
+  private int lo;
+  private int hi;
+  private int[] arr;
+​
+  // : constructor omitted
+​
+  @Override
+  public Integer compute() {
+    if (hi - lo < THRESHOLD) {
+      return sum(lo, hi, arr);
+    }
+​
+    int mid = (lo + hi)/ 2;
+    Summer lsum = new Summer(lo, mid, arr);
+    Summer rsum = new Summer(mid, hi, arr);
+    ​
+    ​
+    return lsum.join() + rsum.join();
+  }
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+#### Main
+#### Worker
+#### Examples
+]
+.botbody.oldsections[
+#### Examples
+
+.col100[
+.font16[
+```java[lite=17-18]
+class Summer extends RecursiveTask<Integer> {
+  private int lo;
+  private int hi;
+  private int[] arr;
+​
+  // : constructor omitted
+​
+  @Override
+  public Integer compute() {
+    if (hi - lo < THRESHOLD) {
+      return sum(lo, hi, arr);
+    }
+​
+    int mid = (lo + hi)/ 2;
+    Summer lsum = new Summer(lo, mid, arr);
+    Summer rsum = new Summer(mid, hi, arr);
+    rsum.fork();
+    lsum.fork();
+    return lsum.join() + rsum.join();
+  }
+}
+```
+]
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+#### Main
+#### Worker
+#### Example
+#### Order
+]
+.botbody.oldsections[
+#### Order
+
+.col100[
+##### More Efficient
+]
+.col50[
+```java
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderA01.png)
+]
+
+.vs10[]
+
+.col100[
+##### Less Efficient
+]
+.col50[
+```java
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderB01.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+#### Main
+#### Worker
+#### Example
+#### Order
+]
+.botbody.oldsections[
+#### Order
+
+.col100[
+##### More Efficient
+]
+.col50[
+```java[emph=1]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderA02.png)
+]
+
+.vs10[]
+
+.col100[
+##### Less Efficient
+]
+.col50[
+```java[emph=1]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderB02.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+#### Main
+#### Worker
+#### Example
+#### Order
+]
+.botbody.oldsections[
+#### Order
+
+.col100[
+##### More Efficient
+]
+.col50[
+```java[emph=2]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderA03.png)
+]
+
+.vs10[]
+
+.col100[
+##### Less Efficient
+]
+.col50[
+```java[emph=2]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderB03.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+#### Main
+#### Worker
+#### Example
+#### Order
+]
+.botbody.oldsections[
+#### Order
+
+.col100[
+##### More Efficient
+]
+.col50[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderA04.png)
+]
+
+.vs10[]
+
+.col100[
+##### Less Efficient
+]
+.col50[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderB04.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+#### Main
+#### Worker
+#### Example
+#### Order
+]
+.botbody.oldsections[
+#### Order
+
+.col100[
+##### More Efficient
+]
+.col50[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderA05.png)
+]
+
+.vs10[]
+
+.col100[
+##### Less Efficient
+]
+.col50[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderB05.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+#### Main
+#### Worker
+#### Example
+#### Order
+]
+.botbody.oldsections[
+#### Order
+
+.col100[
+##### More Efficient
+]
+.col50[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderA05.png)
+]
+
+.vs10[]
+
+.col100[
+##### Less Efficient
+]
+.col50[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderB06.png)
+]
+]
+
+---
+
+.topsub.subsections[
+### Motivation
+### Scheduler
+### Model
+### Management
+### ForkJoinPool
+#### API
+#### Main
+#### Worker
+#### Example
+#### Order
+]
+.botbody.oldsections[
+#### Order
+
+.col100[
+##### More Efficient
+]
+.col50[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderA05.png)
+]
+
+.vs10[]
+
+.col100[
+##### Less Efficient
+]
+.col50[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+
+.col40[
+![OrderA](img/11-OrderB07.png)
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]

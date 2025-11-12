@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CS2030S AY2510</title>
+    <link href="https://thisisadi.yoga/remark/favicon.svg" rel="icon" type="image/png"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    
+    <link href="https://thisisadi.yoga/remark/css/basic-w.css" rel="stylesheet">
+    <link href="https://thisisadi.yoga/remark/css/sections-w.css" rel="stylesheet">
+    <link href="https://thisisadi.yoga/remark/css/layout.css" rel="stylesheet">
+    <link href="https://thisisadi.yoga/remark/css/imaging.css" rel="stylesheet">
+    <link href="https://thisisadi.yoga/remark/css/fonts.css" rel="stylesheet">
+    <link href="https://thisisadi.yoga/remark/css/lists.css" rel="stylesheet">
+    <link href="https://thisisadi.yoga/remark/css/cards.css" rel="stylesheet">
+    <link href="https://thisisadi.yoga/remark/css/tabler.css" rel="stylesheet">
+    <link href="https://thisisadi.yoga/remark/css/coding.css" rel="stylesheet">
+    <link href="https://thisisadi.yoga/remark/css/footnote.css" rel="stylesheet">
+
+    <link href="https://thisisadi.yoga/remark/css/animation.css" rel="stylesheet">
+    <link href="https://thisisadi.yoga/remark/css/transition.css" rel="stylesheet">
+    
+    <link href="https://thisisadi.yoga/remark/css/hljs-idle.css" rel="stylesheet">
+    <link href="https://thisisadi.yoga/remark/css/print-w.css" rel="stylesheet">
+    <link href="https://thisisadi.yoga/remark/css/sign.css" rel="stylesheet">
+    <link href="https://thisisadi.yoga/remark/css/math.css" rel="stylesheet">
+    
+    <link href="./css/cs2030s.css" rel="stylesheet">
+  </head>
+  <body>
+    <script>0</script>
+    <script src="https://thisisadi.yoga/remark/js/remark-w.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/js/area.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/js/href.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/qanvas/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/coder/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/itools/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/quizzes/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/toc/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/tooltip/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/flatsection/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/anims/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/tabular/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/notable/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/slider/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/reveal/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/todo/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/video/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/break/init.js" type="text/javascript"></script>
+    <script src="https://thisisadi.yoga/remark/plugins/cursor/init.js" type="text/javascript"></script>
+
+    <script type="text/JavaScript" src="https://thisisadi.yoga/remark/js/coding.js"></script>
+    <script type="text/JavaScript" src="https://thisisadi.yoga/remark/js/reddit.js"></script>
+    <script type="text/JavaScript" src="js/md5.js"></script>
+    <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.2/ace.min.js" integrity="sha512-sdeAa6bnaA5ZaOGAM7GhwO8ascBi986gL7z7whljQdiISDOEQZKja2yqe7pD+l5HshKzcJtoxJVxVwHcO5SVAQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.43.2/mode-java.min.js" integrity="sha512-ortvHa00RLigbxKXgU9zIhk7xsxzcVZ512MPw/hMDuJTGB010pujFTy9bLa4TIobWCZBkCUByhIB22rIpe6AZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    <script src="js/ace.js"></script>
+    
+    <script type="text/javascript">
+      var renderMath = function() {
+        renderMathInElement(document.body, {delimiters: [
+            {left: "$$", right: "$$", display: true },
+            {left: "$" , right: "$" , display: false}
+        ]});
+      };
+
+      let _src = 'L06';
+      
+      window.$itools.add('question', 'Ed', 'https://edstem.org/us/courses/79067/discussion/?category=Lectures&subcategory=' + _src);
+      window.$itools.poll('dcsaysp');
+
+      function _goto(id,src) {
+        document.getElementById(id).src = src;
+      }
+      function _rename(id, kls) {
+        let val = document.getElementById(id).value;
+        for (const span of document.getElementsByClassName(kls)) {
+          span.innerHTML = val;
+        }
+      }
+
+      let main = {
+        ratio: '8:9',
+        countIncrementalSlides: false,
+        highlightStyle: 'idle',
+        sourceUrl: 'md/' + _src + '.html',
+        navigation: {
+          scroll: true,
+          touch: false,
+          click: false,
+        },
+        tooltip: {
+          position: 'right',
+          size: 'large'
+        },
+        sublink: {
+          pre: '',
+          kind: 'num'
+        },
+        qanvas: {
+          layout: 'horizontal',
+          pensize: 1
+        },
+        quizzes: {
+          poll: 'lc',
+          date: '2024-9-23',
+          alt: true,
+          hide: true
+        },
+        todo: {
+          name: _src
+        },
+        cursor: {
+          circle: false,
+          timeball: -1
+        },
+        entry: {
+          poll: 'lc',
+          alt: true,
+          hide: true,
+          tag: _src
+        }
+      };
+      function mainf() {
+        renderMath();
+        initCoding();
+        initAhref();
+        initReddit();
+      }
+
+      var slideshow = remark.create(main, mainf);
+    </script>
+  </body>
+</html>
